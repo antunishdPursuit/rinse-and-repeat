@@ -116,6 +116,7 @@ def M():
         "wall_tile": mat("WallTile", tex="long_white_tiles", tint=(1.12, 1.12, 1.12), rough=0.25),
         "ceiling": mat("Ceiling", (0.95, 0.94, 0.92), 0.0, 0.9),
         "spray": mat("SprayFace", (0.78, 0.8, 0.82), 0.0, 0.5),
+        "glow": mat("PickupGlow", (1.0, 0.68, 0.1), 0.0, 0.5, emit=0.5),
     }
 
 
@@ -557,6 +558,17 @@ def interior_door(m):
                 box((0.24, 0.016, h - 0.02), (x, side * 0.026, z), m["paint"], bevel=0.007, segs=3)  # raised panel
 
 
+def pickup_ring(m):
+    """Flat glowing ring laid around something the user can pick up; the controller pulses it."""
+    torus(0.22, 0.01, (0, 0, 0), m["glow"])
+
+
+def pickup_arrow(m):
+    """Downward arrow, tip at the origin; the controller bobs it above the pickup."""
+    cyl(0.0, 0.08, (0, 0, 0.04), m["glow"], r2=0.05)
+    cyl(0.018, 0.09, (0, 0, 0.125), m["glow"])
+
+
 def door_lever(m):
     cyl(0.03, 0.01, (0, -0.005, 0), m["chrome"], rot=(math.pi / 2, 0, 0), bevel=0.003)  # rose
     cyl(0.009, 0.05, (0, -0.03, 0), m["chrome"], rot=(math.pi / 2, 0, 0))  # neck
@@ -640,7 +652,7 @@ PROPS = {
     "TowelHanging": towel_hanging, "TowelOnBar": towel_on_bar,
     "ShampooBottle": shampoo_bottle, "ConditionerBottle": conditioner_bottle, "BodyWashBottle": body_wash_bottle,
     "BarSoapDish": bar_soap_dish, "Wardrobe": wardrobe, "TableLamp": table_lamp, "InteriorDoor": interior_door,
-    "DoorLever": door_lever, "BathMat": bath_mat,
+    "DoorLever": door_lever, "BathMat": bath_mat, "PickupRing": pickup_ring, "PickupArrow": pickup_arrow,
 }
 
 for name, build in {**PROPS, **SHELLS}.items():
