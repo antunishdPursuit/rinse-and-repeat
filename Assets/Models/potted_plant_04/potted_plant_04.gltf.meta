@@ -1,0 +1,255 @@
+- !<AssetImportMetadata/3abbfbd1-339e-4332-ad47-d8288d3c7f19>
+  ImportedAssetIds:
+    .hidden/potted_plant_04: !<reference> 6ee1f6e6-0606-4782-bd55-f83de01d0c3e
+    106ad121f4e57bd4: !<reference> 2521f052-b8e3-4176-9aeb-03cea17ad205
+    26ba073d67b9d0dd: !<reference> a0172ba9-1c03-4c73-bb0d-09016ada4033
+    34a59a99a4a27211: !<reference> 2521240a-e1ce-4c72-9756-99476662106f
+    3cde77c2306d0202: !<reference> a212d61b-7413-464c-87d9-46ff231a4971
+    657c264db4d38ac9: !<reference> abb0266d-3a9d-4cf2-8070-b012ae43434c
+    77254bb117823367: !<reference> e11c7eb5-bc17-4000-8823-681595f22ca4
+    88ab437fd121cc69: !<reference> d1e8586c-c47c-478a-b47a-b019712e243d
+    8e1a7724d7a61527: !<reference> 7532ceb6-ba21-4229-9090-49c1b6890790
+    Materials/potted_plant_04: !<reference> 4474e3b9-9b89-4a66-923d-045cea21b562
+    Materials/potted_plant_04|potted_plant_04|GraphPassInfo: !<reference> a46a108b-bf81-411f-a916-3e032e823c3a
+    Meshes/HaworthiaScan_Model_2.001: !<reference> 7f8539ef-b4bb-41a2-a449-82f708cb7a91
+    Meshes/Mesh: !<reference> 2b0427aa-4afa-4901-82a0-a6fb3c343231
+    Meshes/Plane.116: !<reference> b8ccdf5d-08b5-45dd-a10b-17267b20e66e
+    Meshes/Plane.118: !<reference> fea0d6e8-6fbb-4a04-9e2e-3071882aafb7
+    Scene: !<reference> ada63ad3-0de8-4c1c-b11d-18ea9283f67b
+    Textures/potted_plant_04_arm_1k: !<reference> 3dfa4bb0-7efd-41c9-b891-89c2da7520a6
+    Textures/potted_plant_04_diff_1k: !<reference> 457b5205-d539-4b3b-ad2e-00480275109e
+    Textures/potted_plant_04_nor_gl_1k: !<reference> 5e192eef-5941-4f06-8db2-0b6d9f5d5d4a
+    b235e5ba86b64a7b: !<reference> 96fc4834-57ca-4782-952a-29aac03543b0
+    f86294854fddde5c: !<reference> b75821eb-1b69-4c61-b188-8f2e3b2363fc
+    fe6c3340db9db633: !<reference> a459f9b7-6284-4bd6-af86-eb3d9a41d183
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> ada63ad3-0de8-4c1c-b11d-18ea9283f67b
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> c3a3da33-c1d1-4579-bda2-3488dc82b95a
+  DependentFiles:
+    - potted_plant_04.bin
+    - textures/potted_plant_04_arm_1k.jpg
+    - textures/potted_plant_04_diff_1k.jpg
+    - textures/potted_plant_04_nor_gl_1k.jpg
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/2521240a-e1ce-4c72-68a9-66b8999def90>
+  PrefabRemaps:
+    []
+  Name: potted_plant_04_dirt
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 96fc4834-57ca-4782-6ad5-d6553fcabc4f
+- !<SceneObject/2521f052-b8e3-4176-6514-fc315e852dfa>
+  PrefabRemaps:
+    []
+  Name: potted_plant_04_ground
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> a212d61b-7413-464c-7826-b900dce5b68e
+- !<RenderMeshVisual/7532ceb6-ba21-4229-6f6f-b63e4976f86f>
+  PrefabRemaps:
+    []
+  Name: Mesh
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 4474e3b9-9b89-4a66-923d-045cea21b562
+  Mesh: !<reference> 2b0427aa-4afa-4901-82a0-a6fb3c343231
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/96fc4834-57ca-4782-6ad5-d6553fcabc4f>
+  PrefabRemaps:
+    []
+  Name: Plane.118
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 4474e3b9-9b89-4a66-923d-045cea21b562
+  Mesh: !<reference> fea0d6e8-6fbb-4a04-9e2e-3071882aafb7
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/a0172ba9-1c03-4c73-44f2-f6fe9525bfcc>
+  PrefabRemaps:
+    []
+  Name: potted_plant_04
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> d1e8586c-c47c-478a-4b85-4fe68ed1dbc2
+  Components:
+    []
+- !<RenderMeshVisual/a212d61b-7413-464c-7826-b900dce5b68e>
+  PrefabRemaps:
+    []
+  Name: HaworthiaScan_Model_2.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 4474e3b9-9b89-4a66-923d-045cea21b562
+  Mesh: !<reference> 7f8539ef-b4bb-41a2-a449-82f708cb7a91
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/a459f9b7-6284-4bd6-5079-14c265be2e7c>
+  PrefabRemaps:
+    []
+  Name: potted_plant_04_pot
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 7532ceb6-ba21-4229-6f6f-b63e4976f86f
+- !<SceneObject/abb0266d-3a9d-4cf2-7f8f-4fed51bcbcb3>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 2521f052-b8e3-4176-6514-fc315e852dfa
+    - !<own> 2521240a-e1ce-4c72-68a9-66b8999def90
+    - !<own> e11c7eb5-bc17-4000-77dc-97ea6a0dd35b
+    - !<own> a459f9b7-6284-4bd6-5079-14c265be2e7c
+  Components:
+    []
+- !<RenderMeshVisual/b75821eb-1b69-4c61-4e77-70d1c4dc9c03>
+  PrefabRemaps:
+    []
+  Name: Plane.116
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 4474e3b9-9b89-4a66-923d-045cea21b562
+  Mesh: !<reference> b8ccdf5d-08b5-45dd-a10b-17267b20e66e
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<ObjectPrefabAssetData/c3a3da33-c1d1-4579-bda2-3488dc82b95a>
+  Prototype: !<ObjectOwner/cb7587d6-dd66-40a5-bee3-e2a48216cf1f>
+    PackagePath: ""
+    objects:
+      - !<own> a0172ba9-1c03-4c73-44f2-f6fe9525bfcc
+- !<SceneObject/d1e8586c-c47c-478a-4b85-4fe68ed1dbc2>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> abb0266d-3a9d-4cf2-7f8f-4fed51bcbcb3
+  Components:
+    []
+- !<SceneObject/e11c7eb5-bc17-4000-77dc-97ea6a0dd35b>
+  PrefabRemaps:
+    []
+  Name: potted_plant_04_plant
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> b75821eb-1b69-4c61-4e77-70d1c4dc9c03
