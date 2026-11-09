@@ -10,8 +10,10 @@ Every model faces -Y in Blender, which becomes +Z (towards the viewer) in glTF.
 Floor props have their origin at the floor centre; wall props at the wall plane.
 """
 
+import json
 import math
 import os
+import struct
 import sys
 
 import bmesh
@@ -117,7 +119,7 @@ def M():
         "ceiling": mat("Ceiling", (0.95, 0.94, 0.92), 0.0, 0.9),
         "spray": mat("SprayFace", (0.78, 0.8, 0.82), 0.0, 0.5),
         "door": mat("DoorSage", (0.72, 0.8, 0.74), 0.0, 0.5),  # off-white blows out to glare on Specs
-        "glow": mat("PickupGlow", (1.0, 0.68, 0.1), 0.0, 0.5, emit=0.5),
+        "glow": mat("PickupGlow", (1.0, 0.72, 0.12), 0.0, 0.5),  # exported unlit, see make_unlit
     }
 
 
@@ -262,7 +264,38 @@ def export(obj, name):
                               use_selection=True, export_apply=True)
     tris = sum(len(p.vertices) - 2 for p in obj.data.polygons)
     dims = obj.dimensions
+    make_unlit(os.path.join(OUT_DIR, "glb", name + ".glb"))
     print(f"[prop] {name}: {dims.x * 100:.0f} x {dims.y * 100:.0f} x {dims.z * 100:.0f} cm, {tris} triangles")
+
+
+UNLIT = {"PickupGlow"}  # materials that should ignore scene lighting (pure, bright colour)
+
+
+def make_unlit(path, names=UNLIT):
+    """Mark the named materials in a GLB with KHR_materials_unlit (Blender's exporter does not)."""
+    with open(path, "rb") as f:
+        data = f.read()
+    magic, version, _ = struct.unpack_from("<III", data, 0)
+    json_len, json_type = struct.unpack_from("<II", data, 12)
+    gltf = json.loads(data[20:20 + json_len])
+    rest = data[20 + json_len:]
+    changed = False
+    for m in gltf.get("materials", []):
+        if m.get("name") in names:
+            m.setdefault("extensions", {})["KHR_materials_unlit"] = {}
+            m.pop("emissiveFactor", None)
+            changed = True
+    if not changed:
+        return
+    used = gltf.setdefault("extensionsUsed", [])
+    if "KHR_materials_unlit" not in used:
+        used.append("KHR_materials_unlit")
+    chunk = json.dumps(gltf, separators=(",", ":")).encode()
+    chunk += b" " * ((4 - len(chunk) % 4) % 4)
+    out = struct.pack("<III", magic, version, 12 + 8 + len(chunk) + len(rest))
+    out += struct.pack("<II", len(chunk), json_type) + chunk + rest
+    with open(path, "wb") as f:
+        f.write(out)
 
 
 def preview(obj, name, d=(0.75, -1.6, 0.65), suffix="", figure=None, zoom=2.0):
