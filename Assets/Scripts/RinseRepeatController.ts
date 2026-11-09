@@ -388,6 +388,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.useTarget.enabled = false
     this.mirrorReady = false
     this.mirrorUsed = false
+    this.following.clear()
     this.mirrorInfo.enabled = false
 
     this.towel.enabled = true
@@ -1164,14 +1165,22 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (this.timers.length > 0) {
       const due = this.timers.filter((t) => t.at <= now)
       this.timers = this.timers.filter((t) => t.at > now)
-      due.forEach((t) => t.fn())
+      const gen = this.pendingGen
+      // Stop if one of them reset everything (clearPending), so stale timers don't run after it.
+      for (const t of due) {
+        if (this.pendingGen !== gen) break
+        t.fn()
+      }
     }
 
     if (this.tweens.length > 0) {
       const active = this.tweens
       this.tweens = []
       const keep: Tween[] = []
-      active.forEach((tw) => {
+      const gen = this.pendingGen
+      for (const tw of active) {
+        // A finished tween may reset everything (clearPending); the rest of this batch is then stale.
+        if (this.pendingGen !== gen) break
         tw.elapsed += dt
         const k = Math.min(1, tw.elapsed / tw.duration)
         tw.update(k)
@@ -1180,8 +1189,8 @@ export class RinseRepeatController extends BaseScriptComponent {
         } else {
           keep.push(tw)
         }
-      })
-      this.tweens = keep.concat(this.tweens)
+      }
+      if (this.pendingGen === gen) this.tweens = keep.concat(this.tweens)
     }
 
     this.updateTowel(dt)
@@ -1251,7 +1260,10 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (c) c.enabled = on
   }
 
+  private pendingGen = 0
+
   private clearPending() {
+    this.pendingGen++
     this.tweens = []
     this.timers = []
     this.tipToken++

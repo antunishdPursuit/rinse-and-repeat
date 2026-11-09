@@ -84,7 +84,7 @@ export class DoorOpensWithTowelScenario extends Scenario {
     // The light fades and reveals the bathroom.
     const lightGone = await waitFor(() => !visible("BrightLight"), 4000)
     expect(lightGone, "bright light fades away").toBe(true)
-    expect(visible("Bathroom"), "bathroom is shown").toBe(true)
+    expect(angleDeg(obj("DoorHinge").getTransform().getLocalRotation()) > 80, "the door has swung open").toBe(true)
     expect(visible("PutTowelText"), "towel bar prompt shows").toBe(true)
     expect(c.towelState, "towel is still carried after walking through").toBe("carried")
     expect(c.stage).toBe("towelToBar")
