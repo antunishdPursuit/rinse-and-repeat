@@ -37,9 +37,9 @@ export class ShampooUseScenario extends Scenario {
     const played = (name: string) => (c.sfxPlays[name] || 0) > (plays0[name] || 0)
     const interactor = new RinseRepeatInteractor()
     c.jumpToLesson()
-    // Test the 25 cm face zone itself, without the eye-level assist.
+    // The ring is tested with the normal settings; the face zone further down without the eye-level assist.
     const assist = c.eyeLevelAssist
-    c.eyeLevelAssist = false
+    c.eyeLevelAssist = true
     await sleep(500)
 
     try {
@@ -69,6 +69,7 @@ export class ShampooUseScenario extends Scenario {
       expect(faded, "tip card fades after a few seconds").toBe(true)
 
       // Bringing a bottle to the face (the 25 cm face zone, as on Specs) works too.
+      c.eyeLevelAssist = false
       await useProduct(interactor, "Conditioner")
       expect(c.lastUsedStep, "conditioner counted as used in the face zone").toBe(1)
     } finally {

@@ -853,10 +853,10 @@ export class RinseRepeatController extends BaseScriptComponent {
   }
 
   /** True when the product is inside the use zone in front of the face. */
-  public isInFaceZone(pos: vec3): boolean {
+  public isInFaceZone(pos: vec3, allowAssist = true): boolean {
     const center = this.faceZone.getTransform().getWorldPosition()
     if (pos.distance(center) <= this.faceZoneRadius) return true
-    if (!this.eyeLevelAssist || !this.camTransform) return false
+    if (!allowAssist || !this.eyeLevelAssist || !this.camTransform) return false
     const cam = this.camTransform.getWorldPosition()
     const toObj = pos.sub(cam)
     const forward = this.camTransform.back // camera looks down -Z
@@ -1240,7 +1240,10 @@ export class RinseRepeatController extends BaseScriptComponent {
     const p = this.held
     if (p && this.stage === "lesson") {
       this.placeBadge(p)
-      if (!p.gliding && p.step === this.step && this.isInFaceZone(p.obj.getTransform().getWorldPosition())) {
+      // While the use ring is up it is the target, so the eye-level shortcut would cut the lift short
+      // (the bottle passes eye level on its way up to the ring); only the real face zone also counts.
+      const assist = !this.useTarget.enabled
+      if (!p.gliding && p.step === this.step && this.isInFaceZone(p.obj.getTransform().getWorldPosition(), assist)) {
         this.useProduct(p)
       }
     }

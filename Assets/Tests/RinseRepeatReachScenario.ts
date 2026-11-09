@@ -2,7 +2,7 @@ import {Scenario} from "Leaf.lspkg/Scenarios/scenario/Scenario"
 import {expect} from "Leaf.lspkg/Utils/common/Expect"
 import {sleep} from "Leaf.lspkg/Utils/common/Utils"
 import {createIKInteractor} from "Leaf.lspkg/Interactors/interactor/ik/visualizer/BitmojiAvatar"
-import {controller, interactable, visible, waitFor} from "./RinseRepeatTestUtils"
+import {controller, interactable, visible, waitFor, worldPos} from "./RinseRepeatTestUtils"
 
 /**
  * Reachability check with a simulated arm and head (IK): a standing user can reach the
@@ -18,10 +18,11 @@ export class ReachScenario extends Scenario {
     c.jumpToLesson()
     await sleep(800)
 
-    // Reach the shampoo and lift it up toward the face (world-space cm).
-    await this.ik.drag(interactable("Shampoo"), new vec3(-4, 20, 30))
+    // Reach the shampoo and bring it to the face, as on Specs (world-space cm, relative move).
+    const from = worldPos("Shampoo")
+    await this.ik.drag(interactable("Shampoo"), worldPos("FaceZone").sub(from))
     const used = await waitFor(() => c.lastUsedStep === 0, 3000)
-    expect(used, "IK hand can lift the shampoo into the use zone").toBe(true)
+    expect(used, "IK hand can bring the shampoo to the face").toBe(true)
 
     await sleep(800)
     expect(visible("LearnMoreButton"), "Learn more button shows").toBe(true)
