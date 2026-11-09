@@ -1,0 +1,153 @@
+- !<AssetImportMetadata/f7a22b22-9334-457a-bfe6-35c61502d842>
+  ImportedAssetIds:
+    .hidden/Ceramic: !<reference> 7a0f7ec5-786e-425e-8f03-a1cbcef0fbd8
+    26ba073d67b9d0dd: !<reference> c779b0d0-c0ea-4e7e-b5ae-c252f6943fdf
+    657c264db4d38ac9: !<reference> 84258876-a296-435d-9767-288888d93804
+    88ab437fd121cc69: !<reference> 4db5eff7-9f7a-4c56-a37b-09332dbbd1ac
+    94d6f407a965d164: !<reference> 91f91828-e4c0-43ae-b9b5-c606db1abbdb
+    Materials/Ceramic: !<reference> 4f2b00d1-7ea2-4490-8c0c-6f4acada97d1
+    Materials/Ceramic|Ceramic|GraphPassInfo: !<reference> f35742fd-a0a8-4c2a-95f9-7a347536b6d2
+    Materials/Chrome: !<reference> dc98972a-5de5-4265-b1da-c160cf5c2984
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> c1467ef1-51b0-448b-9253-0977c9652e91
+    Meshes/Toilet: !<reference> c435ea9a-19c6-43b4-a0d7-31fbfe2ead9d
+    Meshes/Toilet1: !<reference> edab0634-0326-46da-8768-cf3b6a76a6a5
+    Scene: !<reference> 932d9ff7-11ed-4ece-ac75-18b17fbb7d9d
+    ae910771640c11ed: !<reference> 4d15d322-aa4a-40d1-a766-5d1dabbd1b55
+    fe19317610cffe87: !<reference> bf6875b3-eed8-40e2-bfde-9b978ed57d5c
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 932d9ff7-11ed-4ece-ac75-18b17fbb7d9d
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 89965a9e-b6cf-47c1-81af-25a85b660f77
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+    ExtensionMappings:
+      mesh: None Compression
+    Overrides:
+      {}
+- !<RenderMeshVisual/4d15d322-aa4a-40d1-5899-a2e25442e4aa>
+  PrefabRemaps:
+    []
+  Name: Toilet
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> dc98972a-5de5-4265-b1da-c160cf5c2984
+  Mesh: !<reference> edab0634-0326-46da-8768-cf3b6a76a6a5
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/4db5eff7-9f7a-4c56-5c84-f6ccd2442e53>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 84258876-a296-435d-6898-d7777726c7fb
+  Components:
+    []
+- !<SceneObject/84258876-a296-435d-6898-d7777726c7fb>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 91f91828-e4c0-43ae-464a-39f924e54424
+  Components:
+    []
+- !<ObjectPrefabAssetData/89965a9e-b6cf-47c1-81af-25a85b660f77>
+  Prototype: !<ObjectOwner/540618e9-0f3f-45f0-97a4-233b23e37abd>
+    PackagePath: ""
+    objects:
+      - !<own> c779b0d0-c0ea-4e7e-4a51-3dad096bc020
+- !<SceneObject/91f91828-e4c0-43ae-464a-39f924e54424>
+  PrefabRemaps:
+    []
+  Name: Toilet
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> bf6875b3-eed8-40e2-4021-6468712a82a3
+    - !<own> 4d15d322-aa4a-40d1-5899-a2e25442e4aa
+- !<RenderMeshVisual/bf6875b3-eed8-40e2-4021-6468712a82a3>
+  PrefabRemaps:
+    []
+  Name: Toilet
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 4f2b00d1-7ea2-4490-8c0c-6f4acada97d1
+  Mesh: !<reference> c435ea9a-19c6-43b4-a0d7-31fbfe2ead9d
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/c779b0d0-c0ea-4e7e-4a51-3dad096bc020>
+  PrefabRemaps:
+    []
+  Name: Toilet
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4db5eff7-9f7a-4c56-5c84-f6ccd2442e53
+  Components:
+    []

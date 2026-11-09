@@ -1,0 +1,185 @@
+- !<AssetImportMetadata/ba9279a5-c814-4185-b713-a438d1a57e8d>
+  ImportedAssetIds:
+    .hidden/Ceramic: !<reference> 11b8e337-1340-40db-92c4-127149e2dc31
+    26ba073d67b9d0dd: !<reference> 5dce954d-03b3-4158-bd61-f17170d1eaac
+    5d7f8fd5f973cff9: !<reference> 1e1b14a5-657f-4d86-846e-6a68b08f945c
+    657c264db4d38ac9: !<reference> 28313a8c-3a48-47e4-99d8-515d0501e66b
+    88ab437fd121cc69: !<reference> aa8eb486-50d7-4b3f-8d21-43a01bb9d8fb
+    9b4e51f9fecd6388: !<reference> 3f503cc6-de5f-4e00-9410-e9e40c271923
+    Materials/Ceramic: !<reference> 687542a5-13a4-4132-9c8a-5c686d6ac899
+    Materials/Ceramic|Ceramic|GraphPassInfo: !<reference> 4b41228d-4f96-429b-8b22-b05746a17447
+    Materials/Chrome: !<reference> 738b0798-db0d-48e3-a3c8-98124d77455a
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> a7a62609-5f18-43fc-b2cc-34ef40debf3f
+    Materials/Oak: !<reference> 9b23a78d-4d22-4cab-ae51-05568007212d
+    Materials/Oak|Oak|GraphPassInfo: !<reference> b2f9626c-644f-4aa2-98b1-f0cafc91061a
+    Meshes/VanitySink: !<reference> 91e3c7fc-9bf3-4c80-a891-0cb0e7b08870
+    Meshes/VanitySink1: !<reference> 99df0440-4372-494d-9498-f56db9a6dfe2
+    Meshes/VanitySink2: !<reference> 30cf833e-05cb-47c7-ad7d-ce149a2d720c
+    Scene: !<reference> aa5493de-961f-4965-a079-3f2fa2cfd8cb
+    Textures/Oak_diff: !<reference> d4ea53f6-9196-48d8-85df-b284af6df8d1
+    Textures/white_oak_veneer_nor_gl_1k: !<reference> 68c3271e-f6ce-4b08-a906-9afd874188e7
+    c2096c516d478579: !<reference> e068f7c9-420f-40ad-b8af-780d6537638c
+    e00ce2dca49c68a6: !<reference> f9857643-1f8c-4736-9bb0-0fc7abe2d0a1
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> aa5493de-961f-4965-a079-3f2fa2cfd8cb
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 8d138ef4-57d1-495e-93fd-27295fafc46b
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/1e1b14a5-657f-4d86-7b91-95974f706ba3>
+  PrefabRemaps:
+    []
+  Name: VanitySink
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> e068f7c9-420f-40ad-4750-87f29ac89c73
+    - !<own> f9857643-1f8c-4736-644f-f038541d2f5e
+    - !<own> 3f503cc6-de5f-4e00-6bef-161bf3d8e6dc
+- !<SceneObject/28313a8c-3a48-47e4-6627-aea2fafe1994>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1e1b14a5-657f-4d86-7b91-95974f706ba3
+  Components:
+    []
+- !<RenderMeshVisual/3f503cc6-de5f-4e00-6bef-161bf3d8e6dc>
+  PrefabRemaps:
+    []
+  Name: VanitySink
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 687542a5-13a4-4132-9c8a-5c686d6ac899
+  Mesh: !<reference> 30cf833e-05cb-47c7-ad7d-ce149a2d720c
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/5dce954d-03b3-4158-429e-0e8e8f2e1553>
+  PrefabRemaps:
+    []
+  Name: VanitySink
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> aa8eb486-50d7-4b3f-72de-bc5fe4462704
+  Components:
+    []
+- !<ObjectPrefabAssetData/8d138ef4-57d1-495e-93fd-27295fafc46b>
+  Prototype: !<ObjectOwner/6c965599-1f5f-4514-b4c4-f4cd43b7438a>
+    PackagePath: ""
+    objects:
+      - !<own> 5dce954d-03b3-4158-429e-0e8e8f2e1553
+- !<SceneObject/aa8eb486-50d7-4b3f-72de-bc5fe4462704>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 28313a8c-3a48-47e4-6627-aea2fafe1994
+  Components:
+    []
+- !<RenderMeshVisual/e068f7c9-420f-40ad-4750-87f29ac89c73>
+  PrefabRemaps:
+    []
+  Name: VanitySink
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 9b23a78d-4d22-4cab-ae51-05568007212d
+  Mesh: !<reference> 91e3c7fc-9bf3-4c80-a891-0cb0e7b08870
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/f9857643-1f8c-4736-644f-f038541d2f5e>
+  PrefabRemaps:
+    []
+  Name: VanitySink
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 738b0798-db0d-48e3-a3c8-98124d77455a
+  Mesh: !<reference> 99df0440-4372-494d-9498-f56db9a6dfe2
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}

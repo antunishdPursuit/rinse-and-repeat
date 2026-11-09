@@ -1,0 +1,160 @@
+- !<AssetImportMetadata/6c085a1b-723c-4114-b307-282af9a9e644>
+  ImportedAssetIds:
+    .hidden/MirrorGlass: !<reference> 75aa5727-8446-40ea-8e8b-eb62be7d1575
+    26ba073d67b9d0dd: !<reference> f33a5e08-5b74-4414-88d8-ae59f58e910b
+    657c264db4d38ac9: !<reference> 4c27c541-064a-4bea-961b-63515817b21e
+    88ab437fd121cc69: !<reference> 7dda6930-93e8-464e-b414-1f76167f67c7
+    Materials/MirrorGlass: !<reference> e02cc3a7-df84-4871-96ec-658d653b2cdd
+    Materials/MirrorGlass|MirrorGlass|GraphPassInfo: !<reference> 94a64dc8-ef3e-4022-9e2f-055868ace9cb
+    Materials/Oak: !<reference> cabbd791-c5e7-48d5-90a8-3d9c90e72663
+    Materials/Oak|Oak|GraphPassInfo: !<reference> 154e6f00-0aba-4382-bb43-e0208d799697
+    Meshes/BathMirror: !<reference> 7a25b904-8d5a-462f-a0e7-b1e355d2e60e
+    Meshes/BathMirror1: !<reference> 9b615ee4-e17a-4b55-8f34-0c304096b0d4
+    Scene: !<reference> 8f9f57a8-5536-4e6d-9ad8-6263ed014fc9
+    Textures/Oak_diff: !<reference> 7074e83a-419f-4a24-b8b4-a809e5c1139b
+    Textures/white_oak_veneer_nor_gl_1k: !<reference> 2e8bd30c-164d-4a06-b243-7e3eabd21f23
+    d278187bcfde1ac3: !<reference> 7779590a-a9ef-47eb-94d6-7bb4f01f7d1c
+    d598a5696d564009: !<reference> d1ee7468-6c45-43e6-9d18-f5011234c3df
+    eb9782f9763a33a5: !<reference> 9f42af7b-2989-483b-904a-a5347f5e6259
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 8f9f57a8-5536-4e6d-9ad8-6263ed014fc9
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 16a8564f-1087-4350-9bfb-d21a236e111c
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<ObjectPrefabAssetData/16a8564f-1087-4350-9bfb-d21a236e111c>
+  Prototype: !<ObjectOwner/96eb73e2-a8f1-49cf-b7ac-bfdf926f363b>
+    PackagePath: ""
+    objects:
+      - !<own> f33a5e08-5b74-4414-7727-51a60a716ef4
+- !<SceneObject/4c27c541-064a-4bea-69e4-9caea7e84de1>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 7779590a-a9ef-47eb-6b29-844b0fe082e3
+  Components:
+    []
+- !<SceneObject/7779590a-a9ef-47eb-6b29-844b0fe082e3>
+  PrefabRemaps:
+    []
+  Name: BathMirror
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> d1ee7468-6c45-43e6-62e7-0afeedcb3c20
+    - !<own> 9f42af7b-2989-483b-6fb5-5acb80a19da6
+- !<SceneObject/7dda6930-93e8-464e-4beb-e089e9809838>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4c27c541-064a-4bea-69e4-9caea7e84de1
+  Components:
+    []
+- !<RenderMeshVisual/9f42af7b-2989-483b-6fb5-5acb80a19da6>
+  PrefabRemaps:
+    []
+  Name: BathMirror
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> e02cc3a7-df84-4871-96ec-658d653b2cdd
+  Mesh: !<reference> 9b615ee4-e17a-4b55-8f34-0c304096b0d4
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/d1ee7468-6c45-43e6-62e7-0afeedcb3c20>
+  PrefabRemaps:
+    []
+  Name: BathMirror
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> cabbd791-c5e7-48d5-90a8-3d9c90e72663
+  Mesh: !<reference> 7a25b904-8d5a-462f-a0e7-b1e355d2e60e
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/f33a5e08-5b74-4414-7727-51a60a716ef4>
+  PrefabRemaps:
+    []
+  Name: BathMirror
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 7dda6930-93e8-464e-4beb-e089e9809838
+  Components:
+    []
