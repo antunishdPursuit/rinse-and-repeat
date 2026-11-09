@@ -8,14 +8,15 @@ import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
  * (shampoo, conditioner, then body wash or bar soap).
  *
  * Flow: take the towel from the bed, open the bathroom door -> bright light -> walk in and
- * hang the towel on the bar -> lesson at the tub -> finish.
+ * hang the towel on the bar -> step into the tub -> lesson -> finish. A floating guide panel
+ * in front of the user says what to do next and gives feedback.
  * Scene objects are found by name under this object and the camera, so they can be
  * moved freely in the editor. Grab, pinch and hover behaviour is added at runtime with
  * Spectacles Interaction Kit, so it works with hands, the mouse in Interactive Preview
  * and LEAF.
  */
 
-type Stage = "opening" | "doorOpening" | "towelToBar" | "intro" | "lesson" | "finished"
+type Stage = "opening" | "doorOpening" | "towelToBar" | "intro" | "toTub" | "lesson" | "finished"
 type ProductId = "Shampoo" | "Conditioner" | "BodyWash" | "BarSoap"
 /** rest: folded on the bed. held: hanging from the pinch. carried: hanging at the user's side. */
 type TowelState = "rest" | "held" | "carried" | "flying" | "onBar"
@@ -43,6 +44,16 @@ interface Tween {
 interface Timer {
   at: number
   fn: () => void
+}
+
+/** A glowing hint (bobbing arrow and/or pulsing ring) shown while `show` is true. */
+interface Marker {
+  root: SceneObject
+  arrow?: Transform
+  arrowBase?: vec3
+  ring?: Transform
+  ringBase?: vec3
+  show: () => boolean
 }
 
 const LESSON = [
@@ -75,9 +86,18 @@ export const MSG_INCORRECT = "Not yet. Put it back."
 export const MSG_BODY_CHOICE = "Body wash: quick and easy. Bar soap: the classic. Either one works."
 export const MSG_LEARN = "Time to learn how to take a shower."
 export const MSG_FINISH = "That's the routine: shampoo, conditioner, then body wash or soap."
+export const MSG_OPEN_DOOR = "Now open the door: pinch the handle."
+export const MSG_HANG_TOWEL = "Hang your towel on the towel bar."
+export const MSG_STEP_IN = "Step into the bathtub."
+export const MSG_FIRST = "What do you use first? Pick it up."
+export const MSG_NEXT = "What comes next? Pick it up."
+export const MSG_LIFT = "Correct! Lift it up to your head to use it."
 
 const COLOR_CORRECT = new vec4(0.55, 1.0, 0.62, 1)
 const COLOR_INCORRECT = new vec4(1.0, 0.62, 0.5, 1)
+const COLOR_GUIDE = new vec4(1, 0.98, 0.9, 1)
+/** The bathtub's floor in Rooms-local cm (x, z); stepping in starts the lesson. */
+const TUB = {x0: 52.5, x1: 127.5, z0: -557.5, z1: -387.5}
 
 @component
 export class RinseRepeatController extends BaseScriptComponent {
@@ -166,10 +186,16 @@ export class RinseRepeatController extends BaseScriptComponent {
   private towelLastPos: vec3 | null = null
   private swing = {x: 0, z: 0, vx: 0, vz: 0}
   private doorHingeHomeRot: quat
-  private towelMarker: SceneObject
-  private markerArrow: Transform
-  private markerRing: Transform
-  private markerArrowBase: vec3
+  private markers: Marker[] = []
+  private doorHandleHomeRot: quat
+  private guidePanel: SceneObject
+  private guideText: Text
+  private guideMessage = ""
+  private guideFlash = ""
+  private guideFlashColor = COLOR_INCORRECT
+  private guideFlashUntil = 0
+  private following = new Set<SceneObject>()
+  private useTarget: SceneObject
   private boundaryWarning: SceneObject
   private boundaryText: Text
   private boundaryFade = 0
@@ -193,10 +219,21 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.brightLight = this.find("BrightLight")
     this.faceZone = this.find("FaceZone")
     this.putTowelText = this.find("PutTowelText")
-    this.towelMarker = this.find("TowelMarker")
-    this.markerArrow = this.find("TowelMarkerArrow").getTransform()
-    this.markerRing = this.find("TowelMarkerRing").getTransform()
-    this.markerArrowBase = this.markerArrow.getLocalPosition()
+    this.guidePanel = this.find("GuidePanel")
+    this.guideText = this.guidePanel.getComponent("Component.Text") as Text
+    this.guidePanel.enabled = false
+    this.useTarget = this.find("UseTarget")
+    this.useTarget.enabled = false
+    // Glowing hints: the towel on the bed, the door handle once you have the towel, the bar
+    // while you carry the towel in the bathroom.
+    this.addMarker("TowelMarker", "TowelMarkerArrow", "TowelMarkerRing", () => this.stage === "opening" && !this.towelTaken)
+    this.addMarker("HandleMarker", null, "HandleMarkerRing", () => this.stage === "opening" && this.towelTaken)
+    this.addMarker(
+      "BarMarker",
+      "BarMarkerArrow",
+      null,
+      () => this.stage === "towelToBar" && (this.towelState === "carried" || this.towelState === "held"),
+    )
     this.boundaryWarning = this.find("BoundaryWarning")
     this.boundaryText = this.boundaryWarning.getComponent("Component.Text") as Text
     this.boundaryWarning.enabled = false
@@ -223,6 +260,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (this.splashTrack) this.audio.audioTrack = this.splashTrack
 
     this.doorHingeHomeRot = this.doorHinge.getTransform().getLocalRotation()
+    this.doorHandleHomeRot = this.doorHandle.getTransform().getLocalRotation()
 
     // Towel: grab it from the bed; it hangs from the pinch and is carried at your side.
     this.towelHomePos = this.towel.getTransform().getLocalPosition()
@@ -302,6 +340,10 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.brightLight.enabled = false
     this.towelSign.enabled = true
     this.doorHinge.getTransform().setLocalRotation(this.doorHingeHomeRot)
+    this.doorHandle.getTransform().setLocalRotation(this.doorHandleHomeRot)
+    this.guideMessage = ""
+    this.guideFlashUntil = 0
+    this.useTarget.enabled = false
 
     this.towel.enabled = true
     this.towel.getTransform().setLocalPosition(this.towelHomePos)
@@ -374,6 +416,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (this.stage === "opening" && !this.towelTaken) {
       this.towelTaken = true
       this.towelSign.enabled = false
+      this.setGuide(MSG_OPEN_DOOR)
     }
     const wasResting = this.towelState === "rest"
     this.setTowelState("held")
@@ -423,12 +466,16 @@ export class RinseRepeatController extends BaseScriptComponent {
   private onTowelHung() {
     this.putTowelText.enabled = false
     this.stage = "intro"
+    this.setGuide("")
     this.showText(this.lessonText, MSG_LEARN)
+    this.placeInFront(this.lessonText)
     const token = ++this.lessonToken
     this.after(this.introSeconds, () => {
       if (token !== this.lessonToken) return
       this.fadeTextOut(this.lessonText, 0.6, () => {
-        if (token === this.lessonToken) this.startLesson()
+        if (token !== this.lessonToken) return
+        this.stage = "toTub"
+        this.setGuide(MSG_STEP_IN)
       })
     })
   }
@@ -497,17 +544,33 @@ export class RinseRepeatController extends BaseScriptComponent {
   private onDoorHandle() {
     if (this.stage !== "opening") return
     if (!this.towelTaken) {
-      // Nudge: pulse the reminder sign.
+      // Locked for now: the lever gives a little and springs back, and the reminder pulses.
+      this.tween(0.4, (k) => this.setHandleAngle(18 * Math.sin(k * Math.PI)))
       const t = this.towelSign.getTransform()
       const base = vec3.one()
       this.tween(0.5, (k) => t.setLocalScale(base.uniformScale(1 + 0.25 * Math.sin(k * Math.PI))))
       return
     }
     this.stage = "doorOpening"
-    const hinge = this.doorHinge.getTransform()
-    const start = this.doorHingeHomeRot
-    const open = start.multiply(quat.angleAxis(MathUtils.DegToRad * 95, vec3.up()))
-    this.tween(0.9, (k) => hinge.setLocalRotation(quat.slerp(start, open, k * k * (3 - 2 * k))), () => this.flashToBathroom())
+    this.setGuide("")
+    // Press the lever down, then swing the door while the lever springs back up.
+    this.tween(
+      0.25,
+      (k) => this.setHandleAngle(40 * (1 - (1 - k) * (1 - k))),
+      () => {
+        this.tween(0.35, (k) => this.setHandleAngle(40 * (1 - k)))
+        const hinge = this.doorHinge.getTransform()
+        const start = this.doorHingeHomeRot
+        const open = start.multiply(quat.angleAxis(MathUtils.DegToRad * 95, vec3.up()))
+        this.tween(0.9, (k) => hinge.setLocalRotation(quat.slerp(start, open, k * k * (3 - 2 * k))), () => this.flashToBathroom())
+      },
+    )
+  }
+
+  /** Lever angle in degrees, pressed downwards (the lever points towards the hinge). */
+  private setHandleAngle(deg: number) {
+    const q = quat.angleAxis(MathUtils.DegToRad * deg, vec3.forward())
+    this.doorHandle.getTransform().setLocalRotation(this.doorHandleHomeRot.multiply(q))
   }
 
   private flashToBathroom() {
@@ -533,6 +596,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   private enterBathroom() {
     this.stage = "towelToBar"
     this.putTowelText.enabled = true
+    this.setGuide(MSG_HANG_TOWEL)
   }
 
   private startLesson() {
@@ -540,6 +604,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.step = 0
     this.lessonText.enabled = false
     this.setProductsInteractive(true)
+    this.setGuide(MSG_FIRST)
   }
 
   // ------------------------------------------------------------------ products
@@ -565,6 +630,14 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.badgeHint.text = hint
     this.badgeHint.sceneObject.enabled = hint.length > 0
     this.placeBadge(p)
+    // The same feedback, larger, on the guide panel; a wrong pick stays up after letting go.
+    if (correct) this.setGuide(this.step === 2 ? MSG_LIFT + "\n" + MSG_BODY_CHOICE : MSG_LIFT)
+    else this.flashGuide(MSG_INCORRECT + "\n" + hint, COLOR_INCORRECT, 3.5)
+  }
+
+  /** What the guide asks for at the current lesson step. */
+  private lessonPrompt(): string {
+    return this.step === 0 ? MSG_FIRST : MSG_NEXT
   }
 
   private hintFor(p: Product): string {
@@ -579,6 +652,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (this.held === p) {
       this.held = null
       this.badge.enabled = false
+      if (!p.used && this.stage === "lesson") this.setGuide(this.lessonPrompt())
     }
     if (p.used) {
       // Already hidden when it entered the face zone; finish removing it now that it is let go.
@@ -634,6 +708,8 @@ export class RinseRepeatController extends BaseScriptComponent {
 
     const usedStep = this.step
     this.lastUsedStep = usedStep
+    this.setGuide("")
+    this.guideFlashUntil = 0
     this.showTip(usedStep)
     this.learnMoreButton.enabled = true
 
@@ -649,6 +725,10 @@ export class RinseRepeatController extends BaseScriptComponent {
       })
     } else {
       this.step = usedStep + 1
+      // Ask for the next product once the tip has had its time.
+      this.after(this.tipSeconds + 0.8, () => {
+        if (this.stage === "lesson" && this.step === usedStep + 1 && !this.held) this.setGuide(MSG_NEXT)
+      })
     }
   }
 
@@ -693,15 +773,134 @@ export class RinseRepeatController extends BaseScriptComponent {
 
   // ------------------------------------------------------------------ towel marker
 
-  /** A glowing ring and a bobbing arrow over the towel until the user picks it up. */
-  private updateTowelMarker(now: number) {
-    const show = this.stage === "opening" && !this.towelTaken
-    if (this.towelMarker.enabled !== show) this.towelMarker.enabled = show
-    if (!show) return
+  private addMarker(root: string, arrow: string | null, ring: string | null, show: () => boolean) {
+    const m: Marker = {root: this.find(root), show}
+    if (arrow) {
+      m.arrow = this.find(arrow).getTransform()
+      m.arrowBase = m.arrow.getLocalPosition()
+    }
+    if (ring) {
+      m.ring = this.find(ring).getTransform()
+      m.ringBase = m.ring.getLocalScale()
+    }
+    m.root.enabled = false
+    this.markers.push(m)
+  }
+
+  /** Glowing hints bob and pulse while they are needed. */
+  private updateMarkers(now: number) {
     const bob = Math.sin(now * Math.PI * 1.6)
-    this.markerArrow.setLocalPosition(this.markerArrowBase.add(new vec3(0, 4 * bob, 0)))
     const pulse = 1 + 0.12 * Math.sin(now * Math.PI * 2.4)
-    this.markerRing.setLocalScale(new vec3(100 * pulse, 100, 100 * pulse))
+    for (const m of this.markers) {
+      const show = m.show()
+      if (m.root.enabled !== show) m.root.enabled = show
+      if (!show) continue
+      if (m.arrow) m.arrow.setLocalPosition(m.arrowBase.add(new vec3(0, 4 * bob, 0)))
+      if (m.ring) m.ring.setLocalScale(new vec3(m.ringBase.x * pulse, m.ringBase.y, m.ringBase.z * pulse))
+    }
+  }
+
+  // ------------------------------------------------------------------ guide panel
+
+  /** The standing instruction ("" hides the panel). */
+  private setGuide(message: string) {
+    this.guideMessage = message
+  }
+
+  /** Feedback that replaces the instruction for a few seconds. */
+  private flashGuide(message: string, color: vec4, seconds: number) {
+    this.guideFlash = message
+    this.guideFlashColor = color
+    this.guideFlashUntil = getTime() + seconds
+  }
+
+  /** The text the guide panel is showing right now (read by the LEAF scenarios). */
+  public get guideShowing(): string {
+    return this.guidePanel.enabled ? this.guideText.text : ""
+  }
+
+  private updateGuide(dt: number) {
+    if (!this.camTransform) return
+    const flashing = getTime() < this.guideFlashUntil
+    const message = flashing ? this.guideFlash : this.guideMessage
+    const show = message.length > 0 && !this.learnMoreOpen && !this.lessonText.enabled
+    if (!show) {
+      if (this.guidePanel.enabled) this.guidePanel.enabled = false
+    } else {
+      const appearing = !this.guidePanel.enabled
+      this.guidePanel.enabled = true
+      if (this.guideText.text !== message) this.guideText.text = message
+      this.guideText.textFill.color = flashing ? this.guideFlashColor : COLOR_GUIDE
+      if (appearing) this.placeInFront(this.guidePanel)
+      else this.lazyFollow(this.guidePanel, dt)
+    }
+    if (this.lessonText.enabled) this.lazyFollow(this.lessonText, dt)
+  }
+
+  /** A spot 70 cm ahead, a little above eye level, facing the user. */
+  private frontPose(): {pos: vec3; rot: quat} {
+    const cam = this.camTransform.getWorldPosition()
+    const look = this.camTransform.back
+    let fwd = new vec3(look.x, 0, look.z)
+    fwd = fwd.length > 0.001 ? fwd.normalize() : new vec3(0, 0, -1)
+    const pos = cam.add(fwd.uniformScale(70)).add(new vec3(0, 14, 0))
+    return {pos, rot: quat.lookAt(fwd.uniformScale(-1), vec3.up())}
+  }
+
+  private placeInFront(obj: SceneObject) {
+    if (!this.camTransform) return
+    const pose = this.frontPose()
+    obj.getTransform().setWorldPosition(pose.pos)
+    obj.getTransform().setWorldRotation(pose.rot)
+    this.following.delete(obj)
+  }
+
+  /** Panels stay put while you look around them, and drift back in front once you turn away. */
+  private lazyFollow(obj: SceneObject, dt: number) {
+    const t = obj.getTransform()
+    const pose = this.frontPose()
+    const cam = this.camTransform.getWorldPosition()
+    const toPanel = t.getWorldPosition().sub(cam)
+    const toTarget = pose.pos.sub(cam)
+    const a = new vec3(toPanel.x, 0, toPanel.z)
+    const b = new vec3(toTarget.x, 0, toTarget.z)
+    const angle = a.length > 0.001 ? a.angleTo(b) * MathUtils.RadToDeg : 180
+    const far = Math.abs(a.length - b.length) > 35
+    if (angle > 28 || far) this.following.add(obj)
+    if (!this.following.has(obj)) return
+    const k = 1 - Math.exp(-4 * dt)
+    t.setWorldPosition(vec3.lerp(t.getWorldPosition(), pose.pos, k))
+    t.setWorldRotation(quat.slerp(t.getWorldRotation(), pose.rot, k))
+    if (t.getWorldPosition().distance(pose.pos) < 2) this.following.delete(obj)
+  }
+
+  // ------------------------------------------------------------------ lesson starts in the tub
+
+  private updateTubEntry() {
+    if (this.stage !== "toTub" || !this.camTransform) return
+    const root = this.sceneObject.getTransform().getWorldPosition()
+    const cam = this.camTransform.getWorldPosition()
+    const x = cam.x - root.x
+    const z = cam.z - root.z
+    const m = 8
+    if (x > TUB.x0 + m && x < TUB.x1 - m && z > TUB.z0 + m && z < TUB.z1 - m) this.startLesson()
+  }
+
+  /** While the right product is held, a glowing ring at eye level shows where to lift it. */
+  private updateUseTarget() {
+    const p = this.held
+    const show = !!p && this.stage === "lesson" && p.step === this.step && !p.used && !!this.camTransform
+    if (this.useTarget.enabled !== show) this.useTarget.enabled = show
+    if (!show) return
+    const cam = this.camTransform.getWorldPosition()
+    const look = this.camTransform.back
+    let fwd = new vec3(look.x, 0, look.z)
+    fwd = fwd.length > 0.001 ? fwd.normalize() : new vec3(0, 0, -1)
+    // Same distance as the bottle, so it can be reached by lifting straight up.
+    const ahead = Math.min(75, Math.max(35, p.obj.getTransform().getWorldPosition().sub(cam).dot(fwd)))
+    const t = this.useTarget.getTransform()
+    t.setWorldPosition(cam.add(fwd.uniformScale(ahead)).add(new vec3(0, 4, 0)))
+    t.setWorldRotation(quat.lookAt(fwd.uniformScale(-1), vec3.up()))
   }
 
   // ------------------------------------------------------------------ staying inside the rooms
@@ -806,7 +1005,10 @@ export class RinseRepeatController extends BaseScriptComponent {
     }
 
     this.updateTowel(dt)
-    this.updateTowelMarker(now)
+    this.updateMarkers(now)
+    this.updateGuide(dt)
+    this.updateTubEntry()
+    this.updateUseTarget()
     this.updateBoundary(dt)
 
     const p = this.held
@@ -923,9 +1125,8 @@ export class RinseRepeatController extends BaseScriptComponent {
 
   private makePinchable(obj: SceneObject, size: vec3): Interactable {
     this.makeCollider(obj, size)
-    const i = obj.createComponent(Interactable.getTypeName()) as Interactable
-    this.addHoverHighlight(obj, i)
-    return i
+    // No hover growth here: the bar and handle are fixed fittings; glowing markers point them out.
+    return obj.createComponent(Interactable.getTypeName()) as Interactable
   }
 
   private makeGrabbable(obj: SceneObject, size: vec3) {

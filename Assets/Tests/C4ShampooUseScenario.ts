@@ -8,6 +8,7 @@ import {
   MSG_FINISH,
   MSG_INCORRECT,
   MSG_LEARN,
+  MSG_LIFT,
 } from "../Scripts/RinseRepeatController"
 import {
   controller,
@@ -39,6 +40,13 @@ export class ShampooUseScenario extends Scenario {
     await sleep(500)
 
     try {
+      // Picking up the right product shows where to lift it.
+      const tried = await pickUpAndRelease(interactor, "Shampoo")
+      expect(tried.guide, "guide says to lift it to your head").toBe(MSG_LIFT)
+      expect(tried.useTargetVisible, "a glowing ring shows where to lift it").toBe(true)
+      await sleep(400)
+      expect(visible("UseTarget"), "the ring hides when the bottle is put back").toBe(false)
+
       const held = await useProduct(interactor, "Shampoo")
       expect(held.badgeVisible, "badge shows when shampoo is picked up").toBe(true)
       expect(held.badgeText).toBe(MSG_CORRECT)

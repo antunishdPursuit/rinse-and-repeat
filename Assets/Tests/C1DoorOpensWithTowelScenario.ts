@@ -8,8 +8,10 @@ import {
   MSG_FINISH,
   MSG_INCORRECT,
   MSG_LEARN,
+  MSG_OPEN_DOOR,
 } from "../Scripts/RinseRepeatController"
 import {
+  angleDeg,
   controller,
   dragTowelToBar,
   interactable,
@@ -49,12 +51,19 @@ export class DoorOpensWithTowelScenario extends Scenario {
     expect(c.towelTaken, "towel counts as taken").toBe(true)
     expect(visible("TowelSign"), "reminder sign hides once the towel is picked up").toBe(false)
     expect(visible("TowelMarker"), "marker hides once the towel is picked up").toBe(false)
+    expect(visible("HandleMarker"), "the door handle glows once you have the towel").toBe(true)
+    expect(c.guideShowing, "guide says to open the door").toBe(MSG_OPEN_DOOR)
     expect(c.towelState, "let go, the towel stays with the user").toBe("carried")
     expect(visible("TowelHanging"), "towel hangs unfolded").toBe(true)
     expect(visible("TowelFolded"), "folded towel is gone from the bed").toBe(false)
 
-    // Pinch the handle: the door opens and the bright light comes up.
+    // Pinch the handle: the lever turns down, the door opens and the bright light comes up.
+    const lever = obj("DoorHandle").getTransform()
+    let leverTurned = false
+    const watch = waitFor(() => (leverTurned = leverTurned || angleDeg(lever.getLocalRotation()) > 25), 2500)
     await interactor.trigger(interactable("DoorHandle"))
+    await watch
+    expect(leverTurned, "door lever turns down when pinched").toBe(true)
     const lightShown = await waitFor(() => visible("BrightLight"), 2500)
     expect(lightShown, "bright light appears after the door opens").toBe(true)
 

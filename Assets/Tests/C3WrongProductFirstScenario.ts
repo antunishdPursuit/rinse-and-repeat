@@ -41,8 +41,11 @@ export class WrongProductFirstScenario extends Scenario {
       expect(held.badgeText, `${name}: incorrect badge`).toBe(MSG_INCORRECT)
       expect(held.hintVisible && held.hintText.length > 0, `${name}: one-line hint shows`).toBe(true)
 
+      expect(held.guide.startsWith(MSG_INCORRECT), `${name}: guide panel says not yet`).toBe(true)
+
       await sleep(600)
       expect(visible("Badge"), `${name}: badge hides on release`).toBe(false)
+      expect(c.guideShowing.startsWith(MSG_INCORRECT), `${name}: the guide feedback stays after letting go`).toBe(true)
       expect(worldPos(name).distance(home) < 1.0, `${name}: returns to its spot on the shelf`).toBe(true)
       expect(visible(name), `${name}: still on the shelf`).toBe(true)
     }

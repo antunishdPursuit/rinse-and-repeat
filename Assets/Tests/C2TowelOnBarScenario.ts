@@ -8,10 +8,14 @@ import {
   MSG_FINISH,
   MSG_INCORRECT,
   MSG_LEARN,
+  MSG_FIRST,
+  MSG_HANG_TOWEL,
+  MSG_STEP_IN,
 } from "../Scripts/RinseRepeatController"
 import {
   controller,
   dragTowelToBar,
+  standAt,
   interactable,
   obj,
   pickUpAndRelease,
@@ -35,10 +39,14 @@ export class TowelOnBarScenario extends Scenario {
     await sleep(500)
 
     expect(visible("PutTowelText"), "towel prompt shows in the bathroom").toBe(true)
+    expect(visible("BarMarker"), "an arrow points at the towel bar").toBe(true)
+    expect(c.guideShowing, "guide says to hang the towel").toBe(MSG_HANG_TOWEL)
     expect(visible("LessonText"), "lesson message is not shown yet").toBe(false)
 
-    // 1. Pinch the bar: the carried towel goes over it.
+    // 1. Pinch the bar: the carried towel goes over it. The bar itself does not change size.
+    const barScale = obj("TowelBar").getTransform().getLocalScale()
     await interactor.trigger(interactable("TowelBar"))
+    expect(obj("TowelBar").getTransform().getLocalScale().distance(barScale) < 0.001, "bar keeps its size").toBe(true)
     const hung = await waitFor(() => c.towelOnBar, 2000)
     expect(hung, "pinching the bar hangs the towel").toBe(true)
     expect(visible("TowelDraped"), "towel drapes over the bar").toBe(true)
@@ -54,9 +62,18 @@ export class TowelOnBarScenario extends Scenario {
     expect(visible("LessonText"), "lesson message shows").toBe(true)
     expect(textOf("LessonText")).toBe(MSG_LEARN)
 
-    // It fades after about 3 seconds and the lesson begins.
+    // It fades after about 3 seconds; the guide asks the user to step into the tub.
     const faded = await waitFor(() => !visible("LessonText"), 5000)
     expect(faded, "lesson message fades").toBe(true)
-    expect(c.stage).toBe("lesson")
+    expect(c.stage).toBe("toTub")
+    const askedIn = await waitFor(() => c.guideShowing === MSG_STEP_IN, 1000)
+    expect(askedIn, "guide says to step into the bathtub").toBe(true)
+
+    // Stepping into the tub starts the lesson.
+    standAt("LessonSpot")
+    const started = await waitFor(() => c.stage === "lesson", 1000)
+    expect(started, "the lesson starts in the tub").toBe(true)
+    const asked = await waitFor(() => c.guideShowing === MSG_FIRST, 1000)
+    expect(asked, "guide asks what to use first").toBe(true)
   }
 }

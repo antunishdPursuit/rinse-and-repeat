@@ -3,6 +3,7 @@ import {RinseRepeatInteractor} from "./RinseRepeatInteractor"
 import {findInteractableByName} from "Leaf.lspkg/Interactors/InteractableUtils"
 import {findSceneObjectByName, sleep} from "Leaf.lspkg/Utils/common/Utils"
 import {RinseRepeatController} from "../Scripts/RinseRepeatController"
+import WorldCameraFinderProvider from "SpectaclesInteractionKit.lspkg/Providers/CameraProvider/WorldCameraFinderProvider"
 
 /** Shared helpers for the Rinse & Repeat LEAF scenarios. */
 
@@ -42,6 +43,8 @@ export interface HeldSnapshot {
   badgeText: string
   hintText: string
   hintVisible: boolean
+  guide: string
+  useTargetVisible: boolean
 }
 
 /**
@@ -49,7 +52,7 @@ export interface HeldSnapshot {
  * held, then let go.
  */
 export async function pickUpAndRelease(interactor: RinseRepeatInteractor, name: string): Promise<HeldSnapshot> {
-  let snap: HeldSnapshot = {badgeVisible: false, badgeText: "", hintText: "", hintVisible: false}
+  let snap = emptySnapshot()
   const drag = interactor.carry(interactable(name), new vec3(0, 2, 0), 1000)
   // The grab starts after LEAF's short hover phase; wait for it, then look at the badge.
   await waitFor(() => visible("Badge"), 1500)
@@ -59,9 +62,30 @@ export async function pickUpAndRelease(interactor: RinseRepeatInteractor, name: 
     badgeText: textOf("BadgeText"),
     hintText: textOf("BadgeHint"),
     hintVisible: visible("BadgeHint"),
+    guide: controller().guideShowing,
+    useTargetVisible: visible("UseTarget"),
   }
   await drag
   return snap
+}
+
+function emptySnapshot(): HeldSnapshot {
+  return {badgeVisible: false, badgeText: "", hintText: "", hintVisible: false, guide: "", useTargetVisible: false}
+}
+
+/** Move the rooms so the camera stands over `spot` (as if the user walked there). */
+export function standAt(spot: string) {
+  const c = controller()
+  const root = c.getSceneObject().getTransform()
+  root.setWorldPosition(vec3.zero())
+  const cam = WorldCameraFinderProvider.getInstance().getTransform().getWorldPosition()
+  const p = worldPos(spot)
+  root.setWorldPosition(new vec3(cam.x - p.x, 0, cam.z - p.z))
+}
+
+/** Rotation angle of a quaternion, in degrees. */
+export function angleDeg(q: quat): number {
+  return (2 * Math.acos(Math.min(1, Math.abs(q.w))) * 180) / Math.PI
 }
 
 /**
@@ -73,7 +97,7 @@ export async function useProduct(interactor: RinseRepeatInteractor, name: string
   const to = worldPos("FaceZone")
   // Aim slightly past the zone centre so the path goes through the middle of the zone.
   const move = to.sub(from).uniformScale(1.1)
-  let snap: HeldSnapshot = {badgeVisible: false, badgeText: "", hintText: "", hintVisible: false}
+  let snap = emptySnapshot()
   const drag = interactor.carry(interactable(name), move, 1400)
   // Grab the badge text in the first frames of the grab, before the product reaches the zone.
   for (let i = 0; i < 120; i++) {
@@ -84,6 +108,8 @@ export async function useProduct(interactor: RinseRepeatInteractor, name: string
         badgeText: textOf("BadgeText"),
         hintText: textOf("BadgeHint"),
         hintVisible: visible("BadgeHint"),
+        guide: controller().guideShowing,
+        useTargetVisible: visible("UseTarget"),
       }
       break
     }
