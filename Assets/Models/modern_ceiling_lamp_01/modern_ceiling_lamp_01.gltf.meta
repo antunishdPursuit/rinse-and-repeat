@@ -1,0 +1,194 @@
+- !<AssetImportMetadata/1b4d2ecb-ca65-4f3c-bc44-54fb9b06606f>
+  ImportedAssetIds:
+    .hidden/modern_ceiling_globe: !<reference> b279b999-1807-41cd-809e-c63347518201
+    26ba073d67b9d0dd: !<reference> 0a370af0-0ea8-4932-9dd7-ddfc137406ad
+    629f152022225b0f: !<reference> 38728205-8e52-499b-95bf-73c181b6f77c
+    657c264db4d38ac9: !<reference> 3f27ac37-ed40-41b4-8405-e4bbbff5a055
+    88ab437fd121cc69: !<reference> 8650528d-4670-4a1c-8e0a-3dd5526f4345
+    Materials/modern_ceiling_globe: !<reference> 20b2acf2-46a5-4a9c-af20-31fa408bfdea
+    Materials/modern_ceiling_globe|modern_ceiling_globe|GraphPassInfo: !<reference> 82b5b035-752e-45ae-a56b-b16622b25812
+    Materials/modern_ceiling_lamp_01: !<reference> df2605a1-e25d-42c5-a5d5-295210007841
+    Materials/modern_ceiling_lamp_01_glass: !<reference> c841f11d-ff78-429f-bd64-10a691f46878
+    Materials/modern_ceiling_lamp_01_glass|modern_ceiling_lamp_01_glass|GraphPassInfo: !<reference> 4a2689b8-165f-4500-bf85-4e742c776ff2
+    Materials/modern_ceiling_lamp_01|modern_ceiling_lamp_01|GraphPassInfo: !<reference> 129601a6-a398-4832-adf5-813e88eff078
+    Meshes/Cylinder.003: !<reference> 2ef050c0-ca26-44e6-addb-b0815a9f6a1d
+    Meshes/Cylinder1.003: !<reference> ce32af2c-9fe7-4905-840a-916dc5179f3b
+    Meshes/Cylinder2.003: !<reference> f0178bd0-49c9-4900-a7e5-3d0cfc7b4cb9
+    Scene: !<reference> f07a328d-717a-47f2-8a3c-f000548fe73c
+    Textures/modern_ceiling_lamp_01_arm_1k: !<reference> 9bfa47cd-5b6e-4d37-a78f-04aab3a8c589
+    Textures/modern_ceiling_lamp_01_arm_1k1: !<reference> aa020f64-fbf4-4715-ab3a-840abe3c2c2c
+    Textures/modern_ceiling_lamp_01_arm_1k2: !<reference> 231c0607-065f-4bec-9b72-196fd4680a29
+    Textures/modern_ceiling_lamp_01_diff_1k: !<reference> 83acefa9-c2b7-4698-bd1a-2c0881e9d744
+    Textures/modern_ceiling_lamp_01_diff_1k1: !<reference> 06667f5a-73bd-4429-93b9-4f57d6858f06
+    Textures/modern_ceiling_lamp_01_diff_1k2: !<reference> 8baf2164-3825-4746-bac2-2f6938901173
+    Textures/modern_ceiling_lamp_01_nor_gl_1k: !<reference> d5d41ef3-a095-4c65-835d-fdf00f91deb0
+    Textures/modern_ceiling_lamp_01_nor_gl_1k1: !<reference> 0ef23fb9-7716-429b-80e3-51b5057dde3e
+    Textures/modern_ceiling_lamp_01_nor_gl_1k2: !<reference> f85fc286-304b-43a3-833a-1d77963e3958
+    af830e3d5f4e1960: !<reference> 9ff113ba-c8be-4f2b-8b48-436b93cb5557
+    b1e7535f586eebce: !<reference> 834d04e7-4d9c-4065-9a23-d9ab6681bf43
+    be5cb4283fcf6d7c: !<reference> 220cbed9-d502-415f-9ed8-75546b2bf06e
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> f07a328d-717a-47f2-8a3c-f000548fe73c
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 952817a2-932f-4a2d-8b0b-d869280aca55
+  DependentFiles:
+    - modern_ceiling_lamp_01.bin
+    - textures/modern_ceiling_lamp_01_arm_1k.jpg
+    - textures/modern_ceiling_lamp_01_diff_1k.jpg
+    - textures/modern_ceiling_lamp_01_nor_gl_1k.jpg
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/0a370af0-0ea8-4932-6228-2203ec8bf952>
+  PrefabRemaps:
+    []
+  Name: modern_ceiling_lamp_01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 8650528d-4670-4a1c-71f5-c22aad90bcba
+  Components:
+    []
+- !<RenderMeshVisual/220cbed9-d502-415f-6127-8aab94d40f91>
+  PrefabRemaps:
+    []
+  Name: Cylinder.003
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 20b2acf2-46a5-4a9c-af20-31fa408bfdea
+  Mesh: !<reference> f0178bd0-49c9-4900-a7e5-3d0cfc7b4cb9
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/38728205-8e52-499b-6a40-8c3e7e490883>
+  PrefabRemaps:
+    []
+  Name: modern_ceiling_lamp_01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 9ff113ba-c8be-4f2b-74b7-bc946c34aaa8
+    - !<own> 834d04e7-4d9c-4065-65dc-2654997e40bc
+    - !<own> 220cbed9-d502-415f-6127-8aab94d40f91
+- !<SceneObject/3f27ac37-ed40-41b4-7bfa-1b44400a5faa>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 38728205-8e52-499b-6a40-8c3e7e490883
+  Components:
+    []
+- !<RenderMeshVisual/834d04e7-4d9c-4065-65dc-2654997e40bc>
+  PrefabRemaps:
+    []
+  Name: Cylinder.003
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> df2605a1-e25d-42c5-a5d5-295210007841
+  Mesh: !<reference> ce32af2c-9fe7-4905-840a-916dc5179f3b
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/8650528d-4670-4a1c-71f5-c22aad90bcba>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 3f27ac37-ed40-41b4-7bfa-1b44400a5faa
+  Components:
+    []
+- !<ObjectPrefabAssetData/952817a2-932f-4a2d-8b0b-d869280aca55>
+  Prototype: !<ObjectOwner/1cebdbe4-32ff-481a-9d4f-1baff6d4b2d6>
+    PackagePath: ""
+    objects:
+      - !<own> 0a370af0-0ea8-4932-6228-2203ec8bf952
+- !<RenderMeshVisual/9ff113ba-c8be-4f2b-74b7-bc946c34aaa8>
+  PrefabRemaps:
+    []
+  Name: Cylinder.003
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> c841f11d-ff78-429f-bd64-10a691f46878
+  Mesh: !<reference> 2ef050c0-ca26-44e6-addb-b0815a9f6a1d
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
