@@ -1,0 +1,372 @@
+- !<AssetImportMetadata/4c01c082-0a46-4931-bad0-706e405710e7>
+  ImportedAssetIds:
+    .hidden/vintage_wooden_drawer_01: !<reference> ca419a05-c1cb-4a86-8427-6ee5a0a9594b
+    04bc1f02c4b9bf98: !<reference> f27e131c-dea6-4863-9256-6afdf5dd122d
+    11abd50b40a744c8: !<reference> 763599a9-c109-42d2-9083-fc2304a2bcc3
+    24c3ad2ff1a9cb97: !<reference> fc47d9fb-4576-48c8-ae47-c8ed66ab71fe
+    26ba073d67b9d0dd: !<reference> e0190c73-2c4b-4664-9437-8bdc476f69c2
+    28ed6a45793a06ba: !<reference> 9558e376-45c5-457b-9761-5f7edcfe7115
+    4d172322fd6890e7: !<reference> cf2999b8-d42f-4d36-a774-c2dda0a742e4
+    5770374aaa073da1: !<reference> a73d2f2e-98e4-43d7-8662-234fec879e3c
+    5d51ed0b06f3a20c: !<reference> 69000a00-468d-41ff-84c7-bf5556ea1dfa
+    657c264db4d38ac9: !<reference> 2dc3a73c-689c-4884-9d43-ff5689f5998a
+    6b033bd0543b07a9: !<reference> 9ce36d35-770d-4c49-b43c-5ef0b9f5d6ba
+    72bfec7095d6231d: !<reference> e7dc20c9-6a78-4f9e-bbc7-feaf98f3ff06
+    73365fd467dfab3d: !<reference> cb7b7ced-7e9b-40ac-bb62-33d4714877b3
+    88ab437fd121cc69: !<reference> 13fa3e9f-97bd-4dc1-83ab-479b511c7c2d
+    89c4ce8642a0cf62: !<reference> 5ae9a1d8-4fac-4730-8f95-92bd193a1ebd
+    Materials/vintage_wooden_drawer_01: !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+    Materials/vintage_wooden_drawer_01|vintage_wooden_drawer_01|GraphPassInfo: !<reference> 900a7ede-cfce-43e8-8d3f-02b3f25f287c
+    Meshes/Cube.120: !<reference> 9d5a0589-805b-471c-92fd-b7d507aafb79
+    Meshes/Cube.125: !<reference> 66efca58-0da5-4c45-ac0e-b05971c554e7
+    Meshes/Cube.128: !<reference> 7e4fe537-3b23-4517-baf8-d19c77f6d007
+    Meshes/Cube.129: !<reference> 74ea7411-ffe5-46e7-8740-31dec4ae7e72
+    Meshes/Cube.131: !<reference> dc8784ee-904f-46c2-9d2b-abaafaa25dfd
+    Meshes/Cube.133: !<reference> 6c347f2e-0189-4c13-8e32-75305bc81d3f
+    Meshes/Cube.135: !<reference> 75b371e4-6d7f-4def-8dac-9ca79466edc2
+    Scene: !<reference> 37fad89e-66b8-43b3-af02-f68f4bd5eb3b
+    Textures/vintage_wooden_drawer_01_arm_1k: !<reference> d1cca3d2-6c24-4eb0-95f1-ae8a9d04e00a
+    Textures/vintage_wooden_drawer_01_diff_1k: !<reference> 1aeccb70-d53b-40f6-858f-9d5e6009978c
+    Textures/vintage_wooden_drawer_01_nor_gl_1k: !<reference> cac4b501-8d75-43c6-bfa5-e24fef7d3dc0
+    b511092d37457517: !<reference> d55199d5-ba5e-47b3-967e-c9c1281e3424
+    b7a9945eca068c78: !<reference> f21cf8bd-442e-4829-95eb-2d4cbcec0d3f
+    d2d577840f0c9d4f: !<reference> 0e44d10c-4187-48b7-9f9c-2bb9c54b216a
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 37fad89e-66b8-43b3-af02-f68f4bd5eb3b
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> c85c1d74-f9e5-44de-96b6-1dc11522e672
+  DependentFiles:
+    - textures/vintage_wooden_drawer_01_arm_1k.jpg
+    - textures/vintage_wooden_drawer_01_diff_1k.jpg
+    - textures/vintage_wooden_drawer_01_nor_gl_1k.jpg
+    - vintage_wooden_drawer_01.bin
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/0e44d10c-4187-48b7-6063-d4463ab4de95>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01_drawer02
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.028249}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> d55199d5-ba5e-47b3-6981-363ed7e1cbdb
+- !<SceneObject/13fa3e9f-97bd-4dc1-7c54-b864aee383d2>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 2dc3a73c-689c-4884-62bc-00a9760a6675
+  Components:
+    []
+- !<SceneObject/2dc3a73c-689c-4884-62bc-00a9760a6675>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 9ce36d35-770d-4c49-4bc3-a10f460a2945
+    - !<own> 69000a00-468d-41ff-7b38-40aaa915e205
+    - !<own> 0e44d10c-4187-48b7-6063-d4463ab4de95
+    - !<own> cf2999b8-d42f-4d36-588b-3d225f58bd1b
+    - !<own> fc47d9fb-4576-48c8-51b8-371299548e01
+    - !<own> 9558e376-45c5-457b-689e-a08123018eea
+    - !<own> f21cf8bd-442e-4829-6a14-d2b34313f2c0
+  Components:
+    []
+- !<RenderMeshVisual/5ae9a1d8-4fac-4730-706a-6d42e6c5e142>
+  PrefabRemaps:
+    []
+  Name: Cube.120
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+  Mesh: !<reference> 9d5a0589-805b-471c-92fd-b7d507aafb79
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/69000a00-468d-41ff-7b38-40aaa915e205>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01_drawer01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> cb7b7ced-7e9b-40ac-449d-cc2b8eb7884c
+- !<RenderMeshVisual/763599a9-c109-42d2-6f7c-03dcfb5d433c>
+  PrefabRemaps:
+    []
+  Name: Cube.131
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+  Mesh: !<reference> dc8784ee-904f-46c2-9d2b-abaafaa25dfd
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/9558e376-45c5-457b-689e-a08123018eea>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01_drawer05
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> e7dc20c9-6a78-4f9e-4438-0150670c00f9
+- !<SceneObject/9ce36d35-770d-4c49-4bc3-a10f460a2945>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01_body
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 5ae9a1d8-4fac-4730-706a-6d42e6c5e142
+- !<RenderMeshVisual/a73d2f2e-98e4-43d7-799d-dcb0137861c3>
+  PrefabRemaps:
+    []
+  Name: Cube.133
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+  Mesh: !<reference> 6c347f2e-0189-4c13-8e32-75305bc81d3f
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<ObjectPrefabAssetData/c85c1d74-f9e5-44de-96b6-1dc11522e672>
+  Prototype: !<ObjectOwner/e67a1be5-3b62-4193-a3ff-dfcfaa4e51e6>
+    PackagePath: ""
+    objects:
+      - !<own> e0190c73-2c4b-4664-6bc8-7423b890963d
+- !<RenderMeshVisual/cb7b7ced-7e9b-40ac-449d-cc2b8eb7884c>
+  PrefabRemaps:
+    []
+  Name: Cube.128
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+  Mesh: !<reference> 7e4fe537-3b23-4517-baf8-d19c77f6d007
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/cf2999b8-d42f-4d36-588b-3d225f58bd1b>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01_drawer03
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.095427}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 763599a9-c109-42d2-6f7c-03dcfb5d433c
+- !<RenderMeshVisual/d55199d5-ba5e-47b3-6981-363ed7e1cbdb>
+  PrefabRemaps:
+    []
+  Name: Cube.129
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+  Mesh: !<reference> 74ea7411-ffe5-46e7-8740-31dec4ae7e72
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/e0190c73-2c4b-4664-6bc8-7423b890963d>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 13fa3e9f-97bd-4dc1-7c54-b864aee383d2
+  Components:
+    []
+- !<RenderMeshVisual/e7dc20c9-6a78-4f9e-4438-0150670c00f9>
+  PrefabRemaps:
+    []
+  Name: Cube.125
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+  Mesh: !<reference> 66efca58-0da5-4c45-ac0e-b05971c554e7
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/f21cf8bd-442e-4829-6a14-d2b34313f2c0>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01_drawer06
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.039351}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> a73d2f2e-98e4-43d7-799d-dcb0137861c3
+- !<RenderMeshVisual/f27e131c-dea6-4863-6da9-95020a22edd2>
+  PrefabRemaps:
+    []
+  Name: Cube.135
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 11fc536d-357f-4253-9f54-396c921e553e
+  Mesh: !<reference> 75b371e4-6d7f-4def-8dac-9ca79466edc2
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/fc47d9fb-4576-48c8-51b8-371299548e01>
+  PrefabRemaps:
+    []
+  Name: vintage_wooden_drawer_01_drawer04
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.035934}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> f27e131c-dea6-4863-6da9-95020a22edd2
