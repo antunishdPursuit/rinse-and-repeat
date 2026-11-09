@@ -1,0 +1,153 @@
+- !<AssetImportMetadata/242f7b40-f01c-4b42-b9df-01739fbe01ab>
+  ImportedAssetIds:
+    .hidden/Ceramic: !<reference> 544e477e-d868-41dc-875b-d31f6f9b2a40
+    26ba073d67b9d0dd: !<reference> 3d1baa34-dab2-4990-a855-3667195141cf
+    307c2880e158896c: !<reference> e1741bf8-a572-4f10-9fac-5b3fe9db007a
+    657c264db4d38ac9: !<reference> cbd57472-8cfb-4bfb-965e-d2f170695e48
+    88ab437fd121cc69: !<reference> 20577c84-9580-45b2-bff4-240a6c5971bf
+    9713b68c5f7df0bd: !<reference> b34cabca-5713-469a-aaf1-54a716564451
+    9a9c71cca51cb996: !<reference> 23ecc392-bbc0-4e03-89f6-272c4a54faf1
+    Materials/Ceramic: !<reference> b379e695-aae8-4ba2-aa5e-ac6543edddc8
+    Materials/Ceramic|Ceramic|GraphPassInfo: !<reference> 20f70b51-7f60-4d4e-bfa0-79dc6b01e118
+    Materials/Chrome: !<reference> 5abb1ce1-88cc-43d4-b349-41b6f3fb7940
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> 4c7b4ac9-c65a-4804-883c-677122e4c5e9
+    Meshes/Bathtub: !<reference> 0af2dd01-dc14-4a18-b57f-b3c97b11e5b3
+    Meshes/Bathtub1: !<reference> c00a20e9-d2af-48a4-b929-bacd5ce3f1f1
+    Scene: !<reference> 455a1588-bb12-4dab-b71f-b35ee60f1773
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 455a1588-bb12-4dab-b71f-b35ee60f1773
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 19694dce-0351-4f0c-9706-ad6e5e88499e
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+    ExtensionMappings:
+      mesh: None Compression
+    Overrides:
+      {}
+- !<ObjectPrefabAssetData/19694dce-0351-4f0c-9706-ad6e5e88499e>
+  Prototype: !<ObjectOwner/ec751d97-5d19-45f5-b477-0e938c2807e9>
+    PackagePath: ""
+    objects:
+      - !<own> 3d1baa34-dab2-4990-57aa-c998e6aebe30
+- !<SceneObject/20577c84-9580-45b2-400b-dbf593a68e40>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> cbd57472-8cfb-4bfb-69a1-2d0e8f96a1b7
+  Components:
+    []
+- !<RenderMeshVisual/23ecc392-bbc0-4e03-7609-d8d3b5ab050e>
+  PrefabRemaps:
+    []
+  Name: Bathtub
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 5abb1ce1-88cc-43d4-b349-41b6f3fb7940
+  Mesh: !<reference> c00a20e9-d2af-48a4-b929-bacd5ce3f1f1
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/3d1baa34-dab2-4990-57aa-c998e6aebe30>
+  PrefabRemaps:
+    []
+  Name: Bathtub
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 20577c84-9580-45b2-400b-dbf593a68e40
+  Components:
+    []
+- !<RenderMeshVisual/b34cabca-5713-469a-550e-ab58e9a9bbae>
+  PrefabRemaps:
+    []
+  Name: Bathtub
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> b379e695-aae8-4ba2-aa5e-ac6543edddc8
+  Mesh: !<reference> 0af2dd01-dc14-4a18-b57f-b3c97b11e5b3
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/cbd57472-8cfb-4bfb-69a1-2d0e8f96a1b7>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> e1741bf8-a572-4f10-6053-a4c01624ff85
+  Components:
+    []
+- !<SceneObject/e1741bf8-a572-4f10-6053-a4c01624ff85>
+  PrefabRemaps:
+    []
+  Name: Bathtub
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> b34cabca-5713-469a-550e-ab58e9a9bbae
+    - !<own> 23ecc392-bbc0-4e03-7609-d8d3b5ab050e

@@ -1,0 +1,160 @@
+- !<AssetImportMetadata/4bb13c82-8ccf-4291-a017-eac050e960f2>
+  ImportedAssetIds:
+    .hidden/Chrome: !<reference> fa156874-51ee-4ab6-a2be-6b709200e3cf
+    26ba073d67b9d0dd: !<reference> ee670779-d4b4-4930-81ef-737945ed2128
+    45e725bd6101c274: !<reference> 40932f99-fc47-4467-9410-f9728e3c205d
+    657c264db4d38ac9: !<reference> b50bd032-86fb-4adb-8e18-6612ac4bc3c1
+    88ab437fd121cc69: !<reference> 401188a8-3c84-43d2-a4ba-5526840874e3
+    9e4d91a3d7ca7d00: !<reference> a2ab6cf6-af4a-43db-9d9b-371bbe08eaa3
+    Materials/Chrome: !<reference> 5501516e-c013-44a1-85a0-f5776230ee68
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> 0249f4d1-18cc-403b-94cb-b34c62f55320
+    Materials/LinenAqua: !<reference> 8a22657e-5d0c-4115-bf6c-ed24e7ab4d46
+    Materials/LinenAqua|LinenAqua|GraphPassInfo: !<reference> 07f0ce9e-2742-4185-8adc-60cf06fa3386
+    Meshes/ShowerCurtain: !<reference> 52f798bc-82db-49d5-9a16-c01a89c8bbce
+    Meshes/ShowerCurtain1: !<reference> 632a103e-d803-4781-8fd9-6d692dc25a3f
+    Scene: !<reference> 9f1fe3a4-405c-4d2d-8ccb-935ff281dc59
+    Textures/LinenAqua_diff: !<reference> 2d0c3735-eb7b-4a68-bae0-177e8475995d
+    Textures/rough_linen_nor_gl_1k: !<reference> 94f82e3f-5972-4fcb-9840-a591b4f71c72
+    ba542ef307c30c3b: !<reference> 5671c068-8e3f-4741-b8a0-2d8e5d028bd3
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 9f1fe3a4-405c-4d2d-8ccb-935ff281dc59
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> ce2d8173-23a5-4cba-9076-107305396e0c
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/401188a8-3c84-43d2-5b45-aad97bf78b1c>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> b50bd032-86fb-4adb-71e7-99ed53b43c3e
+  Components:
+    []
+- !<SceneObject/40932f99-fc47-4467-6bef-068d71c3dfa2>
+  PrefabRemaps:
+    []
+  Name: ShowerCurtain
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> a2ab6cf6-af4a-43db-6264-c8e441f7155c
+    - !<own> 5671c068-8e3f-4741-475f-d271a2fd742c
+- !<RenderMeshVisual/5671c068-8e3f-4741-475f-d271a2fd742c>
+  PrefabRemaps:
+    []
+  Name: ShowerCurtain
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 8a22657e-5d0c-4115-bf6c-ed24e7ab4d46
+  Mesh: !<reference> 632a103e-d803-4781-8fd9-6d692dc25a3f
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/a2ab6cf6-af4a-43db-6264-c8e441f7155c>
+  PrefabRemaps:
+    []
+  Name: ShowerCurtain
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 5501516e-c013-44a1-85a0-f5776230ee68
+  Mesh: !<reference> 52f798bc-82db-49d5-9a16-c01a89c8bbce
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/b50bd032-86fb-4adb-71e7-99ed53b43c3e>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 40932f99-fc47-4467-6bef-068d71c3dfa2
+  Components:
+    []
+- !<ObjectPrefabAssetData/ce2d8173-23a5-4cba-9076-107305396e0c>
+  Prototype: !<ObjectOwner/77b27ed7-c37a-4853-9e23-3eaa9d258f54>
+    PackagePath: ""
+    objects:
+      - !<own> ee670779-d4b4-4930-7e10-8c86ba12ded7
+- !<SceneObject/ee670779-d4b4-4930-7e10-8c86ba12ded7>
+  PrefabRemaps:
+    []
+  Name: ShowerCurtain
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 401188a8-3c84-43d2-5b45-aad97bf78b1c
+  Components:
+    []

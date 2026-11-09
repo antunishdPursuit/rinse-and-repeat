@@ -1,0 +1,153 @@
+- !<AssetImportMetadata/7adb8381-3ac0-4b89-96f7-60516bf11836>
+  ImportedAssetIds:
+    .hidden/Chrome: !<reference> 4a4ad848-ec7c-40c9-ac2f-e36d6a83fab5
+    26ba073d67b9d0dd: !<reference> 8be77de2-1b59-4709-8509-04e16b8d4e9f
+    5c9d77873c7fadf4: !<reference> 6c80b4f9-6788-4ebc-a583-1565a3fffe0c
+    657c264db4d38ac9: !<reference> 1ddb895e-8760-4c0a-8fce-adc1ed96902a
+    88ab437fd121cc69: !<reference> 615eb860-3838-46a7-931b-d82a9714dead
+    93db00dee071ed6d: !<reference> 7a5fddb2-35ab-4beb-9120-89855427df5d
+    Materials/Chrome: !<reference> e6e09b76-32a5-4271-8147-d551cf095add
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> fd2d2833-8117-48f6-8793-a3edc7b62e24
+    Materials/SprayFace: !<reference> 039549fb-74ed-4cf9-8579-0d7809694bb7
+    Materials/SprayFace|SprayFace|GraphPassInfo: !<reference> 0513f8ed-3756-4c2a-aa2f-45d6e5effc99
+    Meshes/ShowerHead: !<reference> 6841251f-1896-47c0-8710-ab275d473124
+    Meshes/ShowerHead1: !<reference> 350cdf13-891c-4fe8-aede-1b2a945799fa
+    Scene: !<reference> d1318abd-3799-4109-9f5c-97a4f704dff3
+    bab330c1082a0dd9: !<reference> ab7c2276-27d1-4c35-9093-253013d53c74
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> d1318abd-3799-4109-9f5c-97a4f704dff3
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 80911d61-eede-407d-b82c-a4a4cfb33917
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+    ExtensionMappings:
+      mesh: None Compression
+    Overrides:
+      {}
+- !<SceneObject/1ddb895e-8760-4c0a-7031-523e12696fd5>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ab7c2276-27d1-4c35-6f6c-dacfec2ac38b
+  Components:
+    []
+- !<SceneObject/615eb860-3838-46a7-6ce4-27d568eb2152>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1ddb895e-8760-4c0a-7031-523e12696fd5
+  Components:
+    []
+- !<RenderMeshVisual/6c80b4f9-6788-4ebc-5a7c-ea9a5c0001f3>
+  PrefabRemaps:
+    []
+  Name: ShowerHead
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 039549fb-74ed-4cf9-8579-0d7809694bb7
+  Mesh: !<reference> 350cdf13-891c-4fe8-aede-1b2a945799fa
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/7a5fddb2-35ab-4beb-6edf-767aabd820a2>
+  PrefabRemaps:
+    []
+  Name: ShowerHead
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> e6e09b76-32a5-4271-8147-d551cf095add
+  Mesh: !<reference> 6841251f-1896-47c0-8710-ab275d473124
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<ObjectPrefabAssetData/80911d61-eede-407d-b82c-a4a4cfb33917>
+  Prototype: !<ObjectOwner/c6aef9e8-d328-4edd-9fe8-769f35d38471>
+    PackagePath: ""
+    objects:
+      - !<own> 8be77de2-1b59-4709-7af6-fb1e9472b160
+- !<SceneObject/8be77de2-1b59-4709-7af6-fb1e9472b160>
+  PrefabRemaps:
+    []
+  Name: ShowerHead
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 615eb860-3838-46a7-6ce4-27d568eb2152
+  Components:
+    []
+- !<SceneObject/ab7c2276-27d1-4c35-6f6c-dacfec2ac38b>
+  PrefabRemaps:
+    []
+  Name: ShowerHead
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 7a5fddb2-35ab-4beb-6edf-767aabd820a2
+    - !<own> 6c80b4f9-6788-4ebc-5a7c-ea9a5c0001f3
