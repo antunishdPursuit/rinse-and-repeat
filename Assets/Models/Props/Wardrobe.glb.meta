@@ -1,0 +1,185 @@
+- !<AssetImportMetadata/f6050cb8-2d77-4b10-b2fe-238c6e85943b>
+  ImportedAssetIds:
+    .hidden/Chrome: !<reference> 9da22453-5bbc-4978-86b4-0cd43f894e17
+    2061e4d7407d915a: !<reference> cae22acc-92d9-42c7-8094-d96bf8e1239e
+    26ba073d67b9d0dd: !<reference> ccd325d2-93b0-45c3-8857-06078a877b6b
+    657c264db4d38ac9: !<reference> e0b04693-6785-4507-a28f-1979b2c8276b
+    65a68b0e1c560fdd: !<reference> 0ad5af99-d809-4de2-b663-f5954910ebcc
+    6fa30ab53cbd76e0: !<reference> 08d2d574-d56d-4ff1-b1fe-68ee26cd7691
+    88ab437fd121cc69: !<reference> 693ae2a1-906c-4872-ba7a-8c4288e7b283
+    Materials/Chrome: !<reference> 1bbf0c90-8811-45b1-a012-639dbb80702e
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> 11754e30-b1e7-4955-985e-13696a384a38
+    Materials/Oak: !<reference> 902c97c6-097b-4ccc-9253-720960e39c55
+    Materials/Oak|Oak|GraphPassInfo: !<reference> 842e8279-c9ec-4df7-97e7-d3f1e8e7c4dd
+    Materials/WhitePaint: !<reference> 137b9496-5b46-48ac-b974-320d1c44d558
+    Materials/WhitePaint|WhitePaint|GraphPassInfo: !<reference> fb93499c-21b6-4356-bb84-bf760a2ae9b2
+    Meshes/Wardrobe: !<reference> 7d725f81-5525-4363-91fc-8f6e463c9abf
+    Meshes/Wardrobe1: !<reference> 0f49d835-ddc4-4295-901b-39ac65a74d71
+    Meshes/Wardrobe2: !<reference> e68697d0-467d-4cd9-999a-d618e88ec677
+    Scene: !<reference> 821b0385-a76f-4de1-b14b-f800ed761409
+    Textures/Oak_diff: !<reference> 05e51c8d-5104-4def-8e23-cfc6e4cf5513
+    Textures/white_oak_veneer_nor_gl_1k: !<reference> dab6aba6-d69a-4bf2-85ba-fe6c82a8d573
+    ed39aff9a85a3eb7: !<reference> d538d8fe-afd3-44d6-ac0a-b9c31b3c4cd6
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 821b0385-a76f-4de1-b14b-f800ed761409
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 8efd3ee5-3823-48b7-a97d-86017f4fdd19
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<RenderMeshVisual/08d2d574-d56d-4ff1-4e01-9711d932896e>
+  PrefabRemaps:
+    []
+  Name: Wardrobe
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 902c97c6-097b-4ccc-9253-720960e39c55
+  Mesh: !<reference> 7d725f81-5525-4363-91fc-8f6e463c9abf
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/0ad5af99-d809-4de2-499c-0a6ab6ef1433>
+  PrefabRemaps:
+    []
+  Name: Wardrobe
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 137b9496-5b46-48ac-b974-320d1c44d558
+  Mesh: !<reference> 0f49d835-ddc4-4295-901b-39ac65a74d71
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/693ae2a1-906c-4872-4585-73bd77184d7c>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> e0b04693-6785-4507-5d70-e6864d37d894
+  Components:
+    []
+- !<ObjectPrefabAssetData/8efd3ee5-3823-48b7-a97d-86017f4fdd19>
+  Prototype: !<ObjectOwner/3b94f59d-c4fe-4737-8394-218df4f9eeb7>
+    PackagePath: ""
+    objects:
+      - !<own> ccd325d2-93b0-45c3-77a8-f9f875788494
+- !<SceneObject/cae22acc-92d9-42c7-7f6b-2694071edc61>
+  PrefabRemaps:
+    []
+  Name: Wardrobe
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 08d2d574-d56d-4ff1-4e01-9711d932896e
+    - !<own> 0ad5af99-d809-4de2-499c-0a6ab6ef1433
+    - !<own> d538d8fe-afd3-44d6-53f5-463ce4c3b329
+- !<SceneObject/ccd325d2-93b0-45c3-77a8-f9f875788494>
+  PrefabRemaps:
+    []
+  Name: Wardrobe
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 693ae2a1-906c-4872-4585-73bd77184d7c
+  Components:
+    []
+- !<RenderMeshVisual/d538d8fe-afd3-44d6-53f5-463ce4c3b329>
+  PrefabRemaps:
+    []
+  Name: Wardrobe
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 1bbf0c90-8811-45b1-a012-639dbb80702e
+  Mesh: !<reference> e68697d0-467d-4cd9-999a-d618e88ec677
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/e0b04693-6785-4507-5d70-e6864d37d894>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> cae22acc-92d9-42c7-7f6b-2694071edc61
+  Components:
+    []

@@ -1,0 +1,178 @@
+- !<AssetImportMetadata/86f8125a-82ba-468d-9276-a45665ac83eb>
+  ImportedAssetIds:
+    .hidden/Chrome: !<reference> 702091d8-c69b-4916-a6df-76de1fd285ab
+    0461ac3c92e8b228: !<reference> 6bb5bd4f-b5cd-4474-b274-394feb6e8f2e
+    223209009c23a6b2: !<reference> 2abdaf13-8095-4540-8ee8-fe491f3afbda
+    26ba073d67b9d0dd: !<reference> 8609da5f-52f0-4d38-930c-1e0c28fb47f7
+    36314e8c7aab352b: !<reference> 573c1052-36f9-468b-b541-34b9267f1367
+    51f8a5d80043b1cb: !<reference> e4c57ac9-71fd-4105-9a4b-f60dabb5db60
+    657c264db4d38ac9: !<reference> 0d7e1201-cf75-47d0-9629-39e75df98f24
+    88ab437fd121cc69: !<reference> f1d887c5-32b2-4ed6-8cb9-65c5af203d20
+    Materials/Chrome: !<reference> feff4b34-16b1-4078-bc0d-710a05e69d0d
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> 6044d383-9aa5-4a29-a41a-8359997a42ee
+    Materials/LampBase: !<reference> 1a7a2dac-c80c-4549-b32f-bd7930924411
+    Materials/LampBase|LampBase|GraphPassInfo: !<reference> 75a903ae-0c85-4ee5-b037-3b1f92a9b2fb
+    Materials/LampShade: !<reference> c5f3d8c1-8afd-4808-9458-24763acc4389
+    Materials/LampShade|LampShade|GraphPassInfo: !<reference> 643db3e7-62f1-4941-beec-e216fe4135af
+    Meshes/TableLamp: !<reference> da8e3a95-e55f-41bc-b0a1-51488cf3b03e
+    Meshes/TableLamp1: !<reference> fe0cf9a3-4a93-4c30-bb15-266d05106d46
+    Meshes/TableLamp2: !<reference> ba8f20c3-8312-4cd8-89b6-30bdd616e6ac
+    Scene: !<reference> 2d8e5f76-33f3-468c-990d-cc3a1ce10913
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 2d8e5f76-33f3-468c-990d-cc3a1ce10913
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> b75954e9-f317-4b9e-81b6-e55ce4ac84ef
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+    ExtensionMappings:
+      mesh: None Compression
+    Overrides:
+      {}
+- !<SceneObject/0d7e1201-cf75-47d0-69d6-c618a20670db>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 6bb5bd4f-b5cd-4474-4d8b-c6b0149170d1
+  Components:
+    []
+- !<RenderMeshVisual/2abdaf13-8095-4540-7117-01b6e0c50425>
+  PrefabRemaps:
+    []
+  Name: TableLamp
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> c5f3d8c1-8afd-4808-9458-24763acc4389
+  Mesh: !<reference> ba8f20c3-8312-4cd8-89b6-30bdd616e6ac
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/573c1052-36f9-468b-4abe-cb46d980ec98>
+  PrefabRemaps:
+    []
+  Name: TableLamp
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> feff4b34-16b1-4078-bc0d-710a05e69d0d
+  Mesh: !<reference> fe0cf9a3-4a93-4c30-bb15-266d05106d46
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/6bb5bd4f-b5cd-4474-4d8b-c6b0149170d1>
+  PrefabRemaps:
+    []
+  Name: TableLamp
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> e4c57ac9-71fd-4105-65b4-09f2544a249f
+    - !<own> 573c1052-36f9-468b-4abe-cb46d980ec98
+    - !<own> 2abdaf13-8095-4540-7117-01b6e0c50425
+- !<SceneObject/8609da5f-52f0-4d38-6cf3-e1f3d704b808>
+  PrefabRemaps:
+    []
+  Name: TableLamp
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> f1d887c5-32b2-4ed6-7346-9a3a50dfc2df
+  Components:
+    []
+- !<ObjectPrefabAssetData/b75954e9-f317-4b9e-81b6-e55ce4ac84ef>
+  Prototype: !<ObjectOwner/f60c8118-2ba5-494d-9e5f-0273550133a0>
+    PackagePath: ""
+    objects:
+      - !<own> 8609da5f-52f0-4d38-6cf3-e1f3d704b808
+- !<RenderMeshVisual/e4c57ac9-71fd-4105-65b4-09f2544a249f>
+  PrefabRemaps:
+    []
+  Name: TableLamp
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 1a7a2dac-c80c-4549-b32f-bd7930924411
+  Mesh: !<reference> da8e3a95-e55f-41bc-b0a1-51488cf3b03e
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/f1d887c5-32b2-4ed6-7346-9a3a50dfc2df>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 0d7e1201-cf75-47d0-69d6-c618a20670db
+  Components:
+    []
