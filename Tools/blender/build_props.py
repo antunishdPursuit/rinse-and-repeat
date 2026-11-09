@@ -591,10 +591,14 @@ def bath_mat(m):
 
 # ---------------------------------------------------------------- room shells
 # Room coordinates are Lens Studio centimetres: x right, y = height above the floor, z towards the viewer.
-# The user starts at x=0, z=0 facing -z. Bedroom: x -180..180, z -200..160. Bathroom behind the
-# shared front wall: x -140..40, z -440..-205. Door opening in the front wall: x -76..6, 0..202 cm high.
+# The user starts at x=0, z=0 facing -z. The door corner (shared front wall and left walls) stays fixed; the
+# rooms extend to the right and away from the door. Bedroom: x BED_X0..BED_X1, z -195..BED_Z1. Bathroom
+# behind the shared front wall: x BATH_X0..BATH_X1, z BATH_Z0..-205. Door opening: x -76..6, 0..202 cm high.
 
 DOOR_X0, DOOR_X1, DOOR_H = -76, 6, 202
+CEIL = 250
+BED_X0, BED_X1, BED_Z1 = -180, 360, 337.5
+BATH_X0, BATH_X1, BATH_Z0 = -140, 130, -557.5
 
 
 def slab(x0, x1, h0, h1, z0, z1, m, tile):
@@ -610,34 +614,36 @@ def slab(x0, x1, h0, h1, z0, z1, m, tile):
 
 
 def wall_with_door(z0, z1, xa, xb, m, tile):
-    slab(xa, DOOR_X0, 0, 250, z0, z1, m, tile)
-    slab(DOOR_X1, xb, 0, 250, z0, z1, m, tile)
-    slab(DOOR_X0, DOOR_X1, DOOR_H, 250, z0, z1, m, tile)
+    slab(xa, DOOR_X0, 0, CEIL, z0, z1, m, tile)
+    slab(DOOR_X1, xb, 0, CEIL, z0, z1, m, tile)
+    slab(DOOR_X0, DOOR_X1, DOOR_H, CEIL, z0, z1, m, tile)
 
 
 def bedroom_shell(m):
-    slab(-180, 180, -2, 0, -195, 160, m["parquet"], 1.0)  # floor
-    slab(-180, 180, 250, 252, -195, 160, m["ceiling"], 2.0)
-    slab(-182, -180, 0, 250, -195, 160, m["plaster"], 1.5)  # left
-    slab(180, 182, 0, 250, -195, 160, m["plaster"], 1.5)  # right
-    slab(-180, 180, 0, 250, 160, 162, m["plaster"], 1.5)  # back
-    wall_with_door(-197, -195, -180, 180, m["plaster"], 1.5)  # front, bedroom face
+    x0, x1, z1 = BED_X0, BED_X1, BED_Z1
+    slab(x0, x1, -2, 0, -195, z1, m["parquet"], 1.0)  # floor
+    slab(x0, x1, CEIL, CEIL + 2, -195, z1, m["ceiling"], 2.0)
+    slab(x0 - 2, x0, 0, CEIL, -195, z1, m["plaster"], 1.5)  # left
+    slab(x1, x1 + 2, 0, CEIL, -195, z1, m["plaster"], 1.5)  # right
+    slab(x0, x1, 0, CEIL, z1, z1 + 2, m["plaster"], 1.5)  # back
+    wall_with_door(-197, -195, x0, x1, m["plaster"], 1.5)  # front, bedroom face
     p = m["paint"]
-    for x0, x1, z0, z1 in ((-180, -178.5, -195, 160), (178.5, 180, -195, 160), (-180, 180, 158.5, 160),
-                           (-180, DOOR_X0 - 7, -195, -193.5), (DOOR_X1 + 7, 180, -195, -193.5)):
-        slab(x0, x1, 0, 9, z0, z1, p, 1.0)  # skirting boards
+    for a0, a1, b0, b1 in ((x0, x0 + 1.5, -195, z1), (x1 - 1.5, x1, -195, z1), (x0, x1, z1 - 1.5, z1),
+                           (x0, DOOR_X0 - 7, -195, -193.5), (DOOR_X1 + 7, x1, -195, -193.5)):
+        slab(a0, a1, 0, 9, b0, b1, p, 1.0)  # skirting boards
     slab(DOOR_X0 - 7, DOOR_X0, 0, DOOR_H + 7, -195, -193.5, p, 1.0)  # door casing
     slab(DOOR_X1, DOOR_X1 + 7, 0, DOOR_H + 7, -195, -193.5, p, 1.0)
     slab(DOOR_X0 - 7, DOOR_X1 + 7, DOOR_H, DOOR_H + 7, -195, -193.5, p, 1.0)
 
 
 def bathroom_shell(m):
-    slab(-140, 40, -2, 0, -440, -205, m["floor_tile"], 0.6)
-    slab(-140, 40, 250, 252, -440, -205, m["ceiling"], 2.0)
-    slab(-142, -140, 0, 250, -440, -205, m["wall_tile"], 0.9)  # left
-    slab(40, 42, 0, 250, -440, -205, m["wall_tile"], 0.9)  # right, behind the tub
-    slab(-140, 40, 0, 250, -442, -440, m["wall_tile"], 0.9)  # far wall, shower end
-    wall_with_door(-205, -203, -140, 40, m["wall_tile"], 0.9)  # near wall, bathroom face
+    x0, x1, z0 = BATH_X0, BATH_X1, BATH_Z0
+    slab(x0, x1, -2, 0, z0, -205, m["floor_tile"], 0.6)
+    slab(x0, x1, CEIL, CEIL + 2, z0, -205, m["ceiling"], 2.0)
+    slab(x0 - 2, x0, 0, CEIL, z0, -205, m["wall_tile"], 0.9)  # left
+    slab(x1, x1 + 2, 0, CEIL, z0, -205, m["wall_tile"], 0.9)  # right, behind the tub
+    slab(x0, x1, 0, CEIL, z0 - 2, z0, m["wall_tile"], 0.9)  # far wall, shower end
+    wall_with_door(-205, -203, x0, x1, m["wall_tile"], 0.9)  # near wall, bathroom face
     p = m["paint"]
     slab(DOOR_X0 - 2, DOOR_X0, 0, DOOR_H, -205, -195, p, 1.0)  # door jambs through the wall
     slab(DOOR_X1, DOOR_X1 + 2, 0, DOOR_H, -205, -195, p, 1.0)
