@@ -1,0 +1,114 @@
+import {Interactable} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
+import {RinseRepeatInteractor} from "./RinseRepeatInteractor"
+import {findInteractableByName} from "Leaf.lspkg/Interactors/InteractableUtils"
+import {findSceneObjectByName, sleep} from "Leaf.lspkg/Utils/common/Utils"
+import {RinseRepeatController} from "../Scripts/RinseRepeatController"
+
+/** Shared helpers for the Rinse & Repeat LEAF scenarios. */
+
+export function controller(): RinseRepeatController {
+  const root = findSceneObjectByName("RinseRepeat")
+  if (!root) throw new Error("RinseRepeat root not found")
+  return root.getComponent(RinseRepeatController.getTypeName()) as RinseRepeatController
+}
+
+export function obj(name: string): SceneObject {
+  const o = findSceneObjectByName(name)
+  if (!o) throw new Error(`Scene object "${name}" not found`)
+  return o
+}
+
+export function textOf(name: string): string {
+  return (obj(name).getComponent("Component.Text") as Text).text
+}
+
+/** True when the object and all its parents are enabled. */
+export function visible(name: string): boolean {
+  return obj(name).isEnabledInHierarchy
+}
+
+export function worldPos(name: string): vec3 {
+  return obj(name).getTransform().getWorldPosition()
+}
+
+export function interactable(name: string): Interactable {
+  const i = findInteractableByName(name)
+  if (!i) throw new Error(`Interactable "${name}" not found`)
+  return i
+}
+
+export interface HeldSnapshot {
+  badgeVisible: boolean
+  badgeText: string
+  hintText: string
+  hintVisible: boolean
+}
+
+/**
+ * Pick up a product (grab with a tiny drag), take a snapshot of the badge while it is
+ * held, then let go.
+ */
+export async function pickUpAndRelease(interactor: RinseRepeatInteractor, name: string): Promise<HeldSnapshot> {
+  let snap: HeldSnapshot = {badgeVisible: false, badgeText: "", hintText: "", hintVisible: false}
+  const drag = interactor.carry(interactable(name), new vec3(0, 2, 0), 1000)
+  // The grab starts after LEAF's short hover phase; wait for it, then look at the badge.
+  await waitFor(() => visible("Badge"), 1500)
+  await sleep(100)
+  snap = {
+    badgeVisible: visible("Badge"),
+    badgeText: textOf("BadgeText"),
+    hintText: textOf("BadgeHint"),
+    hintVisible: visible("BadgeHint"),
+  }
+  await drag
+  return snap
+}
+
+/**
+ * Grab a product and drag it in a straight line through the face zone in front of the
+ * user's face, then let go. Returns the badge snapshot taken early in the grab.
+ */
+export async function useProduct(interactor: RinseRepeatInteractor, name: string): Promise<HeldSnapshot> {
+  const from = worldPos(name)
+  const to = worldPos("FaceZone")
+  // Aim slightly past the zone centre so the path goes through the middle of the zone.
+  const move = to.sub(from).uniformScale(1.1)
+  let snap: HeldSnapshot = {badgeVisible: false, badgeText: "", hintText: "", hintVisible: false}
+  const drag = interactor.carry(interactable(name), move, 1400)
+  // Grab the badge text in the first frames of the grab, before the product reaches the zone.
+  for (let i = 0; i < 120; i++) {
+    await sleep(16)
+    if (visible("Badge")) {
+      snap = {
+        badgeVisible: true,
+        badgeText: textOf("BadgeText"),
+        hintText: textOf("BadgeHint"),
+        hintVisible: visible("BadgeHint"),
+      }
+      break
+    }
+  }
+  await drag
+  await sleep(200)
+  return snap
+}
+
+/** Carry the towel to the bar and let go; retry a few times if it lands short. */
+export async function dragTowelToBar(interactor: RinseRepeatInteractor): Promise<void> {
+  const c = controller()
+  for (let round = 0; round < 4 && !c.towelOnBar; round++) {
+    const delta = worldPos("TowelBarSpot").sub(worldPos("Towel"))
+    await interactor.carry(interactable("Towel"), delta, 1200)
+    await sleep(200)
+    print(`[towel] round ${round} dist=${worldPos("TowelBarSpot").distance(worldPos("Towel")).toFixed(1)} onBar=${c.towelOnBar}`)
+  }
+}
+
+export async function waitFor(cond: () => boolean, timeoutMs: number): Promise<boolean> {
+  const end = getTime() * 1000 + timeoutMs
+  while (getTime() * 1000 < end) {
+    if (cond()) return true
+    await sleep(50)
+  }
+  return cond()
+}
