@@ -599,7 +599,7 @@ def bath_mat(m):
 DOOR_X0, DOOR_X1, DOOR_H = -76, 6, 202
 CEIL = 250
 BED_X0, BED_X1, BED_Z1 = -180, 360, 337.5
-BATH_X0, BATH_X1, BATH_Z0 = -140, 130, -557.5
+BATH_X0, BATH_X1, BATH_Z0 = -140, 265, -733.75
 
 
 def slab(x0, x1, h0, h1, z0, z1, m, tile):
