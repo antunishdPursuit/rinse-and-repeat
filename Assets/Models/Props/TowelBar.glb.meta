@@ -1,0 +1,128 @@
+- !<AssetImportMetadata/204f19b5-7cf8-46cc-aa0b-24697a04a7a6>
+  ImportedAssetIds:
+    .hidden/Chrome: !<reference> 702c9532-36f6-4029-8e4b-c281c1e82a15
+    26ba073d67b9d0dd: !<reference> b136003c-82b2-4d50-9e88-40c4051a3c74
+    4ee64ffa2e09194d: !<reference> 09880dc9-eff9-4424-a836-96e05475e134
+    657c264db4d38ac9: !<reference> ea0e580e-a497-4d64-ae2c-fd8a39574a61
+    88ab437fd121cc69: !<reference> 18dc0530-0ef5-4bcd-9111-c134ea6ea797
+    Materials/Chrome: !<reference> fa8f3f2e-578d-4447-ac72-7d56184fad41
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> 690bfe66-a7f3-4c24-9bd4-a6b3755ac39c
+    Meshes/TowelBar: !<reference> 9feb3045-5f00-4a72-8f30-3a107624f910
+    Scene: !<reference> b0af32e1-aee0-428c-a0e9-3e3720029ef3
+    e4b5cfc2ccca921a: !<reference> c43b7530-db17-4b34-a541-c80df68bf65a
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> b0af32e1-aee0-428c-a0e9-3e3720029ef3
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 695cc3f6-1fbf-493f-82cf-42b43dff3ab1
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+    ExtensionMappings:
+      mesh: None Compression
+    Overrides:
+      {}
+- !<SceneObject/09880dc9-eff9-4424-57c9-691fab8a1ecb>
+  PrefabRemaps:
+    []
+  Name: TowelBar
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> c43b7530-db17-4b34-5abe-37f2097409a5
+- !<SceneObject/18dc0530-0ef5-4bcd-6eee-3ecb15915868>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ea0e580e-a497-4d64-51d3-0275c6a8b59e
+  Components:
+    []
+- !<ObjectPrefabAssetData/695cc3f6-1fbf-493f-82cf-42b43dff3ab1>
+  Prototype: !<ObjectOwner/2477e4fe-ae9c-4e86-b5d6-2a8a64944308>
+    PackagePath: ""
+    objects:
+      - !<own> b136003c-82b2-4d50-6177-bf3bfae5c38b
+- !<SceneObject/b136003c-82b2-4d50-6177-bf3bfae5c38b>
+  PrefabRemaps:
+    []
+  Name: TowelBar
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 18dc0530-0ef5-4bcd-6eee-3ecb15915868
+  Components:
+    []
+- !<RenderMeshVisual/c43b7530-db17-4b34-5abe-37f2097409a5>
+  PrefabRemaps:
+    []
+  Name: TowelBar
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> fa8f3f2e-578d-4447-ac72-7d56184fad41
+  Mesh: !<reference> 9feb3045-5f00-4a72-8f30-3a107624f910
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/ea0e580e-a497-4d64-51d3-0275c6a8b59e>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 09880dc9-eff9-4424-57c9-691fab8a1ecb
+  Components:
+    []
