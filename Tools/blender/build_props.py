@@ -101,7 +101,7 @@ def M():
         "terry_blue": mat("TerryBlue", tex="terry_cloth", tint=(0.55, 0.75, 1.0), rough=0.95),
         "terry_white": mat("TerryWhite", tex="terry_cloth", tint=(0.86, 0.86, 0.84), rough=0.95),
         "linen_aqua": mat("LinenAqua", tex="rough_linen", tint=(0.72, 0.95, 0.95), rough=0.9, double=True),
-        "mirror": mat("MirrorGlass", (0.86, 0.9, 0.93), 0.35, 0.12),
+        "mirror": mat("MirrorGlass", (0.74, 0.8, 0.85), 0.0, 0.45),  # matte: reflects no environment
         "teal": mat("ShampooTeal", (0.1, 0.62, 0.62), 0.0, 0.25),
         "lavender": mat("ConditionerLavender", (0.68, 0.55, 0.9), 0.0, 0.25),
         "peach": mat("BodyWashPeach", (1.0, 0.5, 0.26), 0.0, 0.25),
