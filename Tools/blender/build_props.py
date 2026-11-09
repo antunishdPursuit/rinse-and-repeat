@@ -95,7 +95,7 @@ def M():
     """The shared material palette (light colours: dark renders transparent on Specs)."""
     return {
         "ceramic": mat("Ceramic", (0.95, 0.95, 0.94), 0.0, 0.12),
-        "chrome": mat("Chrome", (0.97, 0.97, 0.98), 1.0, 0.16),
+        "chrome": mat("Chrome", (0.88, 0.89, 0.91), 0.35, 0.28),  # satin, stays bright on Specs
         "oak": mat("Oak", tex="white_oak_veneer", tint=(1.08, 1.05, 1.0), rough=0.55),
         "paint": mat("WhitePaint", (0.93, 0.92, 0.89), 0.0, 0.45),
         "terry_blue": mat("TerryBlue", tex="terry_cloth", tint=(0.55, 0.75, 1.0), rough=0.95),
@@ -110,6 +110,11 @@ def M():
         "soap": mat("SoapCream", (1.0, 0.95, 0.82), 0.0, 0.45),
         "shade": mat("LampShade", (1.0, 0.95, 0.85), 0.0, 0.8, emit=0.6, double=True),
         "lamp_base": mat("LampBase", (0.86, 0.9, 0.84), 0.0, 0.3),
+        "parquet": mat("Parquet", tex="herringbone_parquet", tint=(1.25, 1.2, 1.12), rough=0.5),
+        "plaster": mat("Plaster", tex="painted_plaster_wall", tint=(1.05, 1.0, 0.92), rough=0.9),
+        "floor_tile": mat("FloorTile", tex="interior_tiles", tint=(1.1, 1.1, 1.08), rough=0.35),
+        "wall_tile": mat("WallTile", tex="long_white_tiles", tint=(1.12, 1.12, 1.12), rough=0.25),
+        "ceiling": mat("Ceiling", (0.95, 0.94, 0.92), 0.0, 0.9),
         "spray": mat("SprayFace", (0.78, 0.8, 0.82), 0.0, 0.5),
     }
 
@@ -227,7 +232,7 @@ def box_uvs(obj, tile=0.5):
     bm.free()
 
 
-def join_all(name):
+def join_all(name, uvs=True):
     objs = [o for o in bpy.context.scene.objects if o.type == "MESH"]
     for o in objs:
         o.select_set(True)
@@ -239,7 +244,8 @@ def join_all(name):
     o = bpy.context.active_object
     o.name = name
     o.data.name = name
-    box_uvs(o)
+    if uvs:
+        box_uvs(o)
     return o
 
 
@@ -257,7 +263,7 @@ def export(obj, name):
     print(f"[prop] {name}: {dims.x * 100:.0f} x {dims.y * 100:.0f} x {dims.z * 100:.0f} cm, {tris} triangles")
 
 
-def preview(obj, name):
+def preview(obj, name, d=(0.75, -1.6, 0.65), suffix="", figure=None, zoom=2.0):
     sc = bpy.context.scene
     for eng in ("BLENDER_EEVEE", "BLENDER_EEVEE_NEXT", "CYCLES"):
         try:
@@ -297,8 +303,14 @@ def preview(obj, name):
     cam_data.lens = 50
     cam = bpy.data.objects.new("cam", cam_data)
     sc.collection.objects.link(cam)
-    d = Vector((0.75, -1.6, 0.65)).normalized()
-    cam.location = centre + d * size * 2.0
+    if figure is not None:  # 175 cm grey figure for scale, preview only
+        fm = mat("Figure", (0.55, 0.6, 0.68), 0.0, 0.7)
+        cyl(0.17, 1.4, (figure[0], figure[1], figure[2] + 0.7), fm, scale=(1, 0.65, 1), bevel=0.08)
+        sphere(0.11, (figure[0], figure[1], figure[2] + 1.62), fm)
+        size = max(size, 2.2)
+        centre = Vector((centre.x, centre.y, max(centre.z, 0.8)))
+    d = Vector(d).normalized()
+    cam.location = centre + d * size * zoom
     cam.rotation_euler = (centre - cam.location).to_track_quat("-Z", "Y").to_euler()
     sc.camera = cam
     for loc, energy in (((2, -3, 4), 900), ((-3, -1, 2), 300)):
@@ -309,7 +321,7 @@ def preview(obj, name):
         lo_.location = centre + Vector(loc) * max(size, 0.3)
         lo_.rotation_euler = (centre - lo_.location).to_track_quat("-Z", "Y").to_euler()
         sc.collection.objects.link(lo_)
-    sc.render.filepath = os.path.join(OUT_DIR, "png", name + ".png")
+    sc.render.filepath = os.path.join(OUT_DIR, "png", name + suffix + ".png")
     bpy.ops.render.render(write_still=True)
 
 
@@ -317,10 +329,11 @@ def preview(obj, name):
 
 
 def bathtub(m):
-    tub = box((1.7, 0.75, 0.55), (0, 0, 0.275), m["ceramic"], bevel=0.03)
-    hole = box((1.56, 0.61, 0.6), (0, 0, 0.6), m["ceramic"], bevel=0.12, segs=6)
+    # Standard alcove tub: 170 x 80 cm, rim 55 cm high, basin floor 5 cm up, so about 50 cm deep inside.
+    tub = box((1.7, 0.8, 0.55), (0, 0, 0.275), m["ceramic"], bevel=0.03)
+    hole = box((1.56, 0.66, 0.7), (0, 0, 0.05 + 0.35), m["ceramic"], bevel=0.1, segs=6)
     cut(tub, hole)
-    cyl(0.025, 0.004, (-0.55, 0, 0.122), m["chrome"])  # drain
+    cyl(0.025, 0.004, (-0.62, 0, 0.052), m["chrome"])  # drain
     cyl(0.02, 0.1, (-0.78, 0.25, 0.6), m["chrome"])  # faucet riser
     cyl(0.016, 0.16, (-0.72, 0.25, 0.64), m["chrome"], rot=(0, math.pi / 2, 0))  # spout
     for x in (-0.82, -0.68):
@@ -414,6 +427,72 @@ def towel(m):
         box((w, 0.18, 0.026), (dx, 0, 0.013 + i * 0.024), m["terry_blue"], bevel=0.012, segs=5)
 
 
+def sheet(width, path, m, amp=0.0, waves=6, gather=None, thickness=0.006, nx=28):
+    """A cloth strip `width` wide along X, following `path` [(y, z), ...] in the YZ plane.
+    Folds push the cloth along the path normal; `gather(s)` scales X along the length (pinching)."""
+    seg = [0.0]
+    for (y0, z0), (y1, z1) in zip(path, path[1:]):
+        seg.append(seg[-1] + math.hypot(y1 - y0, z1 - z0))
+    length = seg[-1]
+    bm = bmesh.new()
+    rows = []
+    for i, (y, z) in enumerate(path):
+        a = path[max(i - 1, 0)]
+        b = path[min(i + 1, len(path) - 1)]
+        ty, tz = b[0] - a[0], b[1] - a[1]
+        tl = math.hypot(ty, tz) or 1.0
+        ny, nz = -tz / tl, ty / tl
+        s_ = seg[i] / length
+        g = gather(s_) if gather else 1.0
+        row = []
+        for j in range(nx + 1):
+            u = j / nx - 0.5
+            x = u * width * g
+            f = amp(s_) if callable(amp) else amp
+            d = f * (math.sin(u * math.pi * 2 * waves) + 0.4 * math.sin(u * math.pi * 2 * waves * 2.1 + 0.7))
+            row.append(bm.verts.new((x, y + ny * d, z + nz * d)))
+        rows.append(row)
+    for r0, r1 in zip(rows, rows[1:]):
+        for j in range(nx):
+            bm.faces.new((r0[j], r0[j + 1], r1[j + 1], r1[j]))
+    me = bpy.data.meshes.new("sheet")
+    bm.to_mesh(me)
+    bm.free()
+    o = bpy.data.objects.new("sheet", me)
+    bpy.context.collection.objects.link(o)
+    sol = o.modifiers.new("thick", "SOLIDIFY")
+    sol.thickness = thickness
+    sol.offset = 0
+    bpy.context.view_layer.objects.active = o
+    o.select_set(True)
+    bpy.ops.object.modifier_apply(modifier=sol.name)
+    o.data.materials.append(m)
+    bpy.ops.object.shade_smooth()
+    o.select_set(False)
+    return o
+
+
+def towel_hanging(m):
+    """The towel held up by one pinch: origin at the pinch point, cloth hanging 66 cm below it."""
+    path = [(0.0, -i * 0.66 / 40) for i in range(41)]
+
+    def gather(s_):
+        t = min(1.0, s_ / 0.3)
+        return 0.18 + 0.82 * (t * t * (3 - 2 * t))
+
+    sheet(0.4, path, m["terry_blue"], amp=lambda s_: 0.03 * (1.0 - 0.6 * s_), waves=3.5, gather=gather,
+          thickness=0.007)
+
+
+def towel_on_bar(m):
+    """The towel folded over the bar: origin on the bar axis; front half longer than the back."""
+    r = 0.02
+    path = [(r, -0.3 + i * 0.3 / 14) for i in range(15)]
+    path += [(r * math.cos(a), r * math.sin(a)) for a in (math.pi * k / 12 for k in range(1, 12))]
+    path += [(-r, -i * 0.36 / 16) for i in range(17)]
+    sheet(0.4, path, m["terry_blue"], amp=lambda s_: 0.006 + 0.01 * abs(s_ - 0.45), waves=2.5, thickness=0.007)
+
+
 def _label_band(r, z, h, m):
     cyl(r, h, (0, 0, z), m["label"])
 
@@ -498,19 +577,79 @@ def bath_mat(m):
     box((0.8, 0.5, 0.004), (0, 0, 0.002), m["terry_white"], bevel=0.0015)  # backing
 
 
+# ---------------------------------------------------------------- room shells
+# Room coordinates are Lens Studio centimetres: x right, y = height above the floor, z towards the viewer.
+# The user starts at x=0, z=0 facing -z. Bedroom: x -180..180, z -200..160. Bathroom behind the
+# shared front wall: x -140..40, z -440..-205. Door opening in the front wall: x -76..6, 0..202 cm high.
+
+DOOR_X0, DOOR_X1, DOOR_H = -76, 6, 202
+
+
+def slab(x0, x1, h0, h1, z0, z1, m, tile):
+    """Axis-aligned box from Lens cm ranges, with world-scale UVs (one repeat per `tile` metres)."""
+    o = box(((x1 - x0) / 100, (z1 - z0) / 100, (h1 - h0) / 100),
+            ((x0 + x1) / 200, -(z0 + z1) / 200, (h0 + h1) / 200), m, smooth=False)
+    bpy.context.view_layer.objects.active = o
+    o.select_set(True)
+    bpy.ops.object.transform_apply(location=True, rotation=False, scale=False)
+    o.select_set(False)
+    box_uvs(o, tile)
+    return o
+
+
+def wall_with_door(z0, z1, xa, xb, m, tile):
+    slab(xa, DOOR_X0, 0, 250, z0, z1, m, tile)
+    slab(DOOR_X1, xb, 0, 250, z0, z1, m, tile)
+    slab(DOOR_X0, DOOR_X1, DOOR_H, 250, z0, z1, m, tile)
+
+
+def bedroom_shell(m):
+    slab(-180, 180, -2, 0, -195, 160, m["parquet"], 1.0)  # floor
+    slab(-180, 180, 250, 252, -195, 160, m["ceiling"], 2.0)
+    slab(-182, -180, 0, 250, -195, 160, m["plaster"], 1.5)  # left
+    slab(180, 182, 0, 250, -195, 160, m["plaster"], 1.5)  # right
+    slab(-180, 180, 0, 250, 160, 162, m["plaster"], 1.5)  # back
+    wall_with_door(-197, -195, -180, 180, m["plaster"], 1.5)  # front, bedroom face
+    p = m["paint"]
+    for x0, x1, z0, z1 in ((-180, -178.5, -195, 160), (178.5, 180, -195, 160), (-180, 180, 158.5, 160),
+                           (-180, DOOR_X0 - 7, -195, -193.5), (DOOR_X1 + 7, 180, -195, -193.5)):
+        slab(x0, x1, 0, 9, z0, z1, p, 1.0)  # skirting boards
+    slab(DOOR_X0 - 7, DOOR_X0, 0, DOOR_H + 7, -195, -193.5, p, 1.0)  # door casing
+    slab(DOOR_X1, DOOR_X1 + 7, 0, DOOR_H + 7, -195, -193.5, p, 1.0)
+    slab(DOOR_X0 - 7, DOOR_X1 + 7, DOOR_H, DOOR_H + 7, -195, -193.5, p, 1.0)
+
+
+def bathroom_shell(m):
+    slab(-140, 40, -2, 0, -440, -205, m["floor_tile"], 0.6)
+    slab(-140, 40, 250, 252, -440, -205, m["ceiling"], 2.0)
+    slab(-142, -140, 0, 250, -440, -205, m["wall_tile"], 0.9)  # left
+    slab(40, 42, 0, 250, -440, -205, m["wall_tile"], 0.9)  # right, behind the tub
+    slab(-140, 40, 0, 250, -442, -440, m["wall_tile"], 0.9)  # far wall, shower end
+    wall_with_door(-205, -203, -140, 40, m["wall_tile"], 0.9)  # near wall, bathroom face
+    p = m["paint"]
+    slab(DOOR_X0 - 2, DOOR_X0, 0, DOOR_H, -205, -195, p, 1.0)  # door jambs through the wall
+    slab(DOOR_X1, DOOR_X1 + 2, 0, DOOR_H, -205, -195, p, 1.0)
+    slab(DOOR_X0 - 2, DOOR_X1 + 2, DOOR_H, DOOR_H + 2, -205, -195, p, 1.0)
+
+
+SHELLS = {"BedroomShell": bedroom_shell, "BathroomShell": bathroom_shell}
+
 PROPS = {
     "Bathtub": bathtub, "ShowerCurtain": shower_curtain, "ShowerHead": shower_head, "Toilet": toilet,
     "VanitySink": vanity_sink, "BathMirror": bath_mirror, "TowelBar": towel_bar, "Towel": towel,
+    "TowelHanging": towel_hanging, "TowelOnBar": towel_on_bar,
     "ShampooBottle": shampoo_bottle, "ConditionerBottle": conditioner_bottle, "BodyWashBottle": body_wash_bottle,
     "BarSoapDish": bar_soap_dish, "Wardrobe": wardrobe, "TableLamp": table_lamp, "InteriorDoor": interior_door,
     "DoorLever": door_lever, "BathMat": bath_mat,
 }
 
-for name, build in PROPS.items():
+for name, build in {**PROPS, **SHELLS}.items():
     if ONLY and name not in ONLY:
         continue
     reset()
     build(M())
-    obj = join_all(name)
+    obj = join_all(name, uvs=name not in SHELLS)
     export(obj, name)
     preview(obj, name)
+    if name == "Bathtub":  # look down into the basin with a person standing in it
+        preview(obj, name, d=(0.35, -1.0, 1.25), suffix="_top", figure=(0.25, 0.0, 0.05), zoom=1.15)
