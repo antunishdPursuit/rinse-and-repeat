@@ -1,0 +1,135 @@
+- !<AssetImportMetadata/282ce2a0-ce57-4e5a-8448-2725e28d33ed>
+  ImportedAssetIds:
+    .hidden/TerryBlue: !<reference> 07d9a9dd-b915-4f91-b27a-c1e1bb9e22cf
+    021dda19e1042ddc: !<reference> 480f75d7-cd7e-4b5d-9450-7e434e69c261
+    0fa310343f194977: !<reference> bb8e2aac-aa80-4097-8374-70631fb6bdb8
+    26ba073d67b9d0dd: !<reference> de870f93-7c5c-4ed6-86b6-a63aecf051cf
+    657c264db4d38ac9: !<reference> dc792e65-dfbe-4e7e-bb06-c7ad7da47466
+    88ab437fd121cc69: !<reference> abb286da-905d-44d6-b3a6-aea59acb99a4
+    Materials/TerryBlue: !<reference> aaae4bf1-cee1-422e-8f7d-a6f4284a18c1
+    Materials/TerryBlue|TerryBlue|GraphPassInfo: !<reference> 810d11de-80f2-49da-9418-ab50e742a376
+    Meshes/TowelHanging: !<reference> 7cb8ec09-21e5-4352-927c-439f1fff9d1e
+    Scene: !<reference> 1f54f75f-674a-48b1-b563-6e967e814fac
+    Textures/TerryBlue_diff: !<reference> 38789b10-449d-4e54-a826-2be0c112f172
+    Textures/terry_cloth_nor_gl_1k: !<reference> 6ad54970-3d82-4e51-984a-422e0266d0d0
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 1f54f75f-674a-48b1-b563-6e967e814fac
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> ad448cbb-410f-4131-ba47-06ca5291da6f
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/480f75d7-cd7e-4b5d-6baf-81bcb1963d9e>
+  PrefabRemaps:
+    []
+  Name: TowelHanging
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> bb8e2aac-aa80-4097-7c8b-8f9ce0494247
+- !<SceneObject/abb286da-905d-44d6-4c59-515a6534665b>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> dc792e65-dfbe-4e7e-44f9-3852825b8b99
+  Components:
+    []
+- !<ObjectPrefabAssetData/ad448cbb-410f-4131-ba47-06ca5291da6f>
+  Prototype: !<ObjectOwner/89ce4849-0caa-4c0e-b1e1-d25da4aa2d27>
+    PackagePath: ""
+    objects:
+      - !<own> de870f93-7c5c-4ed6-7949-59c5130fae30
+- !<RenderMeshVisual/bb8e2aac-aa80-4097-7c8b-8f9ce0494247>
+  PrefabRemaps:
+    []
+  Name: TowelHanging
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> aaae4bf1-cee1-422e-8f7d-a6f4284a18c1
+  Mesh: !<reference> 7cb8ec09-21e5-4352-927c-439f1fff9d1e
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/dc792e65-dfbe-4e7e-44f9-3852825b8b99>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 480f75d7-cd7e-4b5d-6baf-81bcb1963d9e
+  Components:
+    []
+- !<SceneObject/de870f93-7c5c-4ed6-7949-59c5130fae30>
+  PrefabRemaps:
+    []
+  Name: TowelHanging
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> abb286da-905d-44d6-4c59-515a6534665b
+  Components:
+    []

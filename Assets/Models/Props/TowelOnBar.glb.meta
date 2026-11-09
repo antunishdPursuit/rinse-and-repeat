@@ -1,0 +1,135 @@
+- !<AssetImportMetadata/1929aa6f-9a89-48ad-8872-01146f486d1a>
+  ImportedAssetIds:
+    .hidden/TerryBlue: !<reference> 9a275eb5-3d93-43fa-8b25-a26758cc3496
+    26ba073d67b9d0dd: !<reference> 69f11e5d-c7b9-4334-90ee-a6046912688d
+    314c67119a3aa768: !<reference> 93f219a6-24dd-4e65-8688-9cf207bfe87d
+    5984f2b1e5803028: !<reference> 814de235-2cc9-427c-969e-59f432ddb181
+    657c264db4d38ac9: !<reference> 3f64fd55-7508-4a56-823c-e6622348408c
+    88ab437fd121cc69: !<reference> c532119d-4483-4363-88c1-dba28512e453
+    Materials/TerryBlue: !<reference> 2719b53a-2c45-4f80-b8eb-143db3712404
+    Materials/TerryBlue|TerryBlue|GraphPassInfo: !<reference> e46960f2-c5cf-4c92-9fe7-6a081ec94d39
+    Meshes/TowelOnBar: !<reference> 7cf50f4f-7952-47d5-bc87-dd07eadf426c
+    Scene: !<reference> 475af0b0-2676-4ff8-9db4-f8471847a1fa
+    Textures/TerryBlue_diff: !<reference> 360f1fd8-a2cb-443f-97e2-2c52a14ba277
+    Textures/terry_cloth_nor_gl_1k: !<reference> bcb157b1-3a51-4ec1-b97c-dcaee358a636
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 475af0b0-2676-4ff8-9db4-f8471847a1fa
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 98612ff4-ce0d-4b62-9289-0db4e1b7c3d2
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/3f64fd55-7508-4a56-7dc3-199ddcb7bf73>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 93f219a6-24dd-4e65-7977-630df8401782
+  Components:
+    []
+- !<SceneObject/69f11e5d-c7b9-4334-6f11-59fb96ed9772>
+  PrefabRemaps:
+    []
+  Name: TowelOnBar
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> c532119d-4483-4363-773e-245d7aed1bac
+  Components:
+    []
+- !<RenderMeshVisual/814de235-2cc9-427c-6961-a60bcd224e7e>
+  PrefabRemaps:
+    []
+  Name: TowelOnBar
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 2719b53a-2c45-4f80-b8eb-143db3712404
+  Mesh: !<reference> 7cf50f4f-7952-47d5-bc87-dd07eadf426c
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/93f219a6-24dd-4e65-7977-630df8401782>
+  PrefabRemaps:
+    []
+  Name: TowelOnBar
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 814de235-2cc9-427c-6961-a60bcd224e7e
+- !<ObjectPrefabAssetData/98612ff4-ce0d-4b62-9289-0db4e1b7c3d2>
+  Prototype: !<ObjectOwner/6c0ce65c-ae49-42bf-b129-5c50ae6ada76>
+    PackagePath: ""
+    objects:
+      - !<own> 69f11e5d-c7b9-4334-6f11-59fb96ed9772
+- !<SceneObject/c532119d-4483-4363-773e-245d7aed1bac>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 3f64fd55-7508-4a56-7dc3-199ddcb7bf73
+  Components:
+    []
