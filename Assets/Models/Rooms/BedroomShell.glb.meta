@@ -1,0 +1,212 @@
+- !<AssetImportMetadata/7ced8131-c499-4660-a49c-62e6f7cc4293>
+  ImportedAssetIds:
+    .hidden/Ceiling: !<reference> d45a2374-9617-4f77-9f13-01d67b9e4cd0
+    26ba073d67b9d0dd: !<reference> 4a8eaea4-988e-446e-91da-b3a67267c311
+    657c264db4d38ac9: !<reference> 1e258b2d-ca52-4481-9cb5-6b2a1597a4b6
+    692b7463866ce904: !<reference> 2979930a-609a-4cf8-af75-399314aa0d3d
+    701f220c8b5a952d: !<reference> 4c5bbea0-33d2-4693-b5d9-c3a051792b80
+    88ab437fd121cc69: !<reference> b513e783-7f2a-406f-ab20-0940161b7992
+    Materials/Ceiling: !<reference> 868f7d17-1d4b-483e-89f8-483eaedb3620
+    Materials/Ceiling|Ceiling|GraphPassInfo: !<reference> e79ec41a-b217-4cc4-92af-324f8bfa60a6
+    Materials/Parquet: !<reference> 6999d475-a22b-45fd-af5c-2ca06292e95f
+    Materials/Parquet|Parquet|GraphPassInfo: !<reference> c016b10e-1627-4cad-a373-c9b476c76781
+    Materials/Plaster: !<reference> e7f5b9fd-a16f-4f89-84aa-1b521c657ae9
+    Materials/Plaster|Plaster|GraphPassInfo: !<reference> fe075187-2388-42a7-9f1c-78f6c7907ae3
+    Materials/WhitePaint: !<reference> 65d60435-bb29-4bc0-9685-f750623ea3fc
+    Materials/WhitePaint|WhitePaint|GraphPassInfo: !<reference> 646689ae-be9d-4713-8b60-fa2b92e4232d
+    Meshes/BedroomShell: !<reference> e966df39-960c-4467-bd06-eeae06cc0c50
+    Meshes/BedroomShell1: !<reference> c13e3932-0ea5-4292-ab3d-db102ca1ae4e
+    Meshes/BedroomShell2: !<reference> 063c2ac3-af43-4b56-8119-c243a9abc8bc
+    Meshes/BedroomShell3: !<reference> 7fcf5cd8-d890-417c-bc4e-5134ec37adc0
+    Scene: !<reference> d1a25012-1f7a-4e45-ada0-e560d657fe12
+    Textures/Parquet_diff: !<reference> 2ee8c0f7-5a55-44c6-aa86-509dd85a9ce8
+    Textures/Plaster_diff: !<reference> b1e34c78-ab33-4aac-8e04-2e63b5830316
+    Textures/herringbone_parquet_nor_gl_1k: !<reference> 0c823f6f-823b-4717-8b35-e3f84b78843a
+    Textures/painted_plaster_wall_nor_gl_1k: !<reference> 93579ed3-5c70-4a4a-8b3d-24adfcdb0fcc
+    ac6075323b92a73f: !<reference> 490bf6eb-ae86-49de-bd14-decac36b9d7c
+    eeb8e61575060aa1: !<reference> 30343ea9-18f4-4e7d-9b88-e56580506596
+    f41e37a3cda2a651: !<reference> 65a1093b-45bc-4df3-bd20-b00aed5cae0a
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> d1a25012-1f7a-4e45-ada0-e560d657fe12
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 6ba2e317-10ae-46a7-bbf0-52adef9d0250
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/1e258b2d-ca52-4481-634a-94d5ea685b49>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 65a1093b-45bc-4df3-42df-4ff512a351f5
+  Components:
+    []
+- !<RenderMeshVisual/2979930a-609a-4cf8-508a-c66ceb55f2c2>
+  PrefabRemaps:
+    []
+  Name: BedroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> e7f5b9fd-a16f-4f89-84aa-1b521c657ae9
+  Mesh: !<reference> 063c2ac3-af43-4b56-8119-c243a9abc8bc
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/30343ea9-18f4-4e7d-6477-1a9a7faf9a69>
+  PrefabRemaps:
+    []
+  Name: BedroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 65d60435-bb29-4bc0-9685-f750623ea3fc
+  Mesh: !<reference> 7fcf5cd8-d890-417c-bc4e-5134ec37adc0
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/490bf6eb-ae86-49de-42eb-21353c946283>
+  PrefabRemaps:
+    []
+  Name: BedroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 868f7d17-1d4b-483e-89f8-483eaedb3620
+  Mesh: !<reference> c13e3932-0ea5-4292-ab3d-db102ca1ae4e
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/4a8eaea4-988e-446e-6e25-4c598d983cee>
+  PrefabRemaps:
+    []
+  Name: BedroomShell
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> b513e783-7f2a-406f-54df-f6bfe9e4866d
+  Components:
+    []
+- !<RenderMeshVisual/4c5bbea0-33d2-4693-4a26-3c5fae86d47f>
+  PrefabRemaps:
+    []
+  Name: BedroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 6999d475-a22b-45fd-af5c-2ca06292e95f
+  Mesh: !<reference> e966df39-960c-4467-bd06-eeae06cc0c50
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/65a1093b-45bc-4df3-42df-4ff512a351f5>
+  PrefabRemaps:
+    []
+  Name: BedroomShell
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 4c5bbea0-33d2-4693-4a26-3c5fae86d47f
+    - !<own> 490bf6eb-ae86-49de-42eb-21353c946283
+    - !<own> 2979930a-609a-4cf8-508a-c66ceb55f2c2
+    - !<own> 30343ea9-18f4-4e7d-6477-1a9a7faf9a69
+- !<ObjectPrefabAssetData/6ba2e317-10ae-46a7-bbf0-52adef9d0250>
+  Prototype: !<ObjectOwner/666c42e4-b7b7-4cbf-a8f3-dfa2d7b9695d>
+    PackagePath: ""
+    objects:
+      - !<own> 4a8eaea4-988e-446e-6e25-4c598d983cee
+- !<SceneObject/b513e783-7f2a-406f-54df-f6bfe9e4866d>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1e258b2d-ca52-4481-634a-94d5ea685b49
+  Components:
+    []

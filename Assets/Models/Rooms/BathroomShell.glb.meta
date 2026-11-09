@@ -1,0 +1,212 @@
+- !<AssetImportMetadata/5c9b3d3a-412e-4c8b-a3dc-2b695a520426>
+  ImportedAssetIds:
+    .hidden/Ceiling: !<reference> fa2bbd49-87c8-41ee-ba85-55c47059dcd4
+    26ba073d67b9d0dd: !<reference> 5a8185bf-3396-4ae7-8b38-7c8801bb975e
+    41b48b2e81b2bac8: !<reference> b4231908-12e2-404e-b515-2f67bc1e1088
+    657c264db4d38ac9: !<reference> ef62ba1e-f02f-4ee9-a3fb-3dd060fc8b53
+    7f97a353afe11867: !<reference> 9bf607d4-6480-4b4c-a6b8-5c97f60413f6
+    88ab437fd121cc69: !<reference> 6643456d-2f4b-416e-88a8-56b9837b0ee8
+    Materials/Ceiling: !<reference> 3ffca93a-3500-405a-bb14-9cdafb42edd4
+    Materials/Ceiling|Ceiling|GraphPassInfo: !<reference> 3508b663-6931-4e2e-b80e-f361a10b3caf
+    Materials/FloorTile: !<reference> 5a3a4dfe-f379-4960-8276-5c66399ca967
+    Materials/FloorTile|FloorTile|GraphPassInfo: !<reference> 6146fec9-4d28-4cbc-add8-7c4c8fdd3cc5
+    Materials/WallTile: !<reference> c2527874-9fd7-4436-b893-b7b64a66695b
+    Materials/WallTile|WallTile|GraphPassInfo: !<reference> 599e5c33-fbe1-4fc1-84db-bc784a89c28c
+    Materials/WhitePaint: !<reference> de79ac0f-09d4-4e2c-8574-f0eaf997e129
+    Materials/WhitePaint|WhitePaint|GraphPassInfo: !<reference> 8ebfcfb6-2af8-47be-a15d-434dbcdcd8be
+    Meshes/BathroomShell: !<reference> 2dafc6dd-cdcd-4f68-85e7-6b2345fccf86
+    Meshes/BathroomShell1: !<reference> ca25b597-53c4-4e5c-ad1f-1598a693d6ed
+    Meshes/BathroomShell2: !<reference> 86b2d73c-a2db-436f-97c3-64a2f5773d1e
+    Meshes/BathroomShell3: !<reference> e4dfb3fd-6cc7-4ab7-90c7-1ed7cc9af46b
+    Scene: !<reference> f27f2487-6076-47a5-8ebd-3ab5ee1fa733
+    Textures/FloorTile_diff: !<reference> 81e2f5ae-6469-4aa6-bbd7-aa03b9353645
+    Textures/WallTile_diff: !<reference> 33091a5f-14af-4705-af35-7087f04a45cc
+    Textures/interior_tiles_nor_gl_1k: !<reference> 8275a9fe-3327-45d3-a9c6-536f8f2b4649
+    Textures/long_white_tiles_nor_gl_1k: !<reference> b5bfe192-4339-4f10-822f-4c9e88541434
+    c66b7ff128a78c50: !<reference> 6772f0e9-4290-4573-9d08-0a918f6f0825
+    d512422cc9ce8847: !<reference> d73373d6-7dee-41f5-ac8f-eaef6034aada
+    e4518b75a3857b6c: !<reference> bc0e12d8-a59c-4c5c-b2e5-ce198e9887f3
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> f27f2487-6076-47a5-8ebd-3ab5ee1fa733
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> fe9a9779-6327-46e9-9a08-1f2549900ca3
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+      png: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/5a8185bf-3396-4ae7-74c7-8377fe4468a1>
+  PrefabRemaps:
+    []
+  Name: BathroomShell
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 6643456d-2f4b-416e-7757-a9467c84f117
+  Components:
+    []
+- !<SceneObject/6643456d-2f4b-416e-7757-a9467c84f117>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ef62ba1e-f02f-4ee9-5c04-c22f9f0374ac
+  Components:
+    []
+- !<RenderMeshVisual/6772f0e9-4290-4573-62f7-f56e7090f7da>
+  PrefabRemaps:
+    []
+  Name: BathroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> de79ac0f-09d4-4e2c-8574-f0eaf997e129
+  Mesh: !<reference> e4dfb3fd-6cc7-4ab7-90c7-1ed7cc9af46b
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/9bf607d4-6480-4b4c-5947-a36809fbec09>
+  PrefabRemaps:
+    []
+  Name: BathroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 3ffca93a-3500-405a-bb14-9cdafb42edd4
+  Mesh: !<reference> ca25b597-53c4-4e5c-ad1f-1598a693d6ed
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/b4231908-12e2-404e-4aea-d09843e1ef77>
+  PrefabRemaps:
+    []
+  Name: BathroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> c2527874-9fd7-4436-b893-b7b64a66695b
+  Mesh: !<reference> 86b2d73c-a2db-436f-97c3-64a2f5773d1e
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/bc0e12d8-a59c-4c5c-4d1a-31e67167780c>
+  PrefabRemaps:
+    []
+  Name: BathroomShell
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> d73373d6-7dee-41f5-5370-15109fcb5525
+    - !<own> 9bf607d4-6480-4b4c-5947-a36809fbec09
+    - !<own> b4231908-12e2-404e-4aea-d09843e1ef77
+    - !<own> 6772f0e9-4290-4573-62f7-f56e7090f7da
+- !<RenderMeshVisual/d73373d6-7dee-41f5-5370-15109fcb5525>
+  PrefabRemaps:
+    []
+  Name: BathroomShell
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 5a3a4dfe-f379-4960-8276-5c66399ca967
+  Mesh: !<reference> 2dafc6dd-cdcd-4f68-85e7-6b2345fccf86
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/ef62ba1e-f02f-4ee9-5c04-c22f9f0374ac>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> bc0e12d8-a59c-4c5c-4d1a-31e67167780c
+  Components:
+    []
+- !<ObjectPrefabAssetData/fe9a9779-6327-46e9-9a08-1f2549900ca3>
+  Prototype: !<ObjectOwner/fd5d54fb-ba8a-40ce-9bde-e9d3fd2225a9>
+    PackagePath: ""
+    objects:
+      - !<own> 5a8185bf-3396-4ae7-74c7-8377fe4468a1
