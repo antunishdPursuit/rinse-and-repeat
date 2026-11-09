@@ -1,0 +1,128 @@
+- !<AssetImportMetadata/de6265d0-5f19-4cf4-b796-a1a68dd85bc9>
+  ImportedAssetIds:
+    .hidden/Chrome: !<reference> 176695e7-c6ec-42e3-8807-ecb7483fd260
+    15df4462fe969f6d: !<reference> 0518324b-1efc-42ba-923a-bd6c3eb8351a
+    26ba073d67b9d0dd: !<reference> 52883afe-edf1-4315-8476-3bb7e2691178
+    657c264db4d38ac9: !<reference> 7591679b-6c66-4524-9436-a59cbb7ea217
+    88ab437fd121cc69: !<reference> 5f64c903-d1c2-49d7-85ce-78389d4c4164
+    Materials/Chrome: !<reference> 461d667f-e59b-464e-aba6-72ea519576bc
+    Materials/Chrome|Chrome|GraphPassInfo: !<reference> 41144d2d-3e48-4474-aa9b-4debe8c1d5b9
+    Meshes/DoorLever: !<reference> e2113370-0683-4d19-9115-53b1107e3559
+    Scene: !<reference> 806521c1-54a0-4b04-973c-5b33d0a9d08f
+    ea4f4d222d28891c: !<reference> c764cb88-ddb3-41d9-8a07-ee93d16875f6
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 806521c1-54a0-4b04-973c-5b33d0a9d08f
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 6c6f62ac-900b-455d-804f-464233b92f68
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+    ExtensionMappings:
+      mesh: None Compression
+    Overrides:
+      {}
+- !<RenderMeshVisual/0518324b-1efc-42ba-6dc5-4293c147cae5>
+  PrefabRemaps:
+    []
+  Name: DoorLever
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 461d667f-e59b-464e-aba6-72ea519576bc
+  Mesh: !<reference> e2113370-0683-4d19-9115-53b1107e3559
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/52883afe-edf1-4315-7b89-c4481d96ee87>
+  PrefabRemaps:
+    []
+  Name: DoorLever
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 5f64c903-d1c2-49d7-7a31-87c762b3be9b
+  Components:
+    []
+- !<SceneObject/5f64c903-d1c2-49d7-7a31-87c762b3be9b>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 7591679b-6c66-4524-6bc9-5a6344815de8
+  Components:
+    []
+- !<ObjectPrefabAssetData/6c6f62ac-900b-455d-804f-464233b92f68>
+  Prototype: !<ObjectOwner/5ceae6fc-636b-4d2e-a433-95fd3ac1701a>
+    PackagePath: ""
+    objects:
+      - !<own> 52883afe-edf1-4315-7b89-c4481d96ee87
+- !<SceneObject/7591679b-6c66-4524-6bc9-5a6344815de8>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> c764cb88-ddb3-41d9-75f8-116c2e978a09
+  Components:
+    []
+- !<SceneObject/c764cb88-ddb3-41d9-75f8-116c2e978a09>
+  PrefabRemaps:
+    []
+  Name: DoorLever
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 0518324b-1efc-42ba-6dc5-4293c147cae5
