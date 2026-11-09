@@ -1,0 +1,282 @@
+- !<AssetImportMetadata/d5f4f792-1a6b-4e52-a2d7-16f33f13faf5>
+  ImportedAssetIds:
+    .hidden/wall_clock: !<reference> ab1bbd09-0969-433f-8571-cbddfd3dad93
+    02baea7fab643911: !<reference> ba30af5a-9dcb-4cc1-86d0-0a7986736476
+    096d04cc35c11066: !<reference> 07ff3f93-00b3-4228-904e-c82f8f4a1145
+    25ef2ab020f96180: !<reference> 25ec7732-4e17-4d23-8962-d7c103adac4d
+    26ba073d67b9d0dd: !<reference> 7a8750e1-289d-41aa-af8b-c5cd58f214d3
+    657c264db4d38ac9: !<reference> 4f1f0d52-d7d0-4771-835b-8a1dd2508bbc
+    70dc364ad2303d8b: !<reference> aafb61a4-1ea0-40da-a6d9-a3a5f66fa87e
+    7b9eee4d0c025b54: !<reference> b62afc08-235f-4b70-96b4-71f4e309d1d8
+    88ab437fd121cc69: !<reference> 5ef8de64-3813-4cef-8e59-e55d7adc7ffa
+    Materials/wall_clock: !<reference> a63091b2-577f-44ad-90ca-82fc676d5823
+    Materials/wall_clock_glass: !<reference> ebec2da9-0394-4f26-8955-f98b93f9a501
+    Materials/wall_clock_glass|wall_clock_glass|GraphPassInfo: !<reference> 5a106ccc-4a6b-464c-b688-1416580fa572
+    Materials/wall_clock|wall_clock|GraphPassInfo: !<reference> f8ac1af3-3ed5-4a1c-a404-deec80e3da12
+    Meshes/frame.001: !<reference> 308efb03-f851-411c-b582-2ac5849726d9
+    Meshes/frame1.001: !<reference> 33674b80-1fe4-4287-8641-cb197e832f76
+    Meshes/hours.001: !<reference> 180be0e9-3aae-4fef-b627-48d7b8f8807e
+    Meshes/hub.001: !<reference> 732d5ff8-341a-4c31-a5d4-9313baa910b1
+    Meshes/minutes.001: !<reference> e8b3ad19-80d9-464c-b070-08ded045d39b
+    Scene: !<reference> ebca9868-1818-46f4-a0c7-67bec2d4d5eb
+    Textures/wall_clock_arm_1k: !<reference> 1737bff2-2bcb-4736-8cb6-ca5986fa2aad
+    Textures/wall_clock_diff_1k: !<reference> d4afc384-ea8a-4f71-bf39-970b73f285f0
+    Textures/wall_clock_glass_arm_1k: !<reference> 3870f010-4410-41ba-9de8-377827e23978
+    Textures/wall_clock_nor_gl_1k: !<reference> a8a75800-a7fe-43e6-8b48-dcfd7f22fdaa
+    e5c42de3358b49f7: !<reference> c0835078-5114-45db-b4a5-04af95e0b5da
+    e7b7ce63a9a9582a: !<reference> 5f9bdcce-a3fb-4962-969b-8d8be26881ba
+    e92128e9abc8eaf7: !<reference> bd75b0c9-0f5e-45ad-8891-8e844d0fbc81
+    ebcd79a0c6efe85d: !<reference> 77622dfd-7cd8-4788-b0ab-727893a25380
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> ebca9868-1818-46f4-a0c7-67bec2d4d5eb
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 826d049c-a803-48b9-9d0f-87d1a1d3863b
+  DependentFiles:
+    - textures/wall_clock_arm_1k.jpg
+    - textures/wall_clock_diff_1k.jpg
+    - textures/wall_clock_glass_arm_1k.jpg
+    - textures/wall_clock_nor_gl_1k.jpg
+    - wall_clock.bin
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/07ff3f93-00b3-4228-6fb1-37d070b5eeba>
+  PrefabRemaps:
+    []
+  Name: wall_clock_minute_hand
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 77622dfd-7cd8-4788-4f54-8d876c5dac7f
+- !<RenderMeshVisual/25ec7732-4e17-4d23-769d-283efc5253b2>
+  PrefabRemaps:
+    []
+  Name: hours.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> a63091b2-577f-44ad-90ca-82fc676d5823
+  Mesh: !<reference> 180be0e9-3aae-4fef-b627-48d7b8f8807e
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/4f1f0d52-d7d0-4771-7ca4-75e22daf7443>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 07ff3f93-00b3-4228-6fb1-37d070b5eeba
+    - !<own> ba30af5a-9dcb-4cc1-792f-f586798c9b89
+    - !<own> 5f9bdcce-a3fb-4962-6964-72741d977e45
+    - !<own> b62afc08-235f-4b70-694b-8e0b1cf62e27
+  Components:
+    []
+- !<SceneObject/5ef8de64-3813-4cef-71a6-1aa285238005>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4f1f0d52-d7d0-4771-7ca4-75e22daf7443
+  Components:
+    []
+- !<SceneObject/5f9bdcce-a3fb-4962-6964-72741d977e45>
+  PrefabRemaps:
+    []
+  Name: wall_clock_hours_hand
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 25ec7732-4e17-4d23-769d-283efc5253b2
+- !<RenderMeshVisual/77622dfd-7cd8-4788-4f54-8d876c5dac7f>
+  PrefabRemaps:
+    []
+  Name: minutes.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> a63091b2-577f-44ad-90ca-82fc676d5823
+  Mesh: !<reference> e8b3ad19-80d9-464c-b070-08ded045d39b
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/7a8750e1-289d-41aa-5074-3a32a70deb2c>
+  PrefabRemaps:
+    []
+  Name: wall_clock
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 5ef8de64-3813-4cef-71a6-1aa285238005
+  Components:
+    []
+- !<ObjectPrefabAssetData/826d049c-a803-48b9-9d0f-87d1a1d3863b>
+  Prototype: !<ObjectOwner/08596b6d-2242-4b29-8e07-46492468d633>
+    PackagePath: ""
+    objects:
+      - !<own> 7a8750e1-289d-41aa-5074-3a32a70deb2c
+- !<RenderMeshVisual/aafb61a4-1ea0-40da-5926-5c5a09905781>
+  PrefabRemaps:
+    []
+  Name: hub.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> a63091b2-577f-44ad-90ca-82fc676d5823
+  Mesh: !<reference> 732d5ff8-341a-4c31-a5d4-9313baa910b1
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/b62afc08-235f-4b70-694b-8e0b1cf62e27>
+  PrefabRemaps:
+    []
+  Name: wall_clock
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> bd75b0c9-0f5e-45ad-776e-717bb2f0437e
+    - !<own> c0835078-5114-45db-4b5a-fb506a1f4a25
+- !<SceneObject/ba30af5a-9dcb-4cc1-792f-f586798c9b89>
+  PrefabRemaps:
+    []
+  Name: wall_clock_second_hand
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> aafb61a4-1ea0-40da-5926-5c5a09905781
+- !<RenderMeshVisual/bd75b0c9-0f5e-45ad-776e-717bb2f0437e>
+  PrefabRemaps:
+    []
+  Name: frame.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> a63091b2-577f-44ad-90ca-82fc676d5823
+  Mesh: !<reference> 308efb03-f851-411c-b582-2ac5849726d9
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/c0835078-5114-45db-4b5a-fb506a1f4a25>
+  PrefabRemaps:
+    []
+  Name: frame.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> ebec2da9-0394-4f26-8955-f98b93f9a501
+  Mesh: !<reference> 33674b80-1fe4-4287-8641-cb197e832f76
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
