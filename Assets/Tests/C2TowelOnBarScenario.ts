@@ -23,8 +23,8 @@ import {
 } from "./RinseRepeatTestUtils"
 
 /**
- * Done criterion 2: dropping the towel on the towel bar shows
- * "Time to learn how to take a shower."
+ * Done criterion 2: hanging the towel on the bar shows "Time to learn how to take a shower."
+ * Two ways: pinch the towel bar (the towel goes over it), or drop the towel on the bar.
  */
 @component
 export class TowelOnBarScenario extends Scenario {
@@ -37,9 +37,19 @@ export class TowelOnBarScenario extends Scenario {
     expect(visible("PutTowelText"), "towel prompt shows in the bathroom").toBe(true)
     expect(visible("LessonText"), "lesson message is not shown yet").toBe(false)
 
+    // 1. Pinch the bar: the carried towel goes over it.
+    await interactor.trigger(interactable("TowelBar"))
+    const hung = await waitFor(() => c.towelOnBar, 2000)
+    expect(hung, "pinching the bar hangs the towel").toBe(true)
+    expect(visible("TowelDraped"), "towel drapes over the bar").toBe(true)
+    expect(visible("LessonText"), "lesson message shows").toBe(true)
+
+    // 2. Drop it on the bar instead.
+    c.jumpToTowelToBar()
+    await sleep(500)
     await dragTowelToBar(interactor)
 
-    expect(c.towelOnBar, "towel snaps onto the bar").toBe(true)
+    expect(c.towelOnBar, "dropping the towel on the bar hangs it").toBe(true)
     expect(visible("PutTowelText"), "towel prompt hides").toBe(false)
     expect(visible("LessonText"), "lesson message shows").toBe(true)
     expect(textOf("LessonText")).toBe(MSG_LEARN)

@@ -99,7 +99,8 @@ export async function dragTowelToBar(interactor: RinseRepeatInteractor): Promise
   for (let round = 0; round < 4 && !c.towelOnBar; round++) {
     const delta = worldPos("TowelBarSpot").sub(worldPos("Towel"))
     await interactor.carry(interactable("Towel"), delta, 1200)
-    await sleep(200)
+    // Released near the bar, the towel flies over it (about 0.7 s).
+    await waitFor(() => c.towelOnBar, 1500)
     print(`[towel] round ${round} dist=${worldPos("TowelBarSpot").distance(worldPos("Towel")).toFixed(1)} onBar=${c.towelOnBar}`)
   }
 }

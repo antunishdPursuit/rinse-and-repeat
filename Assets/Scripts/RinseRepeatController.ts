@@ -7,7 +7,8 @@ import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
  * Rinse & Repeat: a simulated practice bathroom that teaches the shower order
  * (shampoo, conditioner, then body wash or bar soap).
  *
- * Flow: towel + door (opening) -> bright light -> towel on the bar -> lesson -> finish.
+ * Flow: take the towel from the bed, open the bathroom door -> bright light -> walk in and
+ * hang the towel on the bar -> lesson at the tub -> finish.
  * Scene objects are found by name under this object and the camera, so they can be
  * moved freely in the editor. Grab, pinch and hover behaviour is added at runtime with
  * Spectacles Interaction Kit, so it works with hands, the mouse in Interactive Preview
@@ -16,12 +17,14 @@ import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 
 type Stage = "opening" | "doorOpening" | "towelToBar" | "intro" | "lesson" | "finished"
 type ProductId = "Shampoo" | "Conditioner" | "BodyWash" | "BarSoap"
+/** rest: folded on the bed. held: hanging from the pinch. carried: hanging at the user's side. */
+type TowelState = "rest" | "held" | "carried" | "flying" | "onBar"
 
 interface Product {
   id: ProductId
   obj: SceneObject
   step: number // 0 shampoo, 1 conditioner, 2 body
-  homePos: vec3
+  homePos: vec3 // local to the product's parent, so the rooms can be moved as a whole
   homeRot: quat
   interactable: Interactable
   manip: InteractableManipulation
@@ -112,6 +115,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   public learnMoreOpen: boolean = false
   public lastUsedStep: number = -1
   public splashPlays: number = 0
+  public towelState: TowelState = "rest"
 
   private camTransform: Transform
   private tweens: Tween[] = []
@@ -148,8 +152,14 @@ export class RinseRepeatController extends BaseScriptComponent {
   private badge: SceneObject
   private badgeText: Text
   private badgeHint: Text
-  private towelStartSpot: SceneObject
   private towelBarSpot: SceneObject
+  private towelFolded: SceneObject
+  private towelHanging: SceneObject
+  private towelDraped: SceneObject
+  private lessonSpot: SceneObject
+  private bathEntrySpot: SceneObject
+  private towelLastPos: vec3 | null = null
+  private swing = {x: 0, z: 0, vx: 0, vz: 0}
   private doorHingeHomeRot: quat
   private tipToken = 0
   private lessonToken = 0
@@ -162,8 +172,12 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.towel = this.find("Towel")
     this.towelSign = this.find("TowelSign")
     this.towelBar = this.find("TowelBar")
-    this.towelStartSpot = this.find("TowelStartSpot")
     this.towelBarSpot = this.find("TowelBarSpot")
+    this.towelFolded = this.find("TowelFolded")
+    this.towelHanging = this.find("TowelHanging")
+    this.towelDraped = this.find("TowelDraped")
+    this.lessonSpot = this.find("LessonSpot")
+    this.bathEntrySpot = this.find("BathEntrySpot")
     this.brightLight = this.find("BrightLight")
     this.faceZone = this.find("FaceZone")
     this.putTowelText = this.find("PutTowelText")
@@ -191,15 +205,17 @@ export class RinseRepeatController extends BaseScriptComponent {
 
     this.doorHingeHomeRot = this.doorHinge.getTransform().getLocalRotation()
 
-    // Towel: grab and drag.
-    this.towelHomePos = this.towel.getTransform().getWorldPosition()
-    this.towelHomeRot = this.towel.getTransform().getWorldRotation()
-    const towelParts = this.makeGrabbable(this.towel, new vec3(44, 74, 8))
+    // Towel: grab it from the bed; it hangs from the pinch and is carried at your side.
+    this.towelHomePos = this.towel.getTransform().getLocalPosition()
+    this.towelHomeRot = this.towel.getTransform().getLocalRotation()
+    const towelParts = this.makeGrabbable(this.towel, new vec3(40, 16, 28))
     this.towelInteractable = towelParts.interactable
     this.towelManip = towelParts.manip
 
     // Door handle: pinch.
     const handleInteractable = this.makePinchable(this.doorHandle, new vec3(18, 12, 10))
+    // Towel bar: pinch it to hang the towel you are carrying.
+    const barInteractable = this.makePinchable(this.towelBar, new vec3(70, 14, 20))
 
     // Products.
     const ids: ProductId[] = ["Shampoo", "Conditioner", "BodyWash", "BarSoap"]
@@ -212,8 +228,8 @@ export class RinseRepeatController extends BaseScriptComponent {
         id,
         obj,
         step: steps[i],
-        homePos: obj.getTransform().getWorldPosition(),
-        homeRot: obj.getTransform().getWorldRotation(),
+        homePos: obj.getTransform().getLocalPosition(),
+        homeRot: obj.getTransform().getLocalRotation(),
         interactable: parts.interactable,
         manip: parts.manip,
         collider: parts.collider,
@@ -232,6 +248,7 @@ export class RinseRepeatController extends BaseScriptComponent {
       this.towelManip.onManipulationStart.add(() => this.onTowelGrab())
       this.towelManip.onManipulationEnd.add(() => this.onTowelRelease())
       handleInteractable.onTriggerStart.add(() => this.onDoorHandle())
+      barInteractable.onTriggerStart.add(() => this.onTowelBarPinch())
 
       this.products.forEach((p) => {
         p.manip.onManipulationStart.add(() => this.onProductGrab(p))
@@ -259,16 +276,18 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.towelOnBar = false
     this.lastUsedStep = -1
     this.held = null
+    this.sceneObject.getTransform().setWorldPosition(vec3.zero())
 
     this.opening.enabled = true
-    this.bathroom.enabled = false
+    this.bathroom.enabled = true
     this.brightLight.enabled = false
     this.towelSign.enabled = true
     this.doorHinge.getTransform().setLocalRotation(this.doorHingeHomeRot)
 
     this.towel.enabled = true
-    this.towel.getTransform().setWorldPosition(this.towelHomePos)
-    this.towel.getTransform().setWorldRotation(this.towelHomeRot)
+    this.towel.getTransform().setLocalPosition(this.towelHomePos)
+    this.towel.getTransform().setLocalRotation(this.towelHomeRot)
+    this.setTowelState("rest")
     this.setInteractive(this.towelInteractable, this.towelManip, true)
 
     this.resetLessonUi()
@@ -276,46 +295,123 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.setProductsInteractive(false)
   }
 
-  /** Test helper: skip straight to the bathroom with the towel in hand. */
+  /** Test helper: skip to inside the bathroom door, carrying the towel. */
   public jumpToTowelToBar() {
     this.resetToOpening()
     this.towelTaken = true
+    this.towelSign.enabled = false
+    this.openDoorInstantly()
     this.enterBathroom()
+    this.setTowelState("carried")
+    this.placeUserAt(this.bathEntrySpot)
+    this.snapTowelToSide()
   }
 
-  /** Test helper: skip straight to the start of the lesson. */
+  /** Test helper: skip straight to the start of the lesson, standing in the tub. */
   public jumpToLesson() {
     this.resetToOpening()
     this.towelTaken = true
+    this.towelSign.enabled = false
+    this.openDoorInstantly()
     this.enterBathroom()
     this.hangTowelOnBar()
     this.putTowelText.enabled = false
     this.startLesson()
+    this.placeUserAt(this.lessonSpot)
+  }
+
+  /**
+   * Move the rooms so that `spot` is under the user (height unchanged). Only used to skip
+   * ahead in the preview and in tests; in normal use the user walks there.
+   */
+  private placeUserAt(spot: SceneObject) {
+    if (!this.camTransform) return
+    const root = this.sceneObject.getTransform()
+    root.setWorldPosition(vec3.zero())
+    const cam = this.camTransform.getWorldPosition()
+    const p = spot.getTransform().getWorldPosition()
+    root.setWorldPosition(new vec3(cam.x - p.x, 0, cam.z - p.z))
+  }
+
+  private openDoorInstantly() {
+    const hinge = this.doorHinge.getTransform()
+    hinge.setLocalRotation(this.doorHingeHomeRot.multiply(quat.angleAxis(MathUtils.DegToRad * 95, vec3.up())))
+  }
+
+  // ------------------------------------------------------------------ towel
+
+  private setTowelState(state: TowelState) {
+    this.towelState = state
+    this.towelFolded.enabled = state === "rest"
+    this.towelHanging.enabled = state === "held" || state === "carried" || state === "flying"
+    this.towelDraped.enabled = state === "onBar"
+    this.swing = {x: 0, z: 0, vx: 0, vz: 0}
+    this.towelHanging.getTransform().setLocalRotation(quat.quatIdentity())
+    this.towelLastPos = null
   }
 
   private onTowelGrab() {
+    if (this.towelState === "onBar" || this.towelState === "flying") return
     if (this.stage === "opening" && !this.towelTaken) {
       this.towelTaken = true
       this.towelSign.enabled = false
     }
+    const wasResting = this.towelState === "rest"
+    this.setTowelState("held")
+    if (wasResting) this.faceCamera(this.towel.getTransform())
   }
 
   private onTowelRelease() {
-    if (this.stage !== "towelToBar" || this.towelOnBar) return
+    if (this.towelState !== "held") return
     const d = this.towel.getTransform().getWorldPosition().distance(this.towelBarSpot.getTransform().getWorldPosition())
-    if (d <= this.towelSnapDistance) {
-      this.hangTowelOnBar()
-      this.putTowelText.enabled = false
-      this.stage = "intro"
-      this.showText(this.lessonText, MSG_LEARN)
-      const token = ++this.lessonToken
-      this.after(this.introSeconds, () => {
-        if (token !== this.lessonToken) return
-        this.fadeTextOut(this.lessonText, 0.6, () => {
-          if (token === this.lessonToken) this.startLesson()
-        })
-      })
+    if (this.stage === "towelToBar" && d <= this.towelSnapDistance) {
+      this.flyTowelToBar()
+      return
     }
+    // Let go anywhere else: the towel stays with you, hanging at your side.
+    this.setTowelState("carried")
+  }
+
+  private onTowelBarPinch() {
+    if (this.stage !== "towelToBar" || !this.towelTaken) return
+    if (this.towelState === "onBar" || this.towelState === "flying") return
+    this.flyTowelToBar()
+  }
+
+  private flyTowelToBar() {
+    this.setTowelState("flying")
+    this.setInteractive(this.towelInteractable, this.towelManip, false)
+    const t = this.towel.getTransform()
+    const spot = this.towelBarSpot.getTransform()
+    const fromPos = t.getWorldPosition()
+    const fromRot = t.getWorldRotation()
+    this.tween(
+      0.7,
+      (k) => {
+        const e = k * k * (3 - 2 * k)
+        // A small arc so it reads as being tossed over the bar.
+        const lift = new vec3(0, 12 * Math.sin(Math.PI * k), 0)
+        t.setWorldPosition(vec3.lerp(fromPos, spot.getWorldPosition(), e).add(lift))
+        t.setWorldRotation(quat.slerp(fromRot, spot.getWorldRotation(), e))
+      },
+      () => {
+        this.hangTowelOnBar()
+        this.onTowelHung()
+      },
+    )
+  }
+
+  private onTowelHung() {
+    this.putTowelText.enabled = false
+    this.stage = "intro"
+    this.showText(this.lessonText, MSG_LEARN)
+    const token = ++this.lessonToken
+    this.after(this.introSeconds, () => {
+      if (token !== this.lessonToken) return
+      this.fadeTextOut(this.lessonText, 0.6, () => {
+        if (token === this.lessonToken) this.startLesson()
+      })
+    })
   }
 
   private hangTowelOnBar() {
@@ -323,7 +419,60 @@ export class RinseRepeatController extends BaseScriptComponent {
     const spot = this.towelBarSpot.getTransform()
     this.towel.getTransform().setWorldPosition(spot.getWorldPosition())
     this.towel.getTransform().setWorldRotation(spot.getWorldRotation())
+    this.setTowelState("onBar")
     this.setInteractive(this.towelInteractable, this.towelManip, false)
+  }
+
+  /** Where the carried towel hangs: low on the left, just inside the view. */
+  private towelSideTarget(): vec3 {
+    const c = this.camTransform
+    return c.getWorldPosition().add(c.back.uniformScale(50)).add(c.right.uniformScale(-16)).add(c.up.uniformScale(-12))
+  }
+
+  private snapTowelToSide() {
+    if (!this.camTransform) return
+    const t = this.towel.getTransform()
+    t.setWorldPosition(this.towelSideTarget())
+    this.faceCamera(t)
+  }
+
+  private faceCamera(t: Transform) {
+    if (!this.camTransform) return
+    const toCam = this.camTransform.getWorldPosition().sub(t.getWorldPosition())
+    toCam.y = 0
+    if (toCam.length > 0.001) t.setWorldRotation(quat.lookAt(toCam.normalize(), vec3.up()))
+  }
+
+  /** Per frame: follow the user when carried, and swing the hanging cloth with the motion. */
+  private updateTowel(dt: number) {
+    if (this.towelState !== "held" && this.towelState !== "carried") return
+    const t = this.towel.getTransform()
+    if (this.towelState === "carried" && this.camTransform) {
+      const k = 1 - Math.exp(-dt * 6)
+      t.setWorldPosition(vec3.lerp(t.getWorldPosition(), this.towelSideTarget(), k))
+      const toCam = this.camTransform.getWorldPosition().sub(t.getWorldPosition())
+      toCam.y = 0
+      if (toCam.length > 0.001) {
+        t.setWorldRotation(quat.slerp(t.getWorldRotation(), quat.lookAt(toCam.normalize(), vec3.up()), k))
+      }
+    }
+    const pos = t.getWorldPosition()
+    const last = this.towelLastPos
+    this.towelLastPos = pos
+    if (!last || dt <= 0) return
+    // Velocity in the towel's own frame; the bottom of the cloth trails behind the motion.
+    const vel = t.getWorldRotation().invert().multiplyVec3(pos.sub(last).uniformScale(1 / dt))
+    const clamp = (v: number) => Math.max(-0.6, Math.min(0.6, v))
+    const targetX = clamp(vel.z * 0.004)
+    const targetZ = clamp(-vel.x * 0.004)
+    const s = this.swing
+    const stiff = 45
+    const damp = 5
+    s.vx += (stiff * (targetX - s.x) - damp * s.vx) * dt
+    s.vz += (stiff * (targetZ - s.z) - damp * s.vz) * dt
+    s.x += s.vx * dt
+    s.z += s.vz * dt
+    this.towelHanging.getTransform().setLocalRotation(quat.fromEulerAngles(s.x, 0, s.z))
   }
 
   private onDoorHandle() {
@@ -336,7 +485,6 @@ export class RinseRepeatController extends BaseScriptComponent {
       return
     }
     this.stage = "doorOpening"
-    this.setInteractive(this.towelInteractable, this.towelManip, false)
     const hinge = this.doorHinge.getTransform()
     const start = this.doorHingeHomeRot
     const open = start.multiply(quat.angleAxis(MathUtils.DegToRad * 95, vec3.up()))
@@ -362,15 +510,9 @@ export class RinseRepeatController extends BaseScriptComponent {
     )
   }
 
+  /** The door is open: the bathroom is through it, and the towel goes on the bar next. */
   private enterBathroom() {
-    this.opening.enabled = false
-    this.bathroom.enabled = true
     this.stage = "towelToBar"
-    this.towel.enabled = true
-    const spot = this.towelStartSpot.getTransform()
-    this.towel.getTransform().setWorldPosition(spot.getWorldPosition())
-    this.towel.getTransform().setWorldRotation(spot.getWorldRotation())
-    this.setInteractive(this.towelInteractable, this.towelManip, true)
     this.putTowelText.enabled = true
   }
 
@@ -436,13 +578,13 @@ export class RinseRepeatController extends BaseScriptComponent {
   private returnHome(p: Product) {
     p.returning = true
     const t = p.obj.getTransform()
-    const fromPos = t.getWorldPosition()
-    const fromRot = t.getWorldRotation()
+    const fromPos = t.getLocalPosition()
+    const fromRot = t.getLocalRotation()
     this.tween(0.35, (k) => {
       if (!p.returning) return
       const e = 1 - (1 - k) * (1 - k)
-      t.setWorldPosition(vec3.lerp(fromPos, p.homePos, e))
-      t.setWorldRotation(quat.slerp(fromRot, p.homeRot, e))
+      t.setLocalPosition(vec3.lerp(fromPos, p.homePos, e))
+      t.setLocalRotation(quat.slerp(fromRot, p.homeRot, e))
     }, () => (p.returning = false))
   }
 
@@ -559,6 +701,8 @@ export class RinseRepeatController extends BaseScriptComponent {
       this.tweens = keep.concat(this.tweens)
     }
 
+    this.updateTowel(dt)
+
     const p = this.held
     if (p && this.stage === "lesson") {
       this.placeBadge(p)
@@ -598,8 +742,8 @@ export class RinseRepeatController extends BaseScriptComponent {
       p.returning = false
       p.obj.enabled = true
       this.setVisualsVisible(p, true)
-      p.obj.getTransform().setWorldPosition(p.homePos)
-      p.obj.getTransform().setWorldRotation(p.homeRot)
+      p.obj.getTransform().setLocalPosition(p.homePos)
+      p.obj.getTransform().setLocalRotation(p.homeRot)
     })
   }
 

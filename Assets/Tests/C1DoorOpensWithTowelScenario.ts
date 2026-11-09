@@ -23,8 +23,9 @@ import {
 } from "./RinseRepeatTestUtils"
 
 /**
- * Done criterion 1: grabbing the towel beside the door and pinching the door handle
- * opens the door; a bright light fades to show the bathroom.
+ * Done criterion 1: grabbing the towel from the bed and pinching the bathroom door handle
+ * opens the door; a bright light fades to show the bathroom. Once picked up, the towel
+ * hangs like cloth and stays with the user.
  */
 @component
 export class DoorOpensWithTowelScenario extends Scenario {
@@ -46,6 +47,9 @@ export class DoorOpensWithTowelScenario extends Scenario {
     await sleep(200)
     expect(c.towelTaken, "towel counts as taken").toBe(true)
     expect(visible("TowelSign"), "reminder sign hides once the towel is picked up").toBe(false)
+    expect(c.towelState, "let go, the towel stays with the user").toBe("carried")
+    expect(visible("TowelHanging"), "towel hangs unfolded").toBe(true)
+    expect(visible("TowelFolded"), "folded towel is gone from the bed").toBe(false)
 
     // Pinch the handle: the door opens and the bright light comes up.
     await interactor.trigger(interactable("DoorHandle"))
@@ -56,7 +60,8 @@ export class DoorOpensWithTowelScenario extends Scenario {
     const lightGone = await waitFor(() => !visible("BrightLight"), 4000)
     expect(lightGone, "bright light fades away").toBe(true)
     expect(visible("Bathroom"), "bathroom is shown").toBe(true)
-    expect(visible("Opening"), "door scene is hidden").toBe(false)
+    expect(visible("PutTowelText"), "towel bar prompt shows").toBe(true)
+    expect(c.towelState, "towel is still carried after walking through").toBe("carried")
     expect(c.stage).toBe("towelToBar")
   }
 }
