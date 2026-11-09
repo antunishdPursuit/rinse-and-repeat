@@ -1,0 +1,64 @@
+- !<AssetImportMetadata/1602bf84-be17-49d4-8e12-9f6701253721>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 69921f9a-5f86-4ef6-ad82-3e13a5329ecd
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 69921f9a-5f86-4ef6-ad82-3e13a5329ecd
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> f962f22a-44da-4227-8619-ca0016ad23ea
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/f962f22a-44da-4227-8619-ca0016ad23ea>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: fd0af514-6328-4442-ac47-c415ce9885a3
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    eyeLevelAssist: false
+    faceZoneRadius: false
+    introSeconds: false
+    splashTrack: false
+    startAt: false
+    tipSeconds: false
+    towelSnapDistance: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - splashTrack: !<reference.AudioTrackAsset> 00000000-0000-0000-0000-000000000000
+      faceZoneRadius: !<float> 20.000000
+      eyeLevelAssist: true
+      towelSnapDistance: !<float> 30.000000
+      startAt: opening
+      tipSeconds: !<float> 5.000000
+      introSeconds: !<float> 3.000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input Asset.AudioTrackAsset splashTrack {"hint":"Splash played when a product is used in the face zone"}'
+    - '// @input float faceZoneRadius = 20 {"hint":"Face zone radius in cm (sphere around the FaceZone object, 25 cm in front of the face)"}'
+    - '// @input bool eyeLevelAssist = true {"hint":"Also count a product as used when it is lifted to about eye level in front of you (mouse drags keep a fixed distance from the camera)"}'
+    - '// @input float towelSnapDistance = 30 {"hint":"How close (cm) the towel must be to the bar when released"}'
+    - '// @input string startAt = "opening" {"hint":"Where the Lens starts in preview: opening (default), towel, or lesson"}'
+    - // @input float tipSeconds = 5
+    - // @input float introSeconds = 3
