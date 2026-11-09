@@ -49,6 +49,12 @@ export class WrongProductFirstScenario extends Scenario {
       expect(worldPos(name).distance(home) < 1.0, `${name}: returns to its spot on the shelf`).toBe(true)
       expect(visible(name), `${name}: still on the shelf`).toBe(true)
     }
+    // Picking the right one straight after a wrong one must not keep showing "Not yet".
+    await pickUpAndRelease(interactor, "Conditioner")
+    const right = await pickUpAndRelease(interactor, "Shampoo")
+    expect(right.guide.startsWith(MSG_INCORRECT), "no leftover 'Not yet' while holding the shampoo").toBe(false)
+    expect(right.badgeText, "badge says correct").toBe(MSG_CORRECT)
+
     expect(c.step, "lesson still waiting for shampoo").toBe(0)
   }
 }

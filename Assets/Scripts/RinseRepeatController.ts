@@ -95,7 +95,10 @@ export const MSG_HANG_TOWEL = "Hang your towel on the towel bar."
 export const MSG_STEP_IN = "Step into the bathtub."
 export const MSG_FIRST = "What do you use first? Pick it up."
 export const MSG_NEXT = "What comes next? Pick it up."
-export const MSG_LIFT = "Correct! Lift it into the glowing ring to use it on your head."
+export const MSG_LIFT = "Lift it into the glowing ring to use it on your hair."
+export const MSG_LIFT_BODY = "Lift it into the glowing ring to wash with it."
+/** How far above the picked-up product the use ring sits, in cm (same distance from the eyes). */
+export const RING_LIFT = 30
 
 const COLOR_CORRECT = new vec4(0.55, 1.0, 0.62, 1)
 const COLOR_INCORRECT = new vec4(1.0, 0.62, 0.5, 1)
@@ -497,6 +500,7 @@ export class RinseRepeatController extends BaseScriptComponent {
 
   private hangTowelOnBar() {
     this.towelOnBar = true
+    this.resetHover(this.towel)
     const spot = this.towelBarSpot.getTransform()
     this.towel.getTransform().setWorldPosition(spot.getWorldPosition())
     this.towel.getTransform().setWorldRotation(spot.getWorldRotation())
@@ -504,7 +508,10 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.setInteractive(this.towelInteractable, this.towelManip, false)
   }
 
-  /** Where the carried towel hangs: low on the left, just inside the view. */
+  /**
+   * Where the carried towel hangs: low on the left. That is outside the narrow Specs view (it
+   * shows in the wider preview); the guide and the bar marker say what to do with it.
+   */
   private towelSideTarget(): vec3 {
     const c = this.camTransform
     // Low and to the left, like a towel in your left hand, so it stays out of the line of sight to
@@ -645,14 +652,19 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.badgeText.text = correct ? MSG_CORRECT : MSG_INCORRECT
     this.badgeText.textFill.color = correct ? COLOR_CORRECT : COLOR_INCORRECT
     let hint = ""
-    if (correct && this.step === 2) hint = MSG_BODY_CHOICE
+    if (correct) hint = this.step === 2 ? MSG_BODY_CHOICE + "\n" + MSG_LIFT_BODY : MSG_LIFT
     if (!correct) hint = this.hintFor(p)
     this.badgeHint.text = hint
     this.badgeHint.sceneObject.enabled = hint.length > 0
     this.placeBadge(p)
     // The same feedback, larger, on the guide panel; a wrong pick stays up after letting go.
-    if (correct) this.setGuide(this.step === 2 ? MSG_LIFT + "\n" + MSG_BODY_CHOICE : MSG_LIFT)
-    else this.flashGuide(MSG_INCORRECT + "\n" + hint, COLOR_INCORRECT, 3.5)
+    if (correct) {
+      // The badge under the ring says what to do; a leftover "Not yet" must not contradict it.
+      this.guideFlashUntil = 0
+      this.setGuide("")
+    } else {
+      this.flashGuide(MSG_INCORRECT + "\n" + hint, COLOR_INCORRECT, 3.5)
+    }
   }
 
   /** What the guide asks for at the current lesson step. */
@@ -690,6 +702,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   }
 
   private removeUsed(p: Product) {
+    this.resetHover(p.obj)
     this.setInteractive(p.interactable, p.manip, false, p.collider)
     p.obj.enabled = false
     this.setVisualsVisible(p, true)
@@ -708,20 +721,22 @@ export class RinseRepeatController extends BaseScriptComponent {
   }
 
   /**
-   * Where to lift the product: 18 cm above where it was picked up, at the same distance from
-   * the eyes. A mouse drag in the preview keeps that distance, so it can always get there.
+   * Where to lift the product: RING_LIFT cm above where it was picked up (clear of the badge), at
+   * the same distance from the eyes. A mouse drag in the preview keeps that distance, so it can
+   * always get there.
    */
   private ringPositionFor(p: Product): vec3 {
     if (!this.camTransform) return p.obj.getTransform().getWorldPosition()
     const cam = this.camTransform.getWorldPosition()
     const b = p.obj.getTransform().getWorldPosition()
-    const dir = b.add(new vec3(0, 18, 0)).sub(cam).normalize()
+    const dir = b.add(new vec3(0, RING_LIFT, 0)).sub(cam).normalize()
     return cam.add(dir.uniformScale(b.distance(cam)))
   }
 
-  /** Just above the forehead, slightly in front. */
-  private headPoint(): vec3 {
+  /** Where a product goes when used: just above the forehead for hair, chest height for body. */
+  private usePoint(step: number): vec3 {
     const t = this.camTransform
+    if (step === 2) return t.getWorldPosition().add(t.up.uniformScale(-35)).add(t.back.uniformScale(25))
     return t.getWorldPosition().add(t.up.uniformScale(10)).add(t.back.uniformScale(8))
   }
 
@@ -740,7 +755,7 @@ export class RinseRepeatController extends BaseScriptComponent {
         if (!this.camTransform) return
         const e = k * k * (3 - 2 * k)
         const from = pt.getWorldPosition()
-        const offset = vec3.lerp(from, this.headPoint(), e).sub(from)
+        const offset = vec3.lerp(from, this.usePoint(p.step), e).sub(from)
         const local = pt.getWorldRotation().invert().multiplyVec3(offset)
         for (let i = 0; i < p.obj.getChildrenCount() && i < p.childHome.length; i++) {
           p.obj.getChild(i).getTransform().setLocalPosition(p.childHome[i].add(local))
@@ -813,7 +828,9 @@ export class RinseRepeatController extends BaseScriptComponent {
       this.stage = "finished"
       // The finish message takes the tip card's place once the last tip has faded.
       this.after(this.tipSeconds + 0.8, () => {
-        if (this.stage === "finished") this.showText(this.finishText, MSG_FINISH)
+        if (this.stage !== "finished") return
+        this.showText(this.finishText, MSG_FINISH)
+        this.placeInFront(this.finishText)
       })
     } else {
       this.step = usedStep + 1
@@ -930,6 +947,7 @@ export class RinseRepeatController extends BaseScriptComponent {
       else this.lazyFollow(this.guidePanel, dt)
     }
     if (this.lessonText.enabled) this.lazyFollow(this.lessonText, dt)
+    if (this.finishText.enabled) this.lazyFollow(this.finishText, dt)
   }
 
   /**
@@ -1004,8 +1022,9 @@ export class RinseRepeatController extends BaseScriptComponent {
   /**
    * The rooms' floor plan in Rooms-local cm (x, z), matching Tools/blender/build_props.py.
    * The device can't stop someone walking through a virtual wall, so when the user leaves the
-   * floor plan the rooms fade out (revealing their real surroundings on Specs) and a message
-   * tells them which way to walk back.
+   * floor plan the warning's near-opaque black backdrop (camera-attached, drawn over everything)
+   * fades in. Black is transparent on Specs, so the rooms disappear and the real surroundings
+   * show; the message tells them which way to walk back.
    */
   private static readonly BEDROOM = {x0: -180, x1: 360, z0: -195, z1: 337.5}
   private static readonly BATHROOM = {x0: -140, x1: 130, z0: -557.5, z1: -205}
@@ -1032,6 +1051,8 @@ export class RinseRepeatController extends BaseScriptComponent {
         best = new vec2(px, pz)
       }
     }
+    // The bathtub touches two walls; standing anywhere in it is inside.
+    if (this.doorIsOpen() && x > TUB.x0 && x < TUB.x1 && z > TUB.z0 && z < TUB.z1) return null
     // The open doorway joins the rooms (narrowed by a few cm so the frame still counts as wall).
     const dw = RinseRepeatController.DOORWAY
     if (this.doorIsOpen() && x > dw.x0 + 5 && x < dw.x1 - 5 && z > dw.z0 - m - 1 && z < dw.z1 + m + 1) return null
@@ -1147,6 +1168,7 @@ export class RinseRepeatController extends BaseScriptComponent {
       p.gliding = false
       p.releasedEarly = false
       this.restoreChildren(p)
+      this.resetHover(p.obj)
       if (p.tag) p.tag.enabled = true
       p.obj.enabled = true
       this.setVisualsVisible(p, true)
@@ -1246,10 +1268,19 @@ export class RinseRepeatController extends BaseScriptComponent {
     return {interactable, manip, collider}
   }
 
+  private hoverBase = new Map<SceneObject, vec3>()
+
+  /** Undo the hover growth (hover-exit may not fire when an object is disabled while aimed at). */
+  private resetHover(obj: SceneObject) {
+    const base = this.hoverBase.get(obj)
+    if (base) obj.getTransform().setLocalScale(base)
+  }
+
   /** Targets grow slightly when aimed at. */
   private addHoverHighlight(obj: SceneObject, i: Interactable) {
     const t = obj.getTransform()
     const base = t.getLocalScale()
+    this.hoverBase.set(obj, base)
     this.createEvent("OnStartEvent").bind(() => {
       i.onHoverEnter.add(() => t.setLocalScale(base.uniformScale(1.1)))
       i.onHoverExit.add(() => t.setLocalScale(base))

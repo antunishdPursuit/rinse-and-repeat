@@ -2332,7 +2332,7 @@
   LocalTransform: !<TransformEntity>
     Position: {x: 0.000000, y: 0.000000, z: 0.000000}
     Rotation: {x: 90.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 60.000000, y: 100.000000, z: 60.000000}
+    Scale: {x: 45.000000, y: 100.000000, z: 45.000000}
     HasSegmentScaleCompensation: false
   Children:
     - !<own> de6c2c18-5688-46f4-8277-775eed4a583c
@@ -7851,7 +7851,7 @@
     []
   Name: Text
   Enabled: true
-  RenderOrder: 0
+  RenderOrder: 500
   StretchMode: Stretch
   VerticalAlignment: Center
   HorizontalAlignment: Center
@@ -7865,13 +7865,13 @@
   TouchHandler: !<reference> 00000000-0000-0000-0000-000000000000
   EnableRichText: false
   SizeToFit: false
-  FontSize: 62.000000
+  FontSize: 60.000000
   FontSource: !<reference> 00000000-0000-0000-0000-000000000000
   PreferredStyle: Regular
   LayoutRect:
-    left: -16.000000
+    left: -13.000000
     bottom: -5.000000
-    right: 16.000000
+    right: 13.000000
     top: 5.000000
   DebugRenderLayoutRect: false
   OverflowVertical: Overflow
@@ -7929,7 +7929,7 @@
     LetterSpacing: 0.000000
     LineSpacing: 1.000000
     CapitalizationOverride: None
-  DepthTest: true
+  DepthTest: false
   TwoSided: false
 - !<SceneObject/dc7a2ae3-1a8d-4808-b1d4-43081b2b9ed1>
   PrefabRemaps:

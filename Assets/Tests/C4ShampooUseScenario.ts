@@ -43,7 +43,8 @@ export class ShampooUseScenario extends Scenario {
     try {
       // Picking up the right product shows where to lift it.
       const tried = await pickUpAndRelease(interactor, "Shampoo")
-      expect(tried.guide, "guide says to lift it to your head").toBe(MSG_LIFT)
+      expect(tried.hintText, "the badge says to lift it into the ring").toBe(MSG_LIFT)
+      expect(tried.guide, "the guide panel steps aside while the right product is held").toBe("")
       expect(tried.useTargetVisible, "a glowing ring shows where to lift it").toBe(true)
       await sleep(400)
       expect(visible("UseTarget"), "the ring hides when the bottle is put back").toBe(false)

@@ -8,6 +8,7 @@ import {
   MSG_FINISH,
   MSG_INCORRECT,
   MSG_LEARN,
+  MSG_LIFT_BODY,
 } from "../Scripts/RinseRepeatController"
 import {
   controller,
@@ -46,7 +47,8 @@ export class FullRoutineScenario extends Scenario {
       const held = await useProduct(interactor, s.name)
       expect(held.badgeText, `${s.name}: correct badge`).toBe(MSG_CORRECT)
       if (i === 2) {
-        expect(held.hintText, "step 3 adds the body wash / bar soap line").toBe(MSG_BODY_CHOICE)
+        expect(held.hintText.startsWith(MSG_BODY_CHOICE), "step 3 adds the body wash / bar soap line").toBe(true)
+        expect(held.hintText.endsWith(MSG_LIFT_BODY), "step 3 says to wash with it, not to put it on your hair").toBe(true)
       }
       expect(c.lastUsedStep, `${s.name}: used`).toBe(i)
       expect(visible("TipCard"), `${s.name}: tip card shows`).toBe(true)
