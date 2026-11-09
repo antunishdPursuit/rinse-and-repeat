@@ -89,6 +89,8 @@ export const MSG_CORRECT = "Correct! Now use it on yourself."
 export const MSG_INCORRECT = "Not yet. Put it back."
 export const MSG_BODY_CHOICE = "Body wash: quick and easy. Bar soap: the classic. Either one works."
 export const MSG_LEARN = "Time to learn how to take a shower."
+/** Placeholder under the opening sign after Start over: a feature planned for later. */
+export const MSG_COMING_SOON = "Coming soon\nShower routines from around the world"
 export const MSG_FINISH = "That's the routine: shampoo, conditioner, then body wash or soap."
 export const MSG_OPEN_DOOR = "Now open the door: pinch the handle."
 export const MSG_HANG_TOWEL = "Hang your towel on the towel bar."
@@ -165,6 +167,8 @@ export class RinseRepeatController extends BaseScriptComponent {
   private doorHandle: SceneObject
   private towel: SceneObject
   private towelSign: SceneObject
+  /** "Coming soon" note shown under the towel sign after Start over (placeholder only). */
+  public comingSoon: SceneObject
   private towelBar: SceneObject
   private towelInteractable: Interactable
   private towelManip: InteractableManipulation
@@ -229,6 +233,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.doorHandle = this.find("DoorHandle")
     this.towel = this.find("Towel")
     this.towelSign = this.find("TowelSign")
+    this.comingSoon = this.makeComingSoon()
     this.towelBar = this.find("TowelBar")
     this.towelBarSpot = this.find("TowelBarSpot")
     this.towelFolded = this.find("TowelFolded")
@@ -404,6 +409,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.bathroom.enabled = true
     this.brightLight.enabled = false
     this.towelSign.enabled = true
+    this.comingSoon.enabled = false
     this.doorHinge.getTransform().setLocalRotation(this.doorHingeHomeRot)
     this.doorHandle.getTransform().setLocalRotation(this.doorHandleHomeRot)
     this.guideMessage = ""
@@ -489,6 +495,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (this.stage === "opening" && !this.towelTaken) {
       this.towelTaken = true
       this.towelSign.enabled = false
+      this.comingSoon.enabled = false
       this.setGuide(MSG_OPEN_DOOR)
     }
     const wasResting = this.towelState === "rest"
@@ -959,6 +966,30 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (!this.mirrorReady) return
     this.playSfx("ui_click")
     this.resetToOpening()
+    this.comingSoon.enabled = true
+  }
+
+  /** A smaller panel just under the towel sign, styled like it, hidden until Start over. */
+  private makeComingSoon(): SceneObject {
+    const src = this.towelSign.getComponent("Component.Text") as Text
+    const obj = global.scene.createSceneObject("ComingSoon")
+    obj.setParent(this.towelSign.getParent())
+    const st = this.towelSign.getTransform()
+    obj.getTransform().setLocalPosition(st.getLocalPosition().add(new vec3(0, -11, 0)))
+    obj.getTransform().setLocalRotation(st.getLocalRotation())
+    const t = obj.createComponent("Component.Text") as Text
+    t.text = MSG_COMING_SOON
+    t.size = 80
+    t.horizontalAlignment = HorizontalAlignment.Center
+    t.verticalAlignment = VerticalAlignment.Center
+    t.textFill.color = src.textFill.color
+    const bg = t.backgroundSettings
+    bg.enabled = true
+    bg.fill.color = new vec4(0.16, 0.2, 0.26, 0.9)
+    bg.margins = src.backgroundSettings.margins
+    bg.cornerRadius = src.backgroundSettings.cornerRadius
+    obj.enabled = false
+    return obj
   }
 
   // ------------------------------------------------------------------ learn more

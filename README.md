@@ -14,7 +14,7 @@ The bathroom is simulated. No water, avatar, or camera image of the user is invo
    - The right one shows "Correct! Now use it on yourself." and a glowing ring appears above it. Lift it into the ring and it glides to your head (or to chest height for body wash or soap), with a splash. Bringing the bottle up to your face works too.
    - A tip card shows for about 5 seconds, with a **Learn more** button that opens a short panel about that product.
    - For the last step, "Either one" sits between the body wash and the bar soap.
-5. **Finish.** "That's the routine: shampoo, conditioner, then body wash or soap." Then the guide says "Want to learn more, or start over? Go to the mirror." The mirror shows details for each product and a **Start over** button.
+5. **Finish.** "That's the routine: shampoo, conditioner, then body wash or soap." Then the guide says "Want to learn more, or start over? Go to the mirror." The mirror shows details for each product and a **Start over** button. Starting over brings back the towel sign, with a "Coming soon: shower routines from around the world" note under it. That note is a placeholder for a planned feature; nothing else is built for it yet.
 
 The floating guide panel stays in front of you and drifts back into view when you turn away. If you walk outside the rooms (or through the closed bathroom door), the view fades and a message tells you which way to turn to step back inside.
 
@@ -47,7 +47,7 @@ The LEAF scenarios live in `Assets/Tests` and are registered in `LeafIndex.ts`.
 | `c2-towel-on-bar` | The bar keeps its size and has an arrow. Pinching the bar or dropping the towel hangs it; the intro message shows, then "Step into the bathtub", and standing in the tub starts the lesson. |
 | `c3-wrong-product-first` | Conditioner, body wash and bar soap each show "Not yet" with a hint that stays after letting go, and return to the shelf. A correct pick right after clears it. |
 | `c4-shampoo-use` | Shampoo shows "Correct!" and the use ring; lifting into the ring uses it with a splash and the tip fades. Conditioner is then used through the face zone. |
-| `c5-full-routine-learn-more` | The full routine, each badge and tip, Learn more, the "Either one" step, the finish message, the mirror details and Start over. |
+| `c5-full-routine-learn-more` | The full routine, each badge and tip, Learn more, the "Either one" step, the finish message, the mirror details, and Start over with its coming-soon note. |
 | `reach-ik-shampoo-learn-more` | A simulated arm reaches the shampoo and the Learn more button. |
 | `stay-inside-rooms` | Walking through a wall or the closed bathroom door shows the warning; stepping back clears it; the tub counts as inside once the door is open. |
 

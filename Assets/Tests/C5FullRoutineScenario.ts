@@ -91,9 +91,11 @@ export class FullRoutineScenario extends Scenario {
     const read = await waitFor(() => visible("MirrorInfo") && textOf("MirrorInfo").startsWith("2. Conditioner"), 1500)
     expect(read, "the mirror shows the conditioner details").toBe(true)
     expect(played("ui_click"), "buttons click").toBe(true)
+    expect(c.comingSoon.enabled, "no coming-soon note before starting over").toBe(false)
     await interactor.trigger(interactable("MirrorRestart"))
     const restarted = await waitFor(() => c.stage === "opening" && visible("TowelSign"), 1500)
     expect(restarted, "Start over goes back to the beginning").toBe(true)
     expect(visible("MirrorMenu"), "mirror menu hides after starting over").toBe(false)
+    expect(c.comingSoon.enabled, "Start over shows the coming-soon note under the towel sign").toBe(true)
   }
 }
