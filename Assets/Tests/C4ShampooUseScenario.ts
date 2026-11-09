@@ -33,6 +33,8 @@ import {
 export class ShampooUseScenario extends Scenario {
   async run(): Promise<void> {
     const c = controller()
+    const plays0 = {...c.sfxPlays}
+    const played = (name: string) => (c.sfxPlays[name] || 0) > (plays0[name] || 0)
     const interactor = new RinseRepeatInteractor()
     c.jumpToLesson()
     // Test the 25 cm face zone itself, without the eye-level assist.
@@ -56,6 +58,7 @@ export class ShampooUseScenario extends Scenario {
       await liftIntoRing(interactor, "Shampoo")
       const used = await waitFor(() => c.lastUsedStep === 0, 2500)
       expect(used, "lifting the shampoo into the ring uses it").toBe(true)
+      expect(played("glide"), "the glide to the head makes a whoosh").toBe(true)
       expect(visible("Shampoo"), "shampoo disappears").toBe(false)
       expect(c.splashPlays, "splash sound played").toBeGreaterThan(0)
       expect(visible("TipCard"), "tip card appears").toBe(true)

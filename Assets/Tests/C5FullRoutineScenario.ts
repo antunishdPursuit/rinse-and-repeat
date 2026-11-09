@@ -34,6 +34,8 @@ import {
 export class FullRoutineScenario extends Scenario {
   async run(): Promise<void> {
     const c = controller()
+    const plays0 = {...c.sfxPlays}
+    const played = (name: string) => (c.sfxPlays[name] || 0) > (plays0[name] || 0)
     const interactor = new RinseRepeatInteractor()
     c.jumpToLesson()
     await sleep(500)
@@ -75,6 +77,7 @@ export class FullRoutineScenario extends Scenario {
     const finished = await waitFor(() => visible("FinishText"), c.tipSeconds * 1000 + 3000)
     expect(finished, "finish message shows").toBe(true)
     expect(textOf("FinishText")).toBe(MSG_FINISH)
+    expect(played("finish"), "finishing plays a chime").toBe(true)
     expect(c.stage).toBe("finished")
     expect(obj("BarSoap").enabled, "unused bar soap stays on the shelf").toBe(true)
     expect(visible("LearnMoreButton"), "Learn more leaves the shelf when the routine is done").toBe(false)
@@ -87,6 +90,7 @@ export class FullRoutineScenario extends Scenario {
     await interactor.trigger(interactable("MirrorConditioner"))
     const read = await waitFor(() => visible("MirrorInfo") && textOf("MirrorInfo").startsWith("2. Conditioner"), 1500)
     expect(read, "the mirror shows the conditioner details").toBe(true)
+    expect(played("ui_click"), "buttons click").toBe(true)
     await interactor.trigger(interactable("MirrorRestart"))
     const restarted = await waitFor(() => c.stage === "opening" && visible("TowelSign"), 1500)
     expect(restarted, "Start over goes back to the beginning").toBe(true)

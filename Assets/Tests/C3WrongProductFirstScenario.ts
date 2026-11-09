@@ -30,6 +30,8 @@ import {
 export class WrongProductFirstScenario extends Scenario {
   async run(): Promise<void> {
     const c = controller()
+    const plays0 = {...c.sfxPlays}
+    const played = (name: string) => (c.sfxPlays[name] || 0) > (plays0[name] || 0)
     const interactor = new RinseRepeatInteractor()
     c.jumpToLesson()
     await sleep(500)
@@ -55,6 +57,7 @@ export class WrongProductFirstScenario extends Scenario {
     expect(right.guide.startsWith(MSG_INCORRECT), "no leftover 'Not yet' while holding the shampoo").toBe(false)
     expect(right.badgeText, "badge says correct").toBe(MSG_CORRECT)
 
+    expect(played("wrong") && played("correct"), "wrong and correct picks each make a sound").toBe(true)
     expect(c.step, "lesson still waiting for shampoo").toBe(0)
   }
 }

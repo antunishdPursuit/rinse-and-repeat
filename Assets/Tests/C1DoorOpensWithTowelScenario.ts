@@ -35,6 +35,8 @@ import {
 export class DoorOpensWithTowelScenario extends Scenario {
   async run(): Promise<void> {
     const c = controller()
+    const plays0 = {...c.sfxPlays}
+    const played = (name: string) => (c.sfxPlays[name] || 0) > (plays0[name] || 0)
     const interactor = new RinseRepeatInteractor()
     c.resetToOpening()
     await sleep(500)
@@ -51,6 +53,7 @@ export class DoorOpensWithTowelScenario extends Scenario {
     await interactor.carry(interactable("Towel"), new vec3(0, 3, 0), 600)
     await sleep(200)
     expect(c.towelTaken, "towel counts as taken").toBe(true)
+    expect(played("towel_pickup"), "picking up the towel makes a cloth sound").toBe(true)
     expect(visible("TowelSign"), "reminder sign hides once the towel is picked up").toBe(false)
     expect(visible("TowelMarker"), "marker hides once the towel is picked up").toBe(false)
     expect(visible("HandleMarker"), "the door handle glows once you have the towel").toBe(true)
@@ -80,6 +83,7 @@ export class DoorOpensWithTowelScenario extends Scenario {
     expect(leverTurned, "door lever turns down when pinched").toBe(true)
     const lightShown = await waitFor(() => visible("BrightLight"), 2500)
     expect(lightShown, "bright light appears after the door opens").toBe(true)
+    expect(played("lever_click") && played("door_open") && played("light_flash"), "the lever, door and light each make a sound").toBe(true)
 
     // The light fades and reveals the bathroom.
     const lightGone = await waitFor(() => !visible("BrightLight"), 4000)

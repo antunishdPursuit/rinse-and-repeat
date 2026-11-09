@@ -206,6 +206,9 @@ export class RinseRepeatController extends BaseScriptComponent {
   private guideFlashUntil = 0
   private following = new Set<SceneObject>()
   private useTarget: SceneObject
+  private sfx = new Map<string, AudioComponent>()
+  /** How many times each sound effect has played (read by the LEAF scenarios). */
+  public sfxPlays: {[name: string]: number} = {}
   private mirrorMenu: SceneObject
   private mirrorInfo: SceneObject
   private mirrorInfoText: Text
@@ -282,6 +285,24 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.audio = this.sceneObject.createComponent("Component.AudioComponent") as AudioComponent
     if (this.splashTrack) this.audio.audioTrack = this.splashTrack
 
+    // Sound effects (Assets/GeneratedSFX, synthesized) with their mix levels.
+    // (requireAsset paths must be literal so Lens Studio can bundle them.)
+    this.loadSfx("towel_pickup", requireAsset("../GeneratedSFX/towel_pickup.wav"), 0.7)
+    this.loadSfx("towel_hang", requireAsset("../GeneratedSFX/towel_hang.wav"), 0.7)
+    this.loadSfx("lever_click", requireAsset("../GeneratedSFX/lever_click.wav"), 0.6)
+    this.loadSfx("door_locked", requireAsset("../GeneratedSFX/door_locked.wav"), 0.6)
+    this.loadSfx("door_open", requireAsset("../GeneratedSFX/door_open.wav"), 0.6)
+    this.loadSfx("light_flash", requireAsset("../GeneratedSFX/light_flash.wav"), 0.55)
+    this.loadSfx("correct", requireAsset("../GeneratedSFX/correct.wav"), 0.6)
+    this.loadSfx("wrong", requireAsset("../GeneratedSFX/wrong.wav"), 0.5)
+    this.loadSfx("glide", requireAsset("../GeneratedSFX/glide.wav"), 0.5)
+    this.loadSfx("finish", requireAsset("../GeneratedSFX/finish.wav"), 0.65)
+    this.loadSfx("ui_click", requireAsset("../GeneratedSFX/ui_click.wav"), 0.5)
+    this.loadSfx("boundary", requireAsset("../GeneratedSFX/boundary.wav"), 0.45)
+    // Ambient bed: quiet music over faint room tone, looping for the whole experience.
+    this.loadSfx("ambient_music", requireAsset("../GeneratedSFX/ambient_music.wav"), 0.16)
+    this.loadSfx("room_tone", requireAsset("../GeneratedSFX/room_tone.wav"), 0.08)
+
     this.doorHingeHomeRot = this.doorHinge.getTransform().getLocalRotation()
     this.doorHandleHomeRot = this.doorHandle.getTransform().getLocalRotation()
 
@@ -356,6 +377,8 @@ export class RinseRepeatController extends BaseScriptComponent {
       button.onTriggerUp.add(() => this.toggleLearnMore())
       mirrorBound.forEach(({b, fn}) => b.onTriggerUp.add(fn))
 
+      this.startLoop("ambient_music")
+      this.startLoop("room_tone")
       if (this.startAt === "lesson") this.jumpToLesson()
       else if (this.startAt === "towel") this.jumpToTowelToBar()
       else this.resetToOpening()
@@ -469,6 +492,7 @@ export class RinseRepeatController extends BaseScriptComponent {
       this.setGuide(MSG_OPEN_DOOR)
     }
     const wasResting = this.towelState === "rest"
+    if (wasResting) this.playSfx("towel_pickup")
     this.setTowelState("held")
     if (wasResting) this.faceCamera(this.towel.getTransform())
   }
@@ -514,6 +538,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   }
 
   private onTowelHung() {
+    this.playSfx("towel_hang")
     this.putTowelText.enabled = false
     this.stage = "intro"
     this.setGuide("")
@@ -601,6 +626,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (this.stage !== "opening") return
     if (!this.towelTaken) {
       // Locked for now: the lever gives a little and springs back, and the reminder pulses.
+      this.playSfx("door_locked")
       this.tween(0.4, (k) => this.setHandleAngle(18 * Math.sin(k * Math.PI)))
       const t = this.towelSign.getTransform()
       const base = vec3.one()
@@ -608,6 +634,8 @@ export class RinseRepeatController extends BaseScriptComponent {
       return
     }
     this.stage = "doorOpening"
+    this.playSfx("lever_click")
+    this.after(0.25, () => this.playSfx("door_open"))
     this.setGuide("")
     // Press the lever down, then swing the door while the lever springs back up.
     this.tween(
@@ -630,6 +658,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   }
 
   private flashToBathroom() {
+    this.playSfx("light_flash")
     // A bright white light (white, not black: black is transparent on Specs).
     this.brightLight.enabled = true
     this.setMatAlpha(this.brightMat, 0)
@@ -677,6 +706,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.tipCard.enabled = false
 
     const correct = p.step === this.step
+    this.playSfx(correct ? "correct" : "wrong")
     if (correct) this.useTargetPos = this.ringPositionFor(p)
     // The badge takes the name tag's place while the product is held.
     if (p.tag) p.tag.enabled = false
@@ -778,6 +808,7 @@ export class RinseRepeatController extends BaseScriptComponent {
    * move, not the object itself, because the hand (or mouse) is still holding the object.
    */
   private glideToHead(p: Product) {
+    this.playSfx("glide")
     p.gliding = true
     p.releasedEarly = false
     this.useTarget.enabled = false
@@ -866,6 +897,7 @@ export class RinseRepeatController extends BaseScriptComponent {
         this.learnMoreButton.enabled = false
         this.setLearnMore(false)
         this.showText(this.finishText, MSG_FINISH)
+        this.playSfx("finish")
         this.placeInFront(this.finishText)
         this.after(4, () => {
           if (this.stage !== "finished") return
@@ -911,6 +943,7 @@ export class RinseRepeatController extends BaseScriptComponent {
 
   private showMirrorInfo(step: number) {
     if (!this.mirrorReady) return
+    this.playSfx("ui_click")
     this.mirrorUsed = true
     this.setGuide("")
     const c = LESSON[step]
@@ -924,6 +957,7 @@ export class RinseRepeatController extends BaseScriptComponent {
    */
   public restartFromMirror() {
     if (!this.mirrorReady) return
+    this.playSfx("ui_click")
     this.resetToOpening()
   }
 
@@ -931,6 +965,7 @@ export class RinseRepeatController extends BaseScriptComponent {
 
   public toggleLearnMore() {
     if (!this.learnMoreButton.enabled || this.lastUsedStep < 0) return
+    this.playSfx("ui_click")
     this.setLearnMore(!this.learnMoreOpen)
   }
 
@@ -1128,7 +1163,9 @@ export class RinseRepeatController extends BaseScriptComponent {
     const root = this.sceneObject.getTransform().getWorldPosition()
     const cam = this.camTransform.getWorldPosition()
     const target = this.nearestWalkable(cam.x - root.x, cam.z - root.z)
+    const wasOut = this.outOfBounds
     this.outOfBounds = target !== null
+    if (this.outOfBounds && !wasOut) this.playSfx("boundary")
 
     const goal = this.outOfBounds ? 1 : 0
     const rate = this.outOfBounds ? 2.5 : 4
@@ -1261,6 +1298,32 @@ export class RinseRepeatController extends BaseScriptComponent {
   }
 
   private pendingGen = 0
+
+  private loadSfx(name: string, asset: Asset, volume: number) {
+    const track = asset as AudioTrackAsset
+    if (!track) {
+      print("RinseRepeat: missing sound " + name)
+      return
+    }
+    const ac = this.sceneObject.createComponent("Component.AudioComponent") as AudioComponent
+    ac.audioTrack = track
+    ac.volume = volume
+    this.sfx.set(name, ac)
+    this.sfxPlays[name] = 0
+  }
+
+  private playSfx(name: string) {
+    const ac = this.sfx.get(name)
+    if (!ac) return
+    if (ac.isPlaying()) ac.stop(false)
+    ac.play(1)
+    this.sfxPlays[name] = (this.sfxPlays[name] || 0) + 1
+  }
+
+  private startLoop(name: string) {
+    const ac = this.sfx.get(name)
+    if (ac && !ac.isPlaying()) ac.play(-1)
+  }
 
   private clearPending() {
     this.pendingGen++
