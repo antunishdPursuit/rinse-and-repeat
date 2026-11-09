@@ -162,6 +162,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   private towelBar: SceneObject
   private towelInteractable: Interactable
   private towelManip: InteractableManipulation
+  private towelCollider: ColliderComponent
   private towelHomePos: vec3
   private towelHomeRot: quat
   private brightLight: SceneObject
@@ -272,6 +273,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     const towelParts = this.makeGrabbable(this.towel, new vec3(40, 16, 28))
     this.towelInteractable = towelParts.interactable
     this.towelManip = towelParts.manip
+    this.towelCollider = towelParts.collider
 
     // Door handle: pinch.
     const handleInteractable = this.makePinchable(this.doorHandle, new vec3(18, 12, 10))
@@ -410,6 +412,10 @@ export class RinseRepeatController extends BaseScriptComponent {
 
   private setTowelState(state: TowelState) {
     this.towelState = state
+    // Folded on the bed it is a wide target; once picked up, only the gathered top is grabbable.
+    const shape = Shape.createBoxShape()
+    shape.size = state === "rest" ? new vec3(40, 16, 28) : new vec3(16, 20, 8)
+    this.towelCollider.shape = shape
     this.towelFolded.enabled = state === "rest"
     this.towelHanging.enabled = state === "held" || state === "carried" || state === "flying"
     this.towelDraped.enabled = state === "onBar"
@@ -499,7 +505,9 @@ export class RinseRepeatController extends BaseScriptComponent {
   /** Where the carried towel hangs: low on the left, just inside the view. */
   private towelSideTarget(): vec3 {
     const c = this.camTransform
-    return c.getWorldPosition().add(c.back.uniformScale(50)).add(c.right.uniformScale(-16)).add(c.up.uniformScale(-12))
+    // Low and to the left, like a towel in your left hand, so it stays out of the line of sight to
+    // the door handle and the towel bar (its collider would otherwise catch those clicks).
+    return c.getWorldPosition().add(c.back.uniformScale(45)).add(c.right.uniformScale(-30)).add(c.up.uniformScale(-24))
   }
 
   private snapTowelToSide() {

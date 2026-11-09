@@ -93,6 +93,17 @@ export async function liftIntoRing(interactor: RinseRepeatInteractor, name: stri
   await sleep(200)
 }
 
+/** Distance from point p to the segment a-b. */
+export function distToSegment(p: vec3, a: vec3, b: vec3): number {
+  const ab = b.sub(a)
+  const t = Math.max(0, Math.min(1, p.sub(a).dot(ab) / Math.max(1e-6, ab.dot(ab))))
+  return p.distance(a.add(ab.uniformScale(t)))
+}
+
+export function cameraPos(): vec3 {
+  return WorldCameraFinderProvider.getInstance().getTransform().getWorldPosition()
+}
+
 /** Rotation angle of a quaternion, in degrees. */
 export function angleDeg(q: quat): number {
   return (2 * Math.acos(Math.min(1, Math.abs(q.w))) * 180) / Math.PI

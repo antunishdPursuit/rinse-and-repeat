@@ -12,7 +12,9 @@ import {
 } from "../Scripts/RinseRepeatController"
 import {
   angleDeg,
+  cameraPos,
   controller,
+  distToSegment,
   dragTowelToBar,
   interactable,
   obj,
@@ -53,6 +55,18 @@ export class DoorOpensWithTowelScenario extends Scenario {
     expect(visible("TowelMarker"), "marker hides once the towel is picked up").toBe(false)
     expect(visible("HandleMarker"), "the door handle glows once you have the towel").toBe(true)
     expect(c.guideShowing, "guide says to open the door").toBe(MSG_OPEN_DOOR)
+
+    // The carried towel must not sit on the line of sight to the handle, or a click on the
+    // handle lands on the towel instead. Check from the start and from 80 cm in front of the door.
+    const root = c.getSceneObject().getTransform()
+    for (const dz of [0, 115]) {
+      root.setWorldPosition(new vec3(0, 0, dz))
+      await sleep(1200)
+      const gap = distToSegment(worldPos("Towel"), cameraPos(), worldPos("DoorHandle"))
+      expect(gap > 22, `carried towel is clear of the handle sight line (${dz ? "close" : "start"}, ${gap.toFixed(1)} cm)`).toBe(true)
+    }
+    root.setWorldPosition(vec3.zero())
+    await sleep(300)
     expect(c.towelState, "let go, the towel stays with the user").toBe("carried")
     expect(visible("TowelHanging"), "towel hangs unfolded").toBe(true)
     expect(visible("TowelFolded"), "folded towel is gone from the bed").toBe(false)
