@@ -1,12 +1,12 @@
 - !<AssetImportMetadata/185e3f93-2afe-400a-b202-87c810dc4a6e>
   ImportedAssetIds:
-    .hidden/WhitePaint: !<reference> 5f9c8f3a-dea4-45ec-85d1-1bd86d42135d
+    .hidden/DoorSage: !<reference> 63c4e858-4c12-4b27-8353-bbcf5312b195
     26ba073d67b9d0dd: !<reference> 5db1b89c-23eb-4c72-9ca3-aeda0cdf9ed5
     657c264db4d38ac9: !<reference> aeeb0465-68e3-44cf-a861-24b15623f4ed
     88ab437fd121cc69: !<reference> 7625c504-5004-474b-87d3-1b4c6188fcad
     96b5be455038b247: !<reference> f4757195-5894-4575-acf2-99a28f9c6428
-    Materials/WhitePaint: !<reference> 7f6ce522-53a7-46a5-8ef9-a0da1f54a759
-    Materials/WhitePaint|WhitePaint|GraphPassInfo: !<reference> d24ba458-380d-402a-a205-df571f482b51
+    Materials/DoorSage: !<reference> 26a7c703-9fa0-412b-8643-2eeab9e0be38
+    Materials/DoorSage|DoorSage|GraphPassInfo: !<reference> 68b582d0-d472-415b-b60d-88d081d58c8d
     Meshes/InteriorDoor: !<reference> 9e02c27d-bf61-4858-a140-8f18ef0922a3
     Scene: !<reference> e383f312-bd33-4954-834f-e25c7d452bc9
     cadef74593e050e8: !<reference> cd3faf19-132a-4a5f-87da-ce55aaadb1d6

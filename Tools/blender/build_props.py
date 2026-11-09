@@ -116,6 +116,7 @@ def M():
         "wall_tile": mat("WallTile", tex="long_white_tiles", tint=(1.12, 1.12, 1.12), rough=0.25),
         "ceiling": mat("Ceiling", (0.95, 0.94, 0.92), 0.0, 0.9),
         "spray": mat("SprayFace", (0.78, 0.8, 0.82), 0.0, 0.5),
+        "door": mat("DoorSage", (0.72, 0.8, 0.74), 0.0, 0.5),  # off-white blows out to glare on Specs
         "glow": mat("PickupGlow", (1.0, 0.68, 0.1), 0.0, 0.5, emit=0.5),
     }
 
@@ -550,12 +551,12 @@ def table_lamp(m):
 
 
 def interior_door(m):
-    box((0.8, 0.04, 2.0), (0.4, 0, 1.0), m["paint"], bevel=0.003)
+    box((0.8, 0.04, 2.0), (0.4, 0, 1.0), m["door"], bevel=0.003)
     for side in (-1, 1):
         for x in (0.2, 0.6):
             for h, z in ((0.62, 1.45), (0.82, 0.55)):
-                box((0.28, 0.006, h + 0.02), (x, side * 0.021, z), m["paint"], bevel=0.002)  # moulding
-                box((0.24, 0.016, h - 0.02), (x, side * 0.026, z), m["paint"], bevel=0.007, segs=3)  # raised panel
+                box((0.28, 0.006, h + 0.02), (x, side * 0.021, z), m["door"], bevel=0.002)  # moulding
+                box((0.24, 0.016, h - 0.02), (x, side * 0.026, z), m["door"], bevel=0.007, segs=3)  # raised panel
 
 
 def pickup_ring(m):
