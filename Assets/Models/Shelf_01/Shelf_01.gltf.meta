@@ -1,0 +1,138 @@
+- !<AssetImportMetadata/ce5bcd54-d2bf-41c9-896b-7553b8af05ca>
+  ImportedAssetIds:
+    .hidden/Shelf_01: !<reference> d8989099-c1ba-4054-a014-e3ca24321230
+    26ba073d67b9d0dd: !<reference> d1cde40d-c55a-4041-9037-4a8e4e763a42
+    657c264db4d38ac9: !<reference> 1d0c68a5-a841-4627-8dd7-2c33e3dffc23
+    6e4b8c6b779d77fe: !<reference> 64df91f3-788a-49a3-bde3-071b76738b9f
+    88ab437fd121cc69: !<reference> 6cca59ac-0d98-4bd0-9a0a-8ae8928ee00d
+    Materials/Shelf_01: !<reference> 81d5c360-b764-42ea-a7a8-c5d7465aacd1
+    Materials/Shelf_01|Shelf_01|GraphPassInfo: !<reference> e21a2ee9-384f-4096-b884-0035d7e44a52
+    Meshes/Cube.001: !<reference> e8e2f4f5-c67f-4896-b37c-31a6a392a6e0
+    Scene: !<reference> 5aaabbb8-1413-454a-b1b2-f21b5585560c
+    Textures/Shelf_01_arm_1k: !<reference> 308d6d76-0f3e-46e6-b084-306921dc7589
+    Textures/Shelf_01_diff_1k: !<reference> d91b64fa-ecf4-4add-884d-73225cf53ae3
+    Textures/Shelf_01_nor_gl_1k: !<reference> 3ed1e13d-6a72-4a5b-a149-d74e8752f447
+    fef478378c278003: !<reference> 9d8b062c-78d2-40a1-9b72-2ecd6180ddc9
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 5aaabbb8-1413-454a-b1b2-f21b5585560c
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> defb81fa-7c8b-496d-9c99-e8ea28ee0135
+  DependentFiles:
+    - Shelf_01.bin
+    - textures/Shelf_01_arm_1k.jpg
+    - textures/Shelf_01_diff_1k.jpg
+    - textures/Shelf_01_nor_gl_1k.jpg
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/1d0c68a5-a841-4627-7228-d3cc1c2003dc>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 9d8b062c-78d2-40a1-648d-d1329e7f2236
+  Components:
+    []
+- !<RenderMeshVisual/64df91f3-788a-49a3-421c-f8e4898c7460>
+  PrefabRemaps:
+    []
+  Name: Cube.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 81d5c360-b764-42ea-a7a8-c5d7465aacd1
+  Mesh: !<reference> e8e2f4f5-c67f-4896-b37c-31a6a392a6e0
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/6cca59ac-0d98-4bd0-65f5-75176d711ff2>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 1d0c68a5-a841-4627-7228-d3cc1c2003dc
+  Components:
+    []
+- !<SceneObject/9d8b062c-78d2-40a1-648d-d1329e7f2236>
+  PrefabRemaps:
+    []
+  Name: Shelf_01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 64df91f3-788a-49a3-421c-f8e4898c7460
+- !<SceneObject/d1cde40d-c55a-4041-6fc8-b571b189c5bd>
+  PrefabRemaps:
+    []
+  Name: Shelf_01
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 6cca59ac-0d98-4bd0-65f5-75176d711ff2
+  Components:
+    []
+- !<ObjectPrefabAssetData/defb81fa-7c8b-496d-9c99-e8ea28ee0135>
+  Prototype: !<ObjectOwner/050ced4d-5957-45d3-b9e8-fd3a7aa5c95d>
+    PackagePath: ""
+    objects:
+      - !<own> d1cde40d-c55a-4041-6fc8-b571b189c5bd
