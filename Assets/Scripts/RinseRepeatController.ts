@@ -362,7 +362,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     ]
     const mirrorBound = mirrorButtons.map(([name, fn]) => {
       const b = this.find(name).createComponent(Button.getTypeName()) as Button
-      b.size = new vec3(24, 6.5, 1)
+      b.size = new vec3(28, 8.5, 1)
       return {b, fn}
     })
 
