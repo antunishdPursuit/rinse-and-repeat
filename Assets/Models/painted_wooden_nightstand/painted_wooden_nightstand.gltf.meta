@@ -1,0 +1,177 @@
+- !<AssetImportMetadata/3503f157-6bed-475f-841b-56f6591a190b>
+  ImportedAssetIds:
+    .hidden/painted_wooden_nightstand: !<reference> 625a9481-f9ae-453d-86ca-f8aed09da803
+    26ba073d67b9d0dd: !<reference> 00947691-5c55-447b-803b-1be0abe26c1f
+    657c264db4d38ac9: !<reference> bfdc2dce-5ccd-4005-8c39-91c90a8a2f54
+    6e9c049019520ab5: !<reference> e54b6238-9eed-49fb-b2d2-43af8dbaa94a
+    88ab437fd121cc69: !<reference> 61e39d0c-f3e5-450c-9a5e-fe12d4fd9c94
+    9bc41426acc8c853: !<reference> dce4d053-46bd-45ec-b926-f7139d6a7bb5
+    Materials/painted_wooden_nightstand: !<reference> 36cbd782-716c-4846-b0d2-698c4e0b0bac
+    Materials/painted_wooden_nightstand|painted_wooden_nightstand|GraphPassInfo: !<reference> 2c7b1849-3f1f-431f-8a20-f1e61a29e72e
+    Meshes/nightstand.024: !<reference> be7ac288-a7fd-4122-8635-6f2e82bcc433
+    Meshes/nightstand.025: !<reference> 7aa1f992-41bd-4a28-a10a-e598e811f85a
+    Scene: !<reference> 0e1b424d-b882-4d68-b85e-71b6d4ea014a
+    Textures/painted_wooden_nightstand_arm_1k: !<reference> 31239dfd-c3df-49bf-b76b-a6d019493625
+    Textures/painted_wooden_nightstand_diff_1k: !<reference> 187d7154-e2b8-47fe-a709-392c82edcfbf
+    Textures/painted_wooden_nightstand_nor_gl_1k: !<reference> 21944cfa-0f47-47a2-9d13-f9b6184b8aa2
+    a7f7bcb0ae3ddf1b: !<reference> 7a7fc14e-825a-43d6-80da-a078a790fa98
+    db91fb7a509905cc: !<reference> ef34c959-55e9-46b2-81ae-0060353ae921
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 0e1b424d-b882-4d68-b85e-71b6d4ea014a
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 895dc8f4-f142-48cf-8b59-015d5ef13d69
+  DependentFiles:
+    - painted_wooden_nightstand.bin
+    - textures/painted_wooden_nightstand_arm_1k.jpg
+    - textures/painted_wooden_nightstand_diff_1k.jpg
+    - textures/painted_wooden_nightstand_nor_gl_1k.jpg
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<SceneObject/00947691-5c55-447b-7fc4-e41f541d93e0>
+  PrefabRemaps:
+    []
+  Name: painted_wooden_nightstand
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 61e39d0c-f3e5-450c-65a1-01ed2b02636b
+  Components:
+    []
+- !<SceneObject/61e39d0c-f3e5-450c-65a1-01ed2b02636b>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> bfdc2dce-5ccd-4005-73c6-6e36f575d0ab
+  Components:
+    []
+- !<RenderMeshVisual/7a7fc14e-825a-43d6-7f25-5f87586f0567>
+  PrefabRemaps:
+    []
+  Name: nightstand.025
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 36cbd782-716c-4846-b0d2-698c4e0b0bac
+  Mesh: !<reference> 7aa1f992-41bd-4a28-a10a-e598e811f85a
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<ObjectPrefabAssetData/895dc8f4-f142-48cf-8b59-015d5ef13d69>
+  Prototype: !<ObjectOwner/26a78979-743b-494b-88a0-50b9509202e1>
+    PackagePath: ""
+    objects:
+      - !<own> 00947691-5c55-447b-7fc4-e41f541d93e0
+- !<SceneObject/bfdc2dce-5ccd-4005-73c6-6e36f575d0ab>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> dce4d053-46bd-45ec-46d9-08ec6295844a
+    - !<own> ef34c959-55e9-46b2-7e51-ff9fcac516de
+  Components:
+    []
+- !<SceneObject/dce4d053-46bd-45ec-46d9-08ec6295844a>
+  PrefabRemaps:
+    []
+  Name: painted_wooden_nightstand
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> e54b6238-9eed-49fb-4d2d-bc50724556b5
+- !<RenderMeshVisual/e54b6238-9eed-49fb-4d2d-bc50724556b5>
+  PrefabRemaps:
+    []
+  Name: nightstand.024
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 36cbd782-716c-4846-b0d2-698c4e0b0bac
+  Mesh: !<reference> be7ac288-a7fd-4122-8635-6f2e82bcc433
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/ef34c959-55e9-46b2-7e51-ff9fcac516de>
+  PrefabRemaps:
+    []
+  Name: painted_wooden_nightstand_drawer
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: -0.000606, y: 0.512062, z: 0.210861}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 7a7fc14e-825a-43d6-7f25-5f87586f0567
