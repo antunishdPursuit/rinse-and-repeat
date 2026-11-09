@@ -837,14 +837,21 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (this.lessonText.enabled) this.lazyFollow(this.lessonText, dt)
   }
 
-  /** A spot 70 cm ahead, a little above eye level, facing the user. */
+  /**
+   * 70 cm along where the user is looking (up or down too, within limits), above the line of
+   * sight so it does not cover what they are looking at, and facing them.
+   */
   private frontPose(): {pos: vec3; rot: quat} {
     const cam = this.camTransform.getWorldPosition()
     const look = this.camTransform.back
-    let fwd = new vec3(look.x, 0, look.z)
-    fwd = fwd.length > 0.001 ? fwd.normalize() : new vec3(0, 0, -1)
-    const pos = cam.add(fwd.uniformScale(70)).add(new vec3(0, 14, 0))
-    return {pos, rot: quat.lookAt(fwd.uniformScale(-1), vec3.up())}
+    const flat = new vec3(look.x, 0, look.z)
+    const flatLen = flat.length
+    const h = flatLen > 0.001 ? flat.uniformScale(1 / flatLen) : new vec3(0, 0, -1)
+    const pitch = Math.min(MathUtils.DegToRad * 25, Math.max(MathUtils.DegToRad * -40, Math.atan2(look.y, flatLen)))
+    const dir = h.uniformScale(Math.cos(pitch)).add(new vec3(0, Math.sin(pitch), 0))
+    // Upper part of the view (about 11 degrees above the line of sight).
+    const pos = cam.add(dir.uniformScale(70)).add(this.camTransform.up.uniformScale(14))
+    return {pos, rot: quat.lookAt(cam.sub(pos).normalize(), vec3.up())}
   }
 
   private placeInFront(obj: SceneObject) {
@@ -860,13 +867,11 @@ export class RinseRepeatController extends BaseScriptComponent {
     const t = obj.getTransform()
     const pose = this.frontPose()
     const cam = this.camTransform.getWorldPosition()
-    const toPanel = t.getWorldPosition().sub(cam)
-    const toTarget = pose.pos.sub(cam)
-    const a = new vec3(toPanel.x, 0, toPanel.z)
-    const b = new vec3(toTarget.x, 0, toTarget.z)
+    const a = t.getWorldPosition().sub(cam)
+    const b = pose.pos.sub(cam)
     const angle = a.length > 0.001 ? a.angleTo(b) * MathUtils.RadToDeg : 180
     const far = Math.abs(a.length - b.length) > 35
-    if (angle > 28 || far) this.following.add(obj)
+    if (angle > 18 || far) this.following.add(obj)
     if (!this.following.has(obj)) return
     const k = 1 - Math.exp(-4 * dt)
     t.setWorldPosition(vec3.lerp(t.getWorldPosition(), pose.pos, k))
