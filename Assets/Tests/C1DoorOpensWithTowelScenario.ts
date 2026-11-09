@@ -36,6 +36,7 @@ export class DoorOpensWithTowelScenario extends Scenario {
     await sleep(500)
 
     expect(visible("TowelSign"), "towel reminder sign shows at start").toBe(true)
+    expect(visible("TowelMarker"), "glowing marker shows over the towel at start").toBe(true)
 
     // Guard: the handle does nothing until the towel has been picked up.
     await interactor.trigger(interactable("DoorHandle"))
@@ -47,6 +48,7 @@ export class DoorOpensWithTowelScenario extends Scenario {
     await sleep(200)
     expect(c.towelTaken, "towel counts as taken").toBe(true)
     expect(visible("TowelSign"), "reminder sign hides once the towel is picked up").toBe(false)
+    expect(visible("TowelMarker"), "marker hides once the towel is picked up").toBe(false)
     expect(c.towelState, "let go, the towel stays with the user").toBe("carried")
     expect(visible("TowelHanging"), "towel hangs unfolded").toBe(true)
     expect(visible("TowelFolded"), "folded towel is gone from the bed").toBe(false)

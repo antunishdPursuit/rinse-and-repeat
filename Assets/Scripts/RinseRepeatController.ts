@@ -161,6 +161,10 @@ export class RinseRepeatController extends BaseScriptComponent {
   private towelLastPos: vec3 | null = null
   private swing = {x: 0, z: 0, vx: 0, vz: 0}
   private doorHingeHomeRot: quat
+  private towelMarker: SceneObject
+  private markerArrow: Transform
+  private markerRing: Transform
+  private markerArrowBase: vec3
   private tipToken = 0
   private lessonToken = 0
 
@@ -181,6 +185,10 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.brightLight = this.find("BrightLight")
     this.faceZone = this.find("FaceZone")
     this.putTowelText = this.find("PutTowelText")
+    this.towelMarker = this.find("TowelMarker")
+    this.markerArrow = this.find("TowelMarkerArrow").getTransform()
+    this.markerRing = this.find("TowelMarkerRing").getTransform()
+    this.markerArrowBase = this.markerArrow.getLocalPosition()
     this.lessonText = this.find("LessonText")
     this.finishText = this.find("FinishText")
     this.tipCard = this.find("TipCard")
@@ -672,6 +680,19 @@ export class RinseRepeatController extends BaseScriptComponent {
     }
   }
 
+  // ------------------------------------------------------------------ towel marker
+
+  /** A glowing ring and a bobbing arrow over the towel until the user picks it up. */
+  private updateTowelMarker(now: number) {
+    const show = this.stage === "opening" && !this.towelTaken
+    if (this.towelMarker.enabled !== show) this.towelMarker.enabled = show
+    if (!show) return
+    const bob = Math.sin(now * Math.PI * 1.6)
+    this.markerArrow.setLocalPosition(this.markerArrowBase.add(new vec3(0, 4 * bob, 0)))
+    const pulse = 1 + 0.12 * Math.sin(now * Math.PI * 2.4)
+    this.markerRing.setLocalScale(new vec3(100 * pulse, 100, 100 * pulse))
+  }
+
   // ------------------------------------------------------------------ per frame
 
   private onUpdate() {
@@ -702,6 +723,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     }
 
     this.updateTowel(dt)
+    this.updateTowelMarker(now)
 
     const p = this.held
     if (p && this.stage === "lesson") {
