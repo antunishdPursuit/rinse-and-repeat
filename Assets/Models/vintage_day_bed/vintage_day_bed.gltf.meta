@@ -1,0 +1,138 @@
+- !<AssetImportMetadata/35dcfb0b-5c7d-4cfe-ac2a-f5f137ae42c9>
+  ImportedAssetIds:
+    .hidden/vintage_day_bed: !<reference> 614b8f8e-ce11-4f0f-aeae-f8d4add8ce5c
+    26ba073d67b9d0dd: !<reference> f4d9eb06-ef1b-48b3-a942-898854fa5fab
+    657c264db4d38ac9: !<reference> ab0cfc3d-274d-441a-96e9-fce8640cde83
+    88ab437fd121cc69: !<reference> bfc89aa5-bf9a-44f9-99f9-5579c9440ad1
+    8bf1c74da8a3d4ec: !<reference> 9bc7e3e7-07ae-46cc-986f-c851fb7a1c85
+    8ea81354ecf98a70: !<reference> 14908de5-706a-464f-a26c-c1c0f276f372
+    Materials/vintage_day_bed: !<reference> 32ac51da-7faa-48bd-884a-58622d85b676
+    Materials/vintage_day_bed|vintage_day_bed|GraphPassInfo: !<reference> a79f6962-9108-4dcd-ae5b-4790ba50c35d
+    Meshes/bed.001: !<reference> bb7b3908-65ab-4d22-bf82-f2824a8d6853
+    Scene: !<reference> bcc70f95-42b9-4a69-b9bb-33c7100f9dfe
+    Textures/vintage_day_bed_arm_1k: !<reference> 97f5bbde-df1d-4182-ba9d-86dbebad09f2
+    Textures/vintage_day_bed_diff_1k: !<reference> c4c77901-7d0b-496d-81d6-38fb48e3337a
+    Textures/vintage_day_bed_nor_gl_1k: !<reference> 6c9d602e-8aff-4f32-b2d2-76e45500b265
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> bcc70f95-42b9-4a69-b9bb-33c7100f9dfe
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 84092ae8-ddfa-44ac-891c-1ef8546805d4
+  DependentFiles:
+    - textures/vintage_day_bed_arm_1k.jpg
+    - textures/vintage_day_bed_diff_1k.jpg
+    - textures/vintage_day_bed_nor_gl_1k.jpg
+    - vintage_day_bed.bin
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+      Performance Compression: !<PerformanceCompressionSettings>
+        Level: Medium
+        Mipmap: false
+    ExtensionMappings:
+      mesh: None Compression
+      jpg: Performance Compression
+    Overrides:
+      {}
+- !<RenderMeshVisual/14908de5-706a-464f-5d93-3e3f0d890c8d>
+  PrefabRemaps:
+    []
+  Name: bed.001
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 32ac51da-7faa-48bd-884a-58622d85b676
+  Mesh: !<reference> bb7b3908-65ab-4d22-bf82-f2824a8d6853
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<ObjectPrefabAssetData/84092ae8-ddfa-44ac-891c-1ef8546805d4>
+  Prototype: !<ObjectOwner/15359f9f-43fd-4222-8550-04c271efd892>
+    PackagePath: ""
+    objects:
+      - !<own> f4d9eb06-ef1b-48b3-56bd-7677ab05a054
+- !<SceneObject/9bc7e3e7-07ae-46cc-6790-37ae0485e37a>
+  PrefabRemaps:
+    []
+  Name: vintage_day_bed
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 14908de5-706a-464f-5d93-3e3f0d890c8d
+- !<SceneObject/ab0cfc3d-274d-441a-6916-03179bf3217c>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 9bc7e3e7-07ae-46cc-6790-37ae0485e37a
+  Components:
+    []
+- !<SceneObject/bfc89aa5-bf9a-44f9-6606-aa8636bbf52e>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> ab0cfc3d-274d-441a-6916-03179bf3217c
+  Components:
+    []
+- !<SceneObject/f4d9eb06-ef1b-48b3-56bd-7677ab05a054>
+  PrefabRemaps:
+    []
+  Name: vintage_day_bed
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> bfc89aa5-bf9a-44f9-6606-aa8636bbf52e
+  Components:
+    []
