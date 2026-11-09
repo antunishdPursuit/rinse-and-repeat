@@ -1,0 +1,178 @@
+- !<AssetImportMetadata/9655810d-f55b-43fc-8b97-0e08fbfd7808>
+  ImportedAssetIds:
+    .hidden/BodyWashPeach: !<reference> 7eb7aa3b-b308-4e19-b1ac-612764ad56f6
+    0ca08cb9e953cc4c: !<reference> 0927123d-3b91-4759-9e46-c5bcac915440
+    123bac1375a17d50: !<reference> ee62988d-663b-4e52-a41b-672a132f49d5
+    26ba073d67b9d0dd: !<reference> c31f41a9-75d4-4d26-beef-6b366d88b9c7
+    4815303254778ea0: !<reference> 4d1ad02c-8bb3-454e-9105-2f5ccef5c93e
+    657c264db4d38ac9: !<reference> b765cc85-191e-4f32-b646-dad27756ed54
+    88ab437fd121cc69: !<reference> e30ab996-3a69-4a77-a5a0-3f16e366d4e0
+    Materials/BodyWashPeach: !<reference> 653b5714-3bac-4b73-a1e3-328323111a66
+    Materials/BodyWashPeach|BodyWashPeach|GraphPassInfo: !<reference> c091bea3-a01b-48fd-aa9f-f242c314492c
+    Materials/CapWhite: !<reference> 9761dfad-98a8-408d-addc-89085362c7e7
+    Materials/CapWhite|CapWhite|GraphPassInfo: !<reference> 5933cd64-ce56-4cc8-ba82-cc1054a5d380
+    Materials/LabelWhite: !<reference> e77db4f9-4d19-42a0-a5f2-c720a7ad3760
+    Materials/LabelWhite|LabelWhite|GraphPassInfo: !<reference> bea56ff3-b7bc-46df-8b00-4ae149862765
+    Meshes/BodyWashBottle: !<reference> c34d3099-e25f-408a-9407-a41db4539821
+    Meshes/BodyWashBottle1: !<reference> cf1cdc3c-b659-47c5-a7f1-c2264e77964d
+    Meshes/BodyWashBottle2: !<reference> f1c1e7bd-1ea9-4ff2-9ab9-18b25a10ad7f
+    Scene: !<reference> 9608a835-746a-4bc3-ac65-f375a0a19e08
+    b696f1af8ebb5a3f: !<reference> 11bb6681-e02c-4a01-bda8-2a16085a7620
+  ImporterName: GltfImporter
+  PrimaryAsset: !<reference> 9608a835-746a-4bc3-ac65-f375a0a19e08
+  PackageType: LegacyPackage
+  LegacyPackagePolicy: CanBeUnpackedTransparent
+  ExtraData:
+    {}
+  AssetDataMap:
+    Scene: !<own> 7c17e81b-f7e0-4356-950c-5ef458cc0265
+  DependentFiles:
+    []
+  ImporterSettings: !<GltfImporterSettings>
+    UseLegacyImporter: false
+    WithMaterials: true
+    NamingConvention: ByCategorySanitizeV2
+    PersistentIdGenerationAlgorithm: DescriptorBasedV2
+    AnimationCurveOptimization: true
+    CustomAnimationSamplingRate: 30.000000
+    ImportVertexColor: true
+    ImportTangents: true
+    ImportMorphTargetAnimation: true
+    ConvertMetersToCentimeters: true
+    RegenerateTangents: false
+    OptimizeMesh: true
+  CompressionSettings: !<ComplexCompressionSettings>
+    Presets:
+      None Compression: !<FileCompressionSettings>
+        {}
+    ExtensionMappings:
+      mesh: None Compression
+    Overrides:
+      {}
+- !<RenderMeshVisual/0927123d-3b91-4759-61b9-3a43536eabbf>
+  PrefabRemaps:
+    []
+  Name: BodyWashBottle
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 653b5714-3bac-4b73-a1e3-328323111a66
+  Mesh: !<reference> c34d3099-e25f-408a-9407-a41db4539821
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<RenderMeshVisual/11bb6681-e02c-4a01-4257-d5e9f7a589df>
+  PrefabRemaps:
+    []
+  Name: BodyWashBottle
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> 9761dfad-98a8-408d-addc-89085362c7e7
+  Mesh: !<reference> f1c1e7bd-1ea9-4ff2-9ab9-18b25a10ad7f
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
+- !<SceneObject/4d1ad02c-8bb3-454e-6efa-d0a3310a36c1>
+  PrefabRemaps:
+    []
+  Name: BodyWashBottle
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 0927123d-3b91-4759-61b9-3a43536eabbf
+    - !<own> ee62988d-663b-4e52-5be4-98d5ecd0b62a
+    - !<own> 11bb6681-e02c-4a01-4257-d5e9f7a589df
+- !<ObjectPrefabAssetData/7c17e81b-f7e0-4356-950c-5ef458cc0265>
+  Prototype: !<ObjectOwner/92f8a536-531e-42a7-983d-413b5fe047be>
+    PackagePath: ""
+    objects:
+      - !<own> c31f41a9-75d4-4d26-4110-94c992774638
+- !<SceneObject/b765cc85-191e-4f32-49b9-252d88a912ab>
+  PrefabRemaps:
+    []
+  Name: Scene
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> 4d1ad02c-8bb3-454e-6efa-d0a3310a36c1
+  Components:
+    []
+- !<SceneObject/c31f41a9-75d4-4d26-4110-94c992774638>
+  PrefabRemaps:
+    []
+  Name: BodyWashBottle
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 100.000000, y: 100.000000, z: 100.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> e30ab996-3a69-4a77-5a5f-c0e91c992b1f
+  Components:
+    []
+- !<SceneObject/e30ab996-3a69-4a77-5a5f-c0e91c992b1f>
+  PrefabRemaps:
+    []
+  Name: Scenes
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    - !<own> b765cc85-191e-4f32-49b9-252d88a912ab
+  Components:
+    []
+- !<RenderMeshVisual/ee62988d-663b-4e52-5be4-98d5ecd0b62a>
+  PrefabRemaps:
+    []
+  Name: BodyWashBottle
+  Enabled: true
+  RenderOrder: 0
+  StretchMode: Stretch
+  VerticalAlignment: Center
+  HorizontalAlignment: Center
+  MeshShadowMode: None
+  ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+  ShadowDensity: 1.000000
+  Materials:
+    - !<reference> e77db4f9-4d19-42a0-a5f2-c720a7ad3760
+  Mesh: !<reference> cf1cdc3c-b659-47c5-a7f1-c2264e77964d
+  Skin: !<reference> 00000000-0000-0000-0000-000000000000
+  BlendShapesEnabled: true
+  BlendNormals: false
+  BlendShapes:
+    {}
