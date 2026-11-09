@@ -9,6 +9,8 @@ import {
   MSG_INCORRECT,
   MSG_LEARN,
   MSG_LIFT_BODY,
+  MSG_MIRROR,
+  MSG_NEXT_BODY,
 } from "../Scripts/RinseRepeatController"
 import {
   controller,
@@ -44,6 +46,11 @@ export class FullRoutineScenario extends Scenario {
 
     for (let i = 0; i < steps.length; i++) {
       const s = steps[i]
+      if (i === 2) {
+        expect(visible("EitherLabel"), "step 3 says either one works").toBe(true)
+        const asked = await waitFor(() => c.guideShowing === MSG_NEXT_BODY, c.tipSeconds * 1000 + 2500)
+        expect(asked, "guide says body wash or bar soap, either one").toBe(true)
+      }
       const held = await useProduct(interactor, s.name)
       expect(held.badgeText, `${s.name}: correct badge`).toBe(MSG_CORRECT)
       if (i === 2) {
@@ -70,5 +77,19 @@ export class FullRoutineScenario extends Scenario {
     expect(textOf("FinishText")).toBe(MSG_FINISH)
     expect(c.stage).toBe("finished")
     expect(obj("BarSoap").enabled, "unused bar soap stays on the shelf").toBe(true)
+    expect(visible("LearnMoreButton"), "Learn more leaves the shelf when the routine is done").toBe(false)
+
+    // Then the guide sends the user to the mirror: read about any product again, or start over.
+    const atMirror = await waitFor(() => visible("MirrorMenu") && c.guideShowing === MSG_MIRROR, 7000)
+    expect(atMirror, "mirror menu appears and the guide points to it").toBe(true)
+    // The menu's buttons finish setting up a frame or two after the menu turns on.
+    await sleep(600)
+    await interactor.trigger(interactable("MirrorConditioner"))
+    const read = await waitFor(() => visible("MirrorInfo") && textOf("MirrorInfo").startsWith("2. Conditioner"), 1500)
+    expect(read, "the mirror shows the conditioner details").toBe(true)
+    await interactor.trigger(interactable("MirrorRestart"))
+    const restarted = await waitFor(() => c.stage === "opening" && visible("TowelSign"), 1500)
+    expect(restarted, "Start over goes back to the beginning").toBe(true)
+    expect(visible("MirrorMenu"), "mirror menu hides after starting over").toBe(false)
   }
 }

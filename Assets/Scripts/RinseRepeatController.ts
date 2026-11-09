@@ -96,6 +96,8 @@ export const MSG_STEP_IN = "Step into the bathtub."
 export const MSG_FIRST = "What do you use first? Pick it up."
 export const MSG_NEXT = "What comes next? Pick it up."
 export const MSG_LIFT = "Lift it into the glowing ring to use it on your hair."
+export const MSG_NEXT_BODY = "Last step: body wash or bar soap. Either one works."
+export const MSG_MIRROR = "Want to learn more, or start over? Go to the mirror."
 export const MSG_LIFT_BODY = "Lift it into the glowing ring to wash with it."
 /** How far above the picked-up product the use ring sits, in cm (same distance from the eyes). */
 export const RING_LIFT = 30
@@ -104,7 +106,7 @@ const COLOR_CORRECT = new vec4(0.55, 1.0, 0.62, 1)
 const COLOR_INCORRECT = new vec4(1.0, 0.62, 0.5, 1)
 const COLOR_GUIDE = new vec4(1, 0.98, 0.9, 1)
 /** The bathtub's floor in Rooms-local cm (x, z); stepping in starts the lesson. */
-const TUB = {x0: 52.5, x1: 127.5, z0: -557.5, z1: -387.5}
+const TUB = {x0: 187.5, x1: 262.5, z0: -733.75, z1: -563.75}
 
 @component
 export class RinseRepeatController extends BaseScriptComponent {
@@ -204,6 +206,12 @@ export class RinseRepeatController extends BaseScriptComponent {
   private guideFlashUntil = 0
   private following = new Set<SceneObject>()
   private useTarget: SceneObject
+  private mirrorMenu: SceneObject
+  private mirrorInfo: SceneObject
+  private mirrorInfoText: Text
+  /** The routine is done and the mirror menu is up. */
+  public mirrorReady = false
+  private mirrorUsed = false
   private useTargetPos: vec3 = vec3.zero()
   private boundaryWarning: SceneObject
   private boundaryText: Text
@@ -237,6 +245,12 @@ export class RinseRepeatController extends BaseScriptComponent {
     // while you carry the towel in the bathroom.
     this.addMarker("TowelMarker", "TowelMarkerArrow", "TowelMarkerRing", () => this.stage === "opening" && !this.towelTaken)
     this.addMarker("HandleMarker", null, "HandleMarkerRing", () => this.stage === "opening" && this.towelTaken)
+    this.mirrorMenu = this.find("MirrorMenu")
+    this.mirrorInfo = this.find("MirrorInfo")
+    this.mirrorInfoText = this.mirrorInfo.getComponent("Component.Text") as Text
+    this.addMarker("EitherLabel", null, null, () => this.stage === "lesson" && this.step === 2 && !this.held)
+    this.addMarker("MirrorMenu", null, null, () => this.stage === "finished" && this.mirrorReady)
+    this.addMarker("MirrorMarker", "MirrorMarkerArrow", null, () => this.stage === "finished" && this.mirrorReady && !this.mirrorUsed)
     this.addMarker(
       "BarMarker",
       "BarMarkerArrow",
@@ -313,6 +327,19 @@ export class RinseRepeatController extends BaseScriptComponent {
     const button = this.learnMoreButton.createComponent(Button.getTypeName()) as Button
     button.size = new vec3(16, 7, 1)
 
+    // Mirror menu (after the routine): read about each product again, or start over.
+    const mirrorButtons: [string, () => void][] = [
+      ["MirrorShampoo", () => this.showMirrorInfo(0)],
+      ["MirrorConditioner", () => this.showMirrorInfo(1)],
+      ["MirrorBody", () => this.showMirrorInfo(2)],
+      ["MirrorRestart", () => this.restartFromMirror()],
+    ]
+    const mirrorBound = mirrorButtons.map(([name, fn]) => {
+      const b = this.find(name).createComponent(Button.getTypeName()) as Button
+      b.size = new vec3(24, 6.5, 1)
+      return {b, fn}
+    })
+
     this.createEvent("OnStartEvent").bind(() => {
       this.camTransform = WorldCameraFinderProvider.getInstance().getTransform()
 
@@ -327,6 +354,7 @@ export class RinseRepeatController extends BaseScriptComponent {
       })
 
       button.onTriggerUp.add(() => this.toggleLearnMore())
+      mirrorBound.forEach(({b, fn}) => b.onTriggerUp.add(fn))
 
       if (this.startAt === "lesson") this.jumpToLesson()
       else if (this.startAt === "towel") this.jumpToTowelToBar()
@@ -358,6 +386,9 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.guideMessage = ""
     this.guideFlashUntil = 0
     this.useTarget.enabled = false
+    this.mirrorReady = false
+    this.mirrorUsed = false
+    this.mirrorInfo.enabled = false
 
     this.towel.enabled = true
     this.towel.getTransform().setLocalPosition(this.towelHomePos)
@@ -669,7 +700,8 @@ export class RinseRepeatController extends BaseScriptComponent {
 
   /** What the guide asks for at the current lesson step. */
   private lessonPrompt(): string {
-    return this.step === 0 ? MSG_FIRST : MSG_NEXT
+    if (this.step === 0) return MSG_FIRST
+    return this.step === 2 ? MSG_NEXT_BODY : MSG_NEXT
   }
 
   private hintFor(p: Product): string {
@@ -829,14 +861,25 @@ export class RinseRepeatController extends BaseScriptComponent {
       // The finish message takes the tip card's place once the last tip has faded.
       this.after(this.tipSeconds + 0.8, () => {
         if (this.stage !== "finished") return
+        // Learn more moves to the mirror once the routine is done.
+        this.learnMoreButton.enabled = false
+        this.setLearnMore(false)
         this.showText(this.finishText, MSG_FINISH)
         this.placeInFront(this.finishText)
+        this.after(4, () => {
+          if (this.stage !== "finished") return
+          this.fadeTextOut(this.finishText, 0.6, () => {
+            if (this.stage !== "finished") return
+            this.mirrorReady = true
+            this.setGuide(MSG_MIRROR)
+          })
+        })
       })
     } else {
       this.step = usedStep + 1
       // Ask for the next product once the tip has had its time.
       this.after(this.tipSeconds + 0.8, () => {
-        if (this.stage === "lesson" && this.step === usedStep + 1 && !this.held) this.setGuide(MSG_NEXT)
+        if (this.stage === "lesson" && this.step === usedStep + 1 && !this.held) this.setGuide(this.lessonPrompt())
       })
     }
   }
@@ -861,6 +904,26 @@ export class RinseRepeatController extends BaseScriptComponent {
         },
       )
     })
+  }
+
+  // ------------------------------------------------------------------ mirror menu
+
+  private showMirrorInfo(step: number) {
+    if (!this.mirrorReady) return
+    this.mirrorUsed = true
+    this.setGuide("")
+    const c = LESSON[step]
+    this.mirrorInfo.enabled = true
+    this.mirrorInfoText.text = c.title + "\n\n" + c.more
+  }
+
+  /**
+   * Start the whole experience again. The rooms reset around the user; if they are standing in
+   * the bathroom, the stay-inside warning walks them back to the bedroom.
+   */
+  public restartFromMirror() {
+    if (!this.mirrorReady) return
+    this.resetToOpening()
   }
 
   // ------------------------------------------------------------------ learn more
@@ -1027,7 +1090,7 @@ export class RinseRepeatController extends BaseScriptComponent {
    * show; the message tells them which way to walk back.
    */
   private static readonly BEDROOM = {x0: -180, x1: 360, z0: -195, z1: 337.5}
-  private static readonly BATHROOM = {x0: -140, x1: 130, z0: -557.5, z1: -205}
+  private static readonly BATHROOM = {x0: -140, x1: 265, z0: -733.75, z1: -205}
   private static readonly DOORWAY = {x0: -76, x1: 6, z0: -205, z1: -195}
 
   private doorIsOpen(): boolean {
