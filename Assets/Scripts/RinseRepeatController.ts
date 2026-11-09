@@ -35,6 +35,7 @@ interface Product {
   childHome: vec3[] // visuals' local positions, restored after the glide to the head
   gliding: boolean
   releasedEarly: boolean
+  tag: SceneObject | null // floating name tag above the product
 }
 
 interface Tween {
@@ -301,12 +302,13 @@ export class RinseRepeatController extends BaseScriptComponent {
         childHome: this.childPositions(obj),
         gliding: false,
         releasedEarly: false,
+        tag: this.findIn(obj, id + "Label"),
       })
     })
 
     // Learn more button (UI Kit).
     const button = this.learnMoreButton.createComponent(Button.getTypeName()) as Button
-    button.size = new vec3(11, 5, 1)
+    button.size = new vec3(16, 7, 1)
 
     this.createEvent("OnStartEvent").bind(() => {
       this.camTransform = WorldCameraFinderProvider.getInstance().getTransform()
@@ -637,6 +639,8 @@ export class RinseRepeatController extends BaseScriptComponent {
 
     const correct = p.step === this.step
     if (correct) this.useTargetPos = this.ringPositionFor(p)
+    // The badge takes the name tag's place while the product is held.
+    if (p.tag) p.tag.enabled = false
     this.badge.enabled = true
     this.badgeText.text = correct ? MSG_CORRECT : MSG_INCORRECT
     this.badgeText.textFill.color = correct ? COLOR_CORRECT : COLOR_INCORRECT
@@ -676,6 +680,7 @@ export class RinseRepeatController extends BaseScriptComponent {
       this.badge.enabled = false
       if (!p.used && this.stage === "lesson") this.setGuide(this.lessonPrompt())
     }
+    if (p.tag) p.tag.enabled = true
     if (p.used) {
       // Already hidden when it was used; finish removing it now that it is let go.
       this.removeUsed(p)
@@ -852,6 +857,9 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.learnMoreOpen = open
     this.learnMorePanel.enabled = open
     if (open) {
+      // The panel takes the tip card's place.
+      this.tipToken++
+      this.tipCard.enabled = false
       const c = LESSON[this.lastUsedStep]
       this.learnMoreTitle.text = c.title
       this.learnMoreBody.text = c.more
@@ -1139,6 +1147,7 @@ export class RinseRepeatController extends BaseScriptComponent {
       p.gliding = false
       p.releasedEarly = false
       this.restoreChildren(p)
+      if (p.tag) p.tag.enabled = true
       p.obj.enabled = true
       this.setVisualsVisible(p, true)
       p.obj.getTransform().setLocalPosition(p.homePos)
@@ -1180,9 +1189,14 @@ export class RinseRepeatController extends BaseScriptComponent {
     })
   }
 
+  /** Fades the text and, for panel-style text, its background (panels sit at 0.9 opacity). */
   private setTextAlpha(t: Text, a: number) {
     const c = t.textFill.color
     t.textFill.color = new vec4(c.x, c.y, c.z, a)
+    if (t.backgroundSettings.enabled) {
+      const b = t.backgroundSettings.fill.color
+      t.backgroundSettings.fill.color = new vec4(b.x, b.y, b.z, 0.9 * a)
+    }
   }
 
   private setMatAlpha(m: Material, a: number) {
