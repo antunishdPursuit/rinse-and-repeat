@@ -6,6 +6,7 @@ import {WrongProductFirstScenario} from "./C3WrongProductFirstScenario"
 import {ShampooUseScenario} from "./C4ShampooUseScenario"
 import {FullRoutineScenario} from "./C5FullRoutineScenario"
 import {ReachScenario} from "./RinseRepeatReachScenario"
+import {StayInsideScenario} from "./StayInsideScenario"
 
 @component
 export class LeafIndex extends BaseScriptComponent {
@@ -17,5 +18,6 @@ export class LeafIndex extends BaseScriptComponent {
     {id: "c4-shampoo-use", typename: ShampooUseScenario.getTypeName()},
     {id: "c5-full-routine-learn-more", typename: FullRoutineScenario.getTypeName()},
     {id: "reach-ik-shampoo-learn-more", typename: ReachScenario.getTypeName()},
+    {id: "stay-inside-rooms", typename: StayInsideScenario.getTypeName()},
   ]
 }

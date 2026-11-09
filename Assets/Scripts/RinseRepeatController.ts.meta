@@ -35,6 +35,7 @@
     startAt: false
     tipSeconds: false
     towelSnapDistance: false
+    wallMargin: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -49,6 +50,7 @@
       eyeLevelAssist: true
       towelSnapDistance: !<float> 30.000000
       startAt: opening
+      wallMargin: !<float> 15.000000
       tipSeconds: !<float> 5.000000
       introSeconds: !<float> 3.000000
   ScriptTypes:
@@ -60,5 +62,6 @@
     - '// @input bool eyeLevelAssist = true {"hint":"Also count a product as used when it is lifted to about eye level in front of you (mouse drags keep a fixed distance from the camera)"}'
     - '// @input float towelSnapDistance = 30 {"hint":"How close (cm) the towel must be to the bar when released"}'
     - '// @input string startAt = "opening" {"hint":"Where the Lens starts in preview: opening (default), towel, or lesson"}'
+    - '// @input float wallMargin = 15 {"hint":"How close (cm) the user may get to a wall before the view fades and asks them to step back inside"}'
     - // @input float tipSeconds = 5
     - // @input float introSeconds = 3

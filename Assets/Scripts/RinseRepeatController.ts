@@ -102,6 +102,10 @@ export class RinseRepeatController extends BaseScriptComponent {
   startAt: string = "opening"
 
   @input
+  @hint("How close (cm) the user may get to a wall before the view fades and asks them to step back inside")
+  wallMargin: number = 15
+
+  @input
   tipSeconds: number = 5
 
   @input
@@ -116,6 +120,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   public lastUsedStep: number = -1
   public splashPlays: number = 0
   public towelState: TowelState = "rest"
+  public outOfBounds: boolean = false
 
   private camTransform: Transform
   private tweens: Tween[] = []
@@ -165,6 +170,9 @@ export class RinseRepeatController extends BaseScriptComponent {
   private markerArrow: Transform
   private markerRing: Transform
   private markerArrowBase: vec3
+  private boundaryWarning: SceneObject
+  private boundaryText: Text
+  private boundaryFade = 0
   private tipToken = 0
   private lessonToken = 0
 
@@ -189,6 +197,9 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.markerArrow = this.find("TowelMarkerArrow").getTransform()
     this.markerRing = this.find("TowelMarkerRing").getTransform()
     this.markerArrowBase = this.markerArrow.getLocalPosition()
+    this.boundaryWarning = this.find("BoundaryWarning")
+    this.boundaryText = this.boundaryWarning.getComponent("Component.Text") as Text
+    this.boundaryWarning.enabled = false
     this.lessonText = this.find("LessonText")
     this.finishText = this.find("FinishText")
     this.tipCard = this.find("TipCard")
@@ -693,6 +704,78 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.markerRing.setLocalScale(new vec3(100 * pulse, 100, 100 * pulse))
   }
 
+  // ------------------------------------------------------------------ staying inside the rooms
+
+  /**
+   * The rooms' floor plan in Rooms-local cm (x, z), matching Tools/blender/build_props.py.
+   * The device can't stop someone walking through a virtual wall, so when the user leaves the
+   * floor plan the rooms fade out (revealing their real surroundings on Specs) and a message
+   * tells them which way to walk back.
+   */
+  private static readonly BEDROOM = {x0: -180, x1: 360, z0: -195, z1: 337.5}
+  private static readonly BATHROOM = {x0: -140, x1: 130, z0: -557.5, z1: -205}
+  private static readonly DOORWAY = {x0: -76, x1: 6, z0: -205, z1: -195}
+
+  private doorIsOpen(): boolean {
+    return this.stage !== "opening" && this.stage !== "doorOpening"
+  }
+
+  /** Nearest walkable point to (x, z), or null when (x, z) is already walkable. */
+  private nearestWalkable(x: number, z: number): vec2 | null {
+    const m = this.wallMargin
+    const rooms = [RinseRepeatController.BEDROOM]
+    if (this.doorIsOpen()) rooms.push(RinseRepeatController.BATHROOM)
+    let best: vec2 | null = null
+    let bestD = Number.MAX_VALUE
+    for (const r of rooms) {
+      const px = Math.min(Math.max(x, r.x0 + m), r.x1 - m)
+      const pz = Math.min(Math.max(z, r.z0 + m), r.z1 - m)
+      if (px === x && pz === z) return null
+      const d = (px - x) * (px - x) + (pz - z) * (pz - z)
+      if (d < bestD) {
+        bestD = d
+        best = new vec2(px, pz)
+      }
+    }
+    // The open doorway joins the rooms (narrowed by a few cm so the frame still counts as wall).
+    const dw = RinseRepeatController.DOORWAY
+    if (this.doorIsOpen() && x > dw.x0 + 5 && x < dw.x1 - 5 && z > dw.z0 - m - 1 && z < dw.z1 + m + 1) return null
+    return best
+  }
+
+  private updateBoundary(dt: number) {
+    if (!this.camTransform) return
+    const root = this.sceneObject.getTransform().getWorldPosition()
+    const cam = this.camTransform.getWorldPosition()
+    const target = this.nearestWalkable(cam.x - root.x, cam.z - root.z)
+    this.outOfBounds = target !== null
+
+    const goal = this.outOfBounds ? 1 : 0
+    const rate = this.outOfBounds ? 2.5 : 4
+    const step = rate * dt
+    this.boundaryFade = Math.abs(goal - this.boundaryFade) <= step ? goal : this.boundaryFade + Math.sign(goal - this.boundaryFade) * step
+    const visible = this.boundaryFade > 0
+    if (this.boundaryWarning.enabled !== visible) this.boundaryWarning.enabled = visible
+    if (!visible) return
+
+    if (target) {
+      // Which way to walk, relative to where the user is looking.
+      const to = new vec3(target.x + root.x - cam.x, 0, target.y + root.z - cam.z)
+      const look = this.camTransform.back
+      const fwd = new vec3(look.x, 0, look.z).normalize()
+      const right = new vec3(-fwd.z, 0, fwd.x)
+      const ahead = to.dot(fwd)
+      const side = to.dot(right)
+      let hint = "Walk forward"
+      if (ahead < 0 && Math.abs(side) < -ahead) hint = "Turn around"
+      else if (Math.abs(side) > Math.abs(ahead)) hint = side > 0 ? "Turn right" : "Turn left"
+      this.boundaryText.text = "You've left the room.\n" + hint + " to step back inside."
+    }
+    const a = this.boundaryFade
+    this.boundaryText.textFill.color = new vec4(1, 1, 1, a)
+    this.boundaryText.backgroundSettings.fill.color = new vec4(0, 0, 0, 0.92 * a)
+  }
+
   // ------------------------------------------------------------------ per frame
 
   private onUpdate() {
@@ -724,6 +807,7 @@ export class RinseRepeatController extends BaseScriptComponent {
 
     this.updateTowel(dt)
     this.updateTowelMarker(now)
+    this.updateBoundary(dt)
 
     const p = this.held
     if (p && this.stage === "lesson") {
