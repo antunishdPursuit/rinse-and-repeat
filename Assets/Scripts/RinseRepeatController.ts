@@ -32,6 +32,9 @@ interface Product {
   collider: ColliderComponent
   used: boolean
   returning: boolean
+  childHome: vec3[] // visuals' local positions, restored after the glide to the head
+  gliding: boolean
+  releasedEarly: boolean
 }
 
 interface Tween {
@@ -91,7 +94,7 @@ export const MSG_HANG_TOWEL = "Hang your towel on the towel bar."
 export const MSG_STEP_IN = "Step into the bathtub."
 export const MSG_FIRST = "What do you use first? Pick it up."
 export const MSG_NEXT = "What comes next? Pick it up."
-export const MSG_LIFT = "Correct! Lift it up to your head to use it."
+export const MSG_LIFT = "Correct! Lift it into the glowing ring to use it on your head."
 
 const COLOR_CORRECT = new vec4(0.55, 1.0, 0.62, 1)
 const COLOR_INCORRECT = new vec4(1.0, 0.62, 0.5, 1)
@@ -196,6 +199,7 @@ export class RinseRepeatController extends BaseScriptComponent {
   private guideFlashUntil = 0
   private following = new Set<SceneObject>()
   private useTarget: SceneObject
+  private useTargetPos: vec3 = vec3.zero()
   private boundaryWarning: SceneObject
   private boundaryText: Text
   private boundaryFade = 0
@@ -292,6 +296,9 @@ export class RinseRepeatController extends BaseScriptComponent {
         collider: parts.collider,
         used: false,
         returning: false,
+        childHome: this.childPositions(obj),
+        gliding: false,
+        releasedEarly: false,
       })
     })
 
@@ -621,6 +628,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.tipCard.enabled = false
 
     const correct = p.step === this.step
+    if (correct) this.useTargetPos = this.ringPositionFor(p)
     this.badge.enabled = true
     this.badgeText.text = correct ? MSG_CORRECT : MSG_INCORRECT
     this.badgeText.textFill.color = correct ? COLOR_CORRECT : COLOR_INCORRECT
@@ -649,19 +657,90 @@ export class RinseRepeatController extends BaseScriptComponent {
   }
 
   private onProductRelease(p: Product) {
+    if (p.gliding) {
+      // Let go while it is on its way to the head: finish the glide, then remove it.
+      if (this.held === p) this.held = null
+      p.releasedEarly = true
+      return
+    }
     if (this.held === p) {
       this.held = null
       this.badge.enabled = false
       if (!p.used && this.stage === "lesson") this.setGuide(this.lessonPrompt())
     }
     if (p.used) {
-      // Already hidden when it entered the face zone; finish removing it now that it is let go.
-      this.setInteractive(p.interactable, p.manip, false, p.collider)
-      p.obj.enabled = false
-      this.setVisualsVisible(p, true)
+      // Already hidden when it was used; finish removing it now that it is let go.
+      this.removeUsed(p)
       return
     }
     this.returnHome(p)
+  }
+
+  private removeUsed(p: Product) {
+    this.setInteractive(p.interactable, p.manip, false, p.collider)
+    p.obj.enabled = false
+    this.setVisualsVisible(p, true)
+  }
+
+  private childPositions(obj: SceneObject): vec3[] {
+    const out: vec3[] = []
+    for (let i = 0; i < obj.getChildrenCount(); i++) out.push(obj.getChild(i).getTransform().getLocalPosition())
+    return out
+  }
+
+  private restoreChildren(p: Product) {
+    for (let i = 0; i < p.obj.getChildrenCount() && i < p.childHome.length; i++) {
+      p.obj.getChild(i).getTransform().setLocalPosition(p.childHome[i])
+    }
+  }
+
+  /**
+   * Where to lift the product: 18 cm above where it was picked up, at the same distance from
+   * the eyes. A mouse drag in the preview keeps that distance, so it can always get there.
+   */
+  private ringPositionFor(p: Product): vec3 {
+    if (!this.camTransform) return p.obj.getTransform().getWorldPosition()
+    const cam = this.camTransform.getWorldPosition()
+    const b = p.obj.getTransform().getWorldPosition()
+    const dir = b.add(new vec3(0, 18, 0)).sub(cam).normalize()
+    return cam.add(dir.uniformScale(b.distance(cam)))
+  }
+
+  /** Just above the forehead, slightly in front. */
+  private headPoint(): vec3 {
+    const t = this.camTransform
+    return t.getWorldPosition().add(t.up.uniformScale(10)).add(t.back.uniformScale(8))
+  }
+
+  /**
+   * The product leaves the hand and glides up to the head, then counts as used. Its visuals
+   * move, not the object itself, because the hand (or mouse) is still holding the object.
+   */
+  private glideToHead(p: Product) {
+    p.gliding = true
+    p.releasedEarly = false
+    this.useTarget.enabled = false
+    const pt = p.obj.getTransform()
+    this.tween(
+      0.55,
+      (k) => {
+        if (!this.camTransform) return
+        const e = k * k * (3 - 2 * k)
+        const from = pt.getWorldPosition()
+        const offset = vec3.lerp(from, this.headPoint(), e).sub(from)
+        const local = pt.getWorldRotation().invert().multiplyVec3(offset)
+        for (let i = 0; i < p.obj.getChildrenCount() && i < p.childHome.length; i++) {
+          p.obj.getChild(i).getTransform().setLocalPosition(p.childHome[i].add(local))
+        }
+      },
+      () => {
+        this.restoreChildren(p)
+        p.gliding = false
+        if (p.used || this.stage !== "lesson") return
+        this.useProduct(p)
+        if (p.releasedEarly) this.removeUsed(p)
+      },
+    )
   }
 
   private setVisualsVisible(p: Product, visible: boolean) {
@@ -891,21 +970,17 @@ export class RinseRepeatController extends BaseScriptComponent {
     if (x > TUB.x0 + m && x < TUB.x1 - m && z > TUB.z0 + m && z < TUB.z1 - m) this.startLesson()
   }
 
-  /** While the right product is held, a glowing ring at eye level shows where to lift it. */
+  /** While the right product is held, a glowing ring shows where to lift it. */
   private updateUseTarget() {
     const p = this.held
-    const show = !!p && this.stage === "lesson" && p.step === this.step && !p.used && !!this.camTransform
+    const show = !!p && this.stage === "lesson" && p.step === this.step && !p.used && !p.gliding && !!this.camTransform
     if (this.useTarget.enabled !== show) this.useTarget.enabled = show
     if (!show) return
-    const cam = this.camTransform.getWorldPosition()
-    const look = this.camTransform.back
-    let fwd = new vec3(look.x, 0, look.z)
-    fwd = fwd.length > 0.001 ? fwd.normalize() : new vec3(0, 0, -1)
-    // Same distance as the bottle, so it can be reached by lifting straight up.
-    const ahead = Math.min(75, Math.max(35, p.obj.getTransform().getWorldPosition().sub(cam).dot(fwd)))
     const t = this.useTarget.getTransform()
-    t.setWorldPosition(cam.add(fwd.uniformScale(ahead)).add(new vec3(0, 4, 0)))
-    t.setWorldRotation(quat.lookAt(fwd.uniformScale(-1), vec3.up()))
+    t.setWorldPosition(this.useTargetPos)
+    const toCam = this.camTransform.getWorldPosition().sub(this.useTargetPos)
+    if (toCam.length > 0.001) t.setWorldRotation(quat.lookAt(toCam.normalize(), vec3.up()))
+    if (p.obj.getTransform().getWorldPosition().distance(this.useTargetPos) <= 10) this.glideToHead(p)
   }
 
   // ------------------------------------------------------------------ staying inside the rooms
@@ -1019,7 +1094,7 @@ export class RinseRepeatController extends BaseScriptComponent {
     const p = this.held
     if (p && this.stage === "lesson") {
       this.placeBadge(p)
-      if (p.step === this.step && this.isInFaceZone(p.obj.getTransform().getWorldPosition())) {
+      if (!p.gliding && p.step === this.step && this.isInFaceZone(p.obj.getTransform().getWorldPosition())) {
         this.useProduct(p)
       }
     }
@@ -1053,6 +1128,9 @@ export class RinseRepeatController extends BaseScriptComponent {
     this.products.forEach((p) => {
       p.used = false
       p.returning = false
+      p.gliding = false
+      p.releasedEarly = false
+      this.restoreChildren(p)
       p.obj.enabled = true
       this.setVisualsVisible(p, true)
       p.obj.getTransform().setLocalPosition(p.homePos)

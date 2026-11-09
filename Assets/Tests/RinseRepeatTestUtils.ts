@@ -83,6 +83,16 @@ export function standAt(spot: string) {
   root.setWorldPosition(new vec3(cam.x - p.x, 0, cam.z - p.z))
 }
 
+/** Grab a product and lift it into the use ring: 18 cm up, same distance from the eyes. */
+export async function liftIntoRing(interactor: RinseRepeatInteractor, name: string): Promise<void> {
+  const from = worldPos(name)
+  const cam = WorldCameraFinderProvider.getInstance().getTransform().getWorldPosition()
+  const dir = from.add(new vec3(0, 18, 0)).sub(cam).normalize()
+  const target = cam.add(dir.uniformScale(from.distance(cam)))
+  await interactor.carry(interactable(name), target.sub(from), 1200)
+  await sleep(200)
+}
+
 /** Rotation angle of a quaternion, in degrees. */
 export function angleDeg(q: quat): number {
   return (2 * Math.acos(Math.min(1, Math.abs(q.w))) * 180) / Math.PI

@@ -14,6 +14,7 @@ import {
   controller,
   dragTowelToBar,
   interactable,
+  liftIntoRing,
   obj,
   pickUpAndRelease,
   textOf,
@@ -47,11 +48,13 @@ export class ShampooUseScenario extends Scenario {
       await sleep(400)
       expect(visible("UseTarget"), "the ring hides when the bottle is put back").toBe(false)
 
-      const held = await useProduct(interactor, "Shampoo")
-      expect(held.badgeVisible, "badge shows when shampoo is picked up").toBe(true)
-      expect(held.badgeText).toBe(MSG_CORRECT)
+      expect(tried.badgeVisible, "badge shows when shampoo is picked up").toBe(true)
+      expect(tried.badgeText).toBe(MSG_CORRECT)
 
-      expect(c.lastUsedStep, "shampoo counted as used in the face zone").toBe(0)
+      // Lift it into the ring: it glides up to the head and counts as used.
+      await liftIntoRing(interactor, "Shampoo")
+      const used = await waitFor(() => c.lastUsedStep === 0, 2500)
+      expect(used, "lifting the shampoo into the ring uses it").toBe(true)
       expect(visible("Shampoo"), "shampoo disappears").toBe(false)
       expect(c.splashPlays, "splash sound played").toBeGreaterThan(0)
       expect(visible("TipCard"), "tip card appears").toBe(true)
@@ -60,6 +63,10 @@ export class ShampooUseScenario extends Scenario {
 
       const faded = await waitFor(() => !visible("TipCard"), c.tipSeconds * 1000 + 2500)
       expect(faded, "tip card fades after a few seconds").toBe(true)
+
+      // Bringing a bottle to the face (the 25 cm face zone, as on Specs) works too.
+      await useProduct(interactor, "Conditioner")
+      expect(c.lastUsedStep, "conditioner counted as used in the face zone").toBe(1)
     } finally {
       c.eyeLevelAssist = assist
     }
